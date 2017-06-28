@@ -14,7 +14,14 @@
         }
       },
       "todos": [
-        {"text": "資料整理", "done": false},
+        {
+          "text": "資料整理",
+          "done": false,
+          "todos": [
+            {"text": "設計研究", "done": true},
+            {"text": "桌球發球法", "done": false}
+          ]
+        },
         {"text": "定世大運門票", "done": false}
       ]
     },

@@ -1,6 +1,6 @@
 Prototype Name: Single Page Prototype for iPhone SE
 
-假裝每個區塊可以左右 scroll
+假裝每個區塊可以左右 scroll & use zoom in & zoom out 去調字體大小
 
 ### 人生
 - [x] 做好事、存好心

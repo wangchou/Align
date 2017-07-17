@@ -2,6 +2,6 @@
 A customizable techou
 
 ## Objective
-*   Make people remember their original objectives/feelings/passion
-*   Help people organize their life and dreams (fight for interruptions and context switch)
-*   Let people to share their creativity
+*   Help people to remember their original objectives/feelings/passion
+*   Help people to organize their life and dreams (fight for interruptions and context switch)
+*   Let people share their creativity easily

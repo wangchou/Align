@@ -3,6 +3,8 @@ Goal:
   - 決定參考論壇 navigation apps (Mo Ptt, Miu Ptt, Dcard)
   - 目標為如何做出像 ptt 上下左右 方向鍵就可以快速 navigate 的 app
 
+<img style="display:inline-block" src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/note_action_list.jpg" height="400">
+
 Cons:
   - 加入 sheet type 的頁面太複雜了
 

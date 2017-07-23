@@ -8,7 +8,7 @@ Goal:
 Pros:
   - 用直覺的 2017-July-W50-22 時間列表 當顯示 + Parent-childs dimension 的 tab
   - 用 swipe & scroll 讓人能在 dimensions 中簡單的瀏覽
-  
+  
 Cons:
   - 加入 sheet type 的頁面太複雜了
 

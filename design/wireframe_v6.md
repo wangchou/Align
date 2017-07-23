@@ -10,4 +10,4 @@ Cons:
 
 flow & details
 
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v6_flow.jpg" height="400">   <img style="display:inline-block" src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v6_detail.jpg" height="400">
+<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v6_flow.jpg" height="570">   <img style="display:inline-block" src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v6_detail.jpg" height="570">

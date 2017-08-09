@@ -25,20 +25,20 @@ export default class OnigiriNote extends Component {
           showsHorizontalScrollIndicator={false}
         >
           <Text style={styles.yearView}>
-            2016
+            2016年
           </Text>
           <Text style={styles.yearView}>
-            2017
+            2017年
           </Text>
           <Text style={styles.yearView}>
-            2018
+            2018年
           </Text>
         </ScrollView>
         <Text style={styles.monthView}>
-          2017-8
+          2017年8月
         </Text>
         <Text style={styles.dayView}>
-          2017-8-9 水
+          2017年8月9日 水
         </Text>
       </ScrollView>
     );
@@ -48,33 +48,33 @@ export default class OnigiriNote extends Component {
 const fullWidth = Dimensions.get('window').width;
 const pageHeight = 400;
 const semiBold = "600";
+const basicViewStyle = {
+  padding: 10,
+  fontSize: 16,
+  fontWeight: semiBold,
+  backgroundColor: '#FAFAFA',
+  borderWidth: 0.5,
+  borderColor: 'rgba(155, 155, 155, 0.5)'
+};
+
 const styles = StyleSheet.create({
   yearViewContainer: {
     height: pageHeight,
-    marginTop: 20,
     marginBottom: 5,
   },
   yearView: {
+    ...basicViewStyle,
+    paddingTop: 20,
     width: fullWidth,
-    padding: 8,
-    fontSize: 16,
-    fontWeight: semiBold,
-    backgroundColor: '#F5FCF0',
   },
   monthView: {
+    ...basicViewStyle,
     height: pageHeight,
-    padding: 8,
-    fontSize: 16,
-    fontWeight: semiBold,
     marginBottom: 5,
-    backgroundColor: '#F5ECFF',
   },
   dayView: {
+    ...basicViewStyle,
     height: pageHeight,
-    padding: 8,
-    fontSize: 16,
-    fontWeight: semiBold,
-    backgroundColor: '#E5FCFF',
   },
 });
 

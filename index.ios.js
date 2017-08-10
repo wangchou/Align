@@ -11,18 +11,21 @@ const bookModels = [
     id: "year book",
     moment: moment(),
     unit: "year",
+    format: "YYYY",
     height: 350
   },
   {
     id: "month book",
     moment: moment(),
     unit: "month",
+    format: "MMM",
     height: 350
   },
   {
     id: "day book",
     moment: moment(),
     unit: "day",
+    format: "Do",
     height: 350
   },
 ];
@@ -30,7 +33,9 @@ const bookModels = [
 export default class OnigiriNote extends Component {
   render() {
     return (
-      <ScrollView>
+      <ScrollView
+        showsHorizontalScrollIndicator={false}
+      >
         {bookModels.map(
           bookModel => <BookSwipeContainer
                         key={bookModel.id}

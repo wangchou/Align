@@ -3,6 +3,8 @@ import moment from 'moment';
 import {
   StyleSheet,
   ScrollView,
+  View,
+  TextInput,
   Dimensions,
   Text,
 } from 'react-native';
@@ -31,9 +33,24 @@ export default class BookSwipeContainer extends Component {
 
   render() {
     const bookModel = this.props.bookModel;
-    const keys = [-1, 0, 1]
+    const pageViews = [-1, 0, 1]
       .map(shift => bookModel.moment.clone().add(shift, bookModel.unit))
-      .map(moment => moment.format(bookModel.format));
+      .map(moment => {
+        const key = bookModel.id + moment.format('YYYY MMM DD');
+        const title = moment.format(bookModel.format);
+        return (
+          <View key={key} style={styles.pageView}>
+            <Text style={styles.pageTitle} key={key+'title'}>
+              {title}
+            </Text>
+            <TextInput
+              multiline={true}
+              style={styles.pageContent}
+              value={"hhha\nssss"}
+            />
+          </View>
+        )
+      });
 
     return (
       <ScrollView
@@ -49,30 +66,46 @@ export default class BookSwipeContainer extends Component {
           this.forceUpdate();
         }}
       >
-        {keys.map(key => (
-          <Text key={key} style={styles.pageView}>
-            {key}
-          </Text>
-        ))}
+        {pageViews}
       </ScrollView>
     );
   }
 }
 
 const pageHeight = 400;
+const titleHeight = 20;
 const semiBold = "600";
+const light="300";
 const styles = StyleSheet.create({
   swipeContainer: {
     height: pageHeight,
+    backgroundColor: '#FAFAFA',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
   },
   pageView: {
     width: windowWidth,
-    padding: 10,
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  pageTitle: {
+    height: titleHeight,
+    fontFamily: 'PingFang TC',
     fontSize: 16,
     fontWeight: semiBold,
-    backgroundColor: '#FAFAFA',
-    borderWidth: 0.5,
-    borderColor: 'rgba(155, 155, 155, 0.5)'
+  },
+  pageContent: {
+    height: pageHeight - titleHeight - 15,
+    textAlign: 'justify',
+    marginTop: 5,
+    borderColor: 'rgba(200, 200, 200, 1.0)',
+    // borderWidth: 0.5,
+    fontFamily: 'PingFang TC',
+    fontSize: 16,
+    fontWeight: light,
+    color: 'rgba(32, 32, 32, 1.0)',
   }
 });

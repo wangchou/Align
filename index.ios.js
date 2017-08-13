@@ -40,9 +40,7 @@ export default class OnigiriNote extends Component {
         style={{flex: 1}}
       >
         <ScrollView
-          style={{
-            backgroundColor: 'rgba(155, 155, 155, 0.1)',
-          }}
+          style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
           showsVerticalScrollIndicator={false}
         >
           <StatusBar hidden={true} />

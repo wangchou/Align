@@ -4,6 +4,7 @@ import {
   AppRegistry,
   StatusBar,
   ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import BookSwipeContainer from './components/BookSwipeContainer';
 
@@ -34,20 +35,25 @@ const bookModels = [
 export default class OnigiriNote extends Component {
   render() {
     return (
-      <ScrollView
-        style={{
-          backgroundColor: 'rgba(155, 155, 155, 0.1)',
-        }}
-        showsHorizontalScrollIndicator={false}
+      <KeyboardAvoidingView
+        behavior="position"
+        style={{flex: 1}}
       >
-        <StatusBar hidden={true} />
-        {bookModels.map(
-          bookModel => <BookSwipeContainer
-                        key={bookModel.id}
-                        bookModel={bookModel}
-                       />
-        )}
-      </ScrollView>
+        <ScrollView
+          style={{
+            backgroundColor: 'rgba(155, 155, 155, 0.1)',
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <StatusBar hidden={true} />
+          {bookModels.map(
+            bookModel => <BookSwipeContainer
+                          key={bookModel.id}
+                          bookModel={bookModel}
+                         />
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

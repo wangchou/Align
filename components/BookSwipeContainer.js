@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import BookPage from './BookPage';
 import {
   StyleSheet,
   ScrollView,
-  View,
-  TextInput,
   Dimensions,
-  Text,
 } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -37,19 +35,14 @@ export default class BookSwipeContainer extends Component {
       .map(shift => bookModel.moment.clone().add(shift, bookModel.unit))
       .map(moment => {
         const key = bookModel.id + moment.format('YYYY MMM DD');
-        const title = moment.format(bookModel.format);
         return (
-          <View key={key} style={styles.pageView}>
-            <Text style={styles.pageTitle} key={key+'title'}>
-              {title}
-            </Text>
-            <TextInput
-              multiline={true}
-              style={styles.pageContent}
-              value={"hhha\nssss"}
-            />
-          </View>
-        )
+          <BookPage
+            key={key}
+            moment={moment}
+            bookId={bookModel.id}
+            bookFormat={bookModel.format}
+          />
+        );
       });
 
     return (
@@ -73,9 +66,6 @@ export default class BookSwipeContainer extends Component {
 }
 
 const pageHeight = 400;
-const titleHeight = 20;
-const semiBold = "600";
-const light="300";
 const styles = StyleSheet.create({
   swipeContainer: {
     height: pageHeight,
@@ -85,27 +75,4 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
   },
-  pageView: {
-    width: windowWidth,
-    paddingTop: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  pageTitle: {
-    height: titleHeight,
-    fontFamily: 'PingFang TC',
-    fontSize: 16,
-    fontWeight: semiBold,
-  },
-  pageContent: {
-    height: pageHeight - titleHeight - 15,
-    textAlign: 'justify',
-    marginTop: 5,
-    borderColor: 'rgba(200, 200, 200, 1.0)',
-    // borderWidth: 0.5,
-    fontFamily: 'PingFang TC',
-    fontSize: 16,
-    fontWeight: light,
-    color: 'rgba(32, 32, 32, 1.0)',
-  }
 });

@@ -11,6 +11,12 @@ import {
 const windowWidth = Dimensions.get('window').width;
 
 export default class BookPage extends Component {
+  constructor(props) {
+     super(props);
+     this.state = {
+       text: "haha"
+     };
+  }
   render() {
     const {moment, bookId, bookFormat} = this.props;
     const title = moment.format(bookFormat);
@@ -22,7 +28,8 @@ export default class BookPage extends Component {
         <TextInput
           multiline={true}
           style={styles.pageContent}
-          value={"hhha\nssss"}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
         />
       </View>
     );

@@ -19,6 +19,12 @@ export default class BookSwipeContainer extends Component {
         animated: false
       });
     }
+    this.preparePageBufferOnScrollEnd = (event) => {
+      const bookModel = this.props.bookModel;
+      const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
+      bookModel.moment.add(indexChange, bookModel.unit);
+      this.forceUpdate();
+    }
   }
 
   componentDidMount() {
@@ -53,11 +59,7 @@ export default class BookSwipeContainer extends Component {
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
-        onMomentumScrollEnd= {(event) => {
-          const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
-          bookModel.moment.add(indexChange, bookModel.unit);
-          this.forceUpdate();
-        }}
+        onMomentumScrollEnd= {this.preparePageBufferOnScrollEnd}
       >
         {pageViews}
       </ScrollView>
@@ -65,10 +67,8 @@ export default class BookSwipeContainer extends Component {
   }
 }
 
-const pageHeight = 400;
 const styles = StyleSheet.create({
   swipeContainer: {
-    height: pageHeight,
     backgroundColor: '#FAFAFA',
     borderTopWidth: 0.5,
     borderBottomWidth: 0.5,

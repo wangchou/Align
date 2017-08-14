@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
+  Keyboard,
 } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
@@ -12,6 +13,8 @@ const windowWidth = Dimensions.get('window').width;
 export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
+    this.isSwipe = false;
+    this.isKeyboardShow = false;
     this._scrollView = null;
     this.scrollToCenterPage = () => {
       this._scrollView.scrollTo({
@@ -19,7 +22,13 @@ export default class BookSwipeContainer extends Component {
         animated: false
       });
     }
-    this.preparePageBufferOnScrollEnd = (event) => {
+    this.onScroll = (event) => {
+      if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 5) {
+        this.isSwipe = true;
+      }
+    }
+    this.onScrollEnd = (event) => {
+      this.isSwipe = false;
       const bookModel = this.props.bookModel;
       const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
       bookModel.moment.add(indexChange, bookModel.unit);
@@ -28,7 +37,24 @@ export default class BookSwipeContainer extends Component {
   }
 
   componentDidMount() {
+    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', () => {
+      if(!this.isKeyboardShow && this.isSwipe) {
+        Keyboard.dismiss();
+      }
+    });
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      this.isKeyboardShow = true;
+    });
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      this.isKeyboardShow = false;
+    });
     this.scrollToCenterPage();
+  }
+
+  componentWillUnmount () {
+    this.keyboardWillShowListener.remove();
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   componentDidUpdate() {
@@ -59,8 +85,9 @@ export default class BookSwipeContainer extends Component {
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
-        onMomentumScrollEnd= {this.preparePageBufferOnScrollEnd}
+        onMomentumScrollEnd= {this.onScrollEnd}
         keyboardShouldPersistTaps={'always'}
+        onScroll={this.onScroll}
       >
         {pageViews}
       </ScrollView>

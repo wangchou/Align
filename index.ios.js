@@ -4,7 +4,6 @@ import {
   AppRegistry,
   StatusBar,
   ScrollView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import BookSwipeContainer from './components/BookSwipeContainer';
 
@@ -33,6 +32,7 @@ const bookModels = [
 ];
 
 export default class OnigiriNote extends Component {
+
   render() {
     return (
       <ScrollView

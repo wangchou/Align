@@ -4,8 +4,11 @@ import {
   AppRegistry,
   StatusBar,
   ScrollView,
+  Keyboard,
+  View
 } from 'react-native';
 import BookSwipeContainer from './components/BookSwipeContainer';
+import KeyboardDimissButton from './components/KeyboardDismissButton';
 
 const bookModels = [
   {
@@ -32,22 +35,48 @@ const bookModels = [
 ];
 
 export default class OnigiriNote extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {isKeyboardShow: false};
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+      const keyboardHeight = event.endCoordinates.height;
+      this.setState({isKeyboardShow: true, keyboardHeight});
+
+    });
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (event) => {
+      this.setState({isKeyboardShow: false});
+    });
+  }
+
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
 
   render() {
     return (
-      <ScrollView
-        style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={'always'}
-      >
-        <StatusBar hidden={true} />
-        {bookModels.map(
-          bookModel => <BookSwipeContainer
-                        key={bookModel.id}
-                        bookModel={bookModel}
-                       />
-        )}
-      </ScrollView>
+      <View>
+        <ScrollView
+          style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={'always'}
+        >
+          <StatusBar hidden={true} />
+          {bookModels.map(
+            bookModel => <BookSwipeContainer
+                          key={bookModel.id}
+                          bookModel={bookModel}
+                         />
+          )}
+        </ScrollView>
+        {this.state.isKeyboardShow ?
+          <KeyboardDimissButton keyboardHeight={this.state.keyboardHeight}/> :
+          null
+        }
+      </View>
     );
   }
 }

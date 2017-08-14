@@ -23,7 +23,7 @@ export default class BookSwipeContainer extends Component {
       });
     }
     this.onScroll = (event) => {
-      if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 5) {
+      if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 2) {
         this.isSwipe = true;
       }
     }
@@ -59,6 +59,10 @@ export default class BookSwipeContainer extends Component {
 
   componentDidUpdate() {
     this.scrollToCenterPage();
+  }
+
+  shouldComponentUpdate() {
+    return false;
   }
 
   render() {

@@ -44,16 +44,15 @@ export default class OnigiriNote extends Component {
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
       const keyboardHeight = event.endCoordinates.height;
       this.setState({isKeyboardShow: true, keyboardHeight});
-
     });
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', (event) => {
+    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (event) => {
       this.setState({isKeyboardShow: false});
     });
   }
 
   componentWillUnmount () {
     this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
+    this.keyboardWillHideListener.remove();
   }
 
   render() {
@@ -71,6 +70,7 @@ export default class OnigiriNote extends Component {
                           bookModel={bookModel}
                          />
           )}
+          {this.state.isKeyboardShow ? <View style={{height: this.state.keyboardHeight}} /> : null}
         </ScrollView>
         {this.state.isKeyboardShow ?
           <KeyboardDimissButton keyboardHeight={this.state.keyboardHeight}/> :

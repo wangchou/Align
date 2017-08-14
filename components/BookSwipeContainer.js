@@ -60,6 +60,7 @@ export default class BookSwipeContainer extends Component {
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
         onMomentumScrollEnd= {this.preparePageBufferOnScrollEnd}
+        keyboardShouldPersistTaps={'always'}
       >
         {pageViews}
       </ScrollView>

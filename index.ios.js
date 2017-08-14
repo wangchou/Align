@@ -38,6 +38,7 @@ export default class OnigiriNote extends Component {
       <ScrollView
         style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps={'always'}
       >
         <StatusBar hidden={true} />
         {bookModels.map(

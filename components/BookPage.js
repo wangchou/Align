@@ -36,7 +36,7 @@ export default class BookPage extends Component {
   }
 }
 
-const pageHeight = 400;
+const pageHeight = 300;
 const titleHeight = 20;
 const semiBold = "600";
 const light="300";

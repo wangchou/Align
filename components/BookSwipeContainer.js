@@ -60,8 +60,6 @@ export default class BookSwipeContainer extends Component {
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
         onMomentumScrollEnd= {this.preparePageBufferOnScrollEnd}
-        onScrollAnimationEnd={()=>{console.warn('onScrollAnimationEnded');}}
-        stickyHeaderIndices={[1]}
       >
         {pageViews}
       </ScrollView>

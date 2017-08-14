@@ -26,10 +26,16 @@ export default class BookPage extends Component {
           {title}
         </Text>
         <TextInput
-          multiline={true}
+          ref={textInput => this.textInput = textInput}
+          multiline
           style={styles.pageContent}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          onFocus={e => {
+            this.textInput.measure((ox, oy, width, height, px, py) => {
+              console.log('focused textInput measure', ox, oy, width, height, px, py);
+            });
+          }}
         />
       </View>
     );

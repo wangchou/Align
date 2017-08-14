@@ -13,7 +13,6 @@ const windowWidth = Dimensions.get('window').width;
 export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
-    this.isSwipe = false;
     this.isKeyboardShow = false;
     this._scrollView = null;
     this.scrollToCenterPage = () => {
@@ -24,11 +23,11 @@ export default class BookSwipeContainer extends Component {
     }
     this.onScroll = (event) => {
       if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 2) {
-        this.isSwipe = true;
+        isOnSwipe = true;
       }
     }
     this.onScrollEnd = (event) => {
-      this.isSwipe = false;
+      isOnSwipe = false;
       const bookModel = this.props.bookModel;
       const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
       bookModel.moment.add(indexChange, bookModel.unit);
@@ -37,24 +36,7 @@ export default class BookSwipeContainer extends Component {
   }
 
   componentDidMount() {
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', () => {
-      if(!this.isKeyboardShow && this.isSwipe) {
-        Keyboard.dismiss();
-      }
-    });
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      this.isKeyboardShow = true;
-    });
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      this.isKeyboardShow = false;
-    });
     this.scrollToCenterPage();
-  }
-
-  componentWillUnmount () {
-    this.keyboardWillShowListener.remove();
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
   }
 
   componentDidUpdate() {

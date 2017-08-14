@@ -10,6 +10,8 @@ import {
 import BookSwipeContainer from './components/BookSwipeContainer';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
 
+global.isOnSwipe = false;
+
 const bookModels = [
   {
     id: "year book",
@@ -41,18 +43,23 @@ export default class OnigiriNote extends Component {
   }
 
   componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-      const keyboardHeight = event.endCoordinates.height;
-      this.setState({isKeyboardShow: true, keyboardHeight});
+    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
+      if(!this.state.isKeyboardShow && isOnSwipe) {
+        Keyboard.dismiss();
+      } else {
+        const keyboardHeight = event.endCoordinates.height;
+        this.setState({isKeyboardShow: true, keyboardHeight});
+      }
     });
+
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (event) => {
       this.setState({isKeyboardShow: false});
     });
   }
 
   componentWillUnmount () {
-    this.keyboardDidShowListener.remove();
     this.keyboardWillHideListener.remove();
+    this.keyboardWillShowListener.remove();
   }
 
   render() {
@@ -63,7 +70,7 @@ export default class OnigiriNote extends Component {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'always'}
         >
-          <StatusBar hidden={true} />
+          <StatusBar hidden />
           {bookModels.map(
             bookModel => <BookSwipeContainer
                           key={bookModel.id}

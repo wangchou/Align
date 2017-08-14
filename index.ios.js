@@ -5,12 +5,16 @@ import {
   StatusBar,
   ScrollView,
   Keyboard,
-  View
+  View,
+  Dimensions,
 } from 'react-native';
 import BookSwipeContainer from './components/BookSwipeContainer';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
 
 global.isOnSwipe = false;
+global.focusedInputPY = 0;
+global.focusedInputOY = 0;
+global.focusedInputHeight = 0;
 
 const bookModels = [
   {
@@ -36,6 +40,8 @@ const bookModels = [
   },
 ];
 
+const windowHeight = Dimensions.get('window').height;
+
 export default class OnigiriNote extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +49,7 @@ export default class OnigiriNote extends Component {
   }
 
   componentDidMount() {
+    this.scrollY = 0;
     this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
       if(!this.state.isKeyboardShow && isOnSwipe) {
         Keyboard.dismiss();
@@ -55,20 +62,40 @@ export default class OnigiriNote extends Component {
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (event) => {
       this.setState({isKeyboardShow: false});
     });
+
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+      if(focusedInputPY === 0) return;
+
+      const inputY = this.scrollY + focusedInputPY - focusedInputOY;
+      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + this.state.keyboardHeight)
+      const isInputTopInView = focusedInputPY < 0;
+      const isInputBottomCoverByKeyboard = focusedInputPY + focusedInputHeight + this.state.keyboardHeight > windowHeight;
+      if(isInputTopInView) {
+        this.scrollView.scrollTo({y: inputY});
+      } else if(isInputBottomCoverByKeyboard){
+        this.scrollView.scrollTo({y: alignInputBottomToKeyboardY});
+      }
+
+      focusedInputPY = 0;
+    });
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.keyboardWillHideListener.remove();
     this.keyboardWillShowListener.remove();
+    this.keyboardDidShowListener.remove();
   }
 
   render() {
     return (
       <View>
         <ScrollView
+          ref={(scrollView) => {this.scrollView = scrollView}}
           style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'always'}
+          scrollEventThrottle={50}
+          onScroll={e => {this.scrollY = e.nativeEvent.contentOffset.y}}
         >
           <StatusBar hidden />
           {bookModels.map(

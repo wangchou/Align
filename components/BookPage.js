@@ -33,7 +33,9 @@ export default class BookPage extends Component {
           value={this.state.text}
           onFocus={e => {
             this.textInput.measure((ox, oy, width, height, px, py) => {
-              console.log('focused textInput measure', ox, oy, width, height, px, py);
+              focusedInputOY = oy;
+              focusedInputPY = py;
+              focusedInputHeight = height;
             });
           }}
         />

@@ -7,9 +7,15 @@ import {
   Dimensions,
   Keyboard,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {swipeStarted, swipeEnded} from '../actions/ui';
 
 const windowWidth = Dimensions.get('window').width;
 
+@connect(null,{
+  swipeStarted,
+  swipeEnded
+})
 export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
@@ -23,11 +29,11 @@ export default class BookSwipeContainer extends Component {
     }
     this.onScroll = (event) => {
       if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 2) {
-        isOnSwipe = true;
+        this.props.swipeStarted();
       }
     }
     this.onScrollEnd = (event) => {
-      isOnSwipe = false;
+      this.props.swipeEnded();
       const bookModel = this.props.bookModel;
       const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
       bookModel.moment.add(indexChange, bookModel.unit);

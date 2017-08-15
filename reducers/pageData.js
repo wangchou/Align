@@ -1,4 +1,4 @@
-import {SET_PAGE_DATA} from './actionTypes';
+import {SET_PAGE_DATA} from '../actions/actionTypes';
 
 const intitialState = {};
 

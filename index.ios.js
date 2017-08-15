@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 
 const createOnigiriNoteStore = applyMiddleware(thunk)(createStore);
-const store = autoRehydrate()(createOnigiriNoteStore)(reducers);
-persistStore(store, {storage: AsyncStorage});
+const store = /*autoRehydrate()*/(createOnigiriNoteStore)(reducers);
+// persistStore(store, {storage: AsyncStorage});
 
 export default class Root extends Component {
   render() {

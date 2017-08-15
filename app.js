@@ -10,62 +10,30 @@ import {
 } from 'react-native';
 import BookSwipeContainer from './components/BookSwipeContainer';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
-
-global.isOnSwipe = false;
-global.focusedInputPY = 0;
-global.focusedInputOY = 0;
-global.focusedInputHeight = 0;
-
-const windowHeight = Dimensions.get('window').height;
+import KeyboardManager from './components/KeyboardManager';
+import {
+  onVerticalScroll
+} from './actions/ui';
 
 @connect(state => ({
-  bookModels: state.books.bookshelfIds.map(bookId => state.books.byId[bookId])
-}))
+  bookModels: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),
+  isKeyboardShow: state.ui.keyboard.isKeyboardShow,
+  keyboardHeight: state.ui.keyboard.keyboardHeight,
+}), {
+  onVerticalScroll
+})
 export default class OnigiriNote extends Component {
   constructor(props) {
     super(props);
-    this.state = {isKeyboardShow: false};
+    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y});}
   }
-
-  componentDidMount() {
-    this.scrollY = 0;
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
-      if(!this.state.isKeyboardShow && isOnSwipe) {
-        Keyboard.dismiss();
-      } else {
-        const keyboardHeight = event.endCoordinates.height;
-        this.setState({isKeyboardShow: true, keyboardHeight});
-      }
-    });
-
-    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (event) => {
-      this.setState({isKeyboardShow: false});
-    });
-
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-      if(focusedInputPY === 0) return;
-
-      const inputY = this.scrollY + focusedInputPY - focusedInputOY;
-      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + this.state.keyboardHeight)
-      const isInputTopInView = focusedInputPY < 0;
-      const isInputBottomCoverByKeyboard = focusedInputPY + focusedInputHeight + this.state.keyboardHeight > windowHeight;
-      if(isInputTopInView) {
-        this.scrollView.scrollTo({y: inputY});
-      } else if(isInputBottomCoverByKeyboard){
-        this.scrollView.scrollTo({y: alignInputBottomToKeyboardY});
-      }
-
-      focusedInputPY = 0;
-    });
-  }
-
-  componentWillUnmount() {
-    this.keyboardWillHideListener.remove();
-    this.keyboardWillShowListener.remove();
-    this.keyboardDidShowListener.remove();
-  }
-
   render() {
+    const {
+      isKeyboardShow,
+      keyboardHeight,
+      bookModels,
+      onVerticalScroll
+    } = this.props;
     return (
       <View>
         <ScrollView
@@ -74,21 +42,19 @@ export default class OnigiriNote extends Component {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'always'}
           scrollEventThrottle={50}
-          onScroll={e => {this.scrollY = e.nativeEvent.contentOffset.y}}
+          onScroll={e => {onVerticalScroll(e.nativeEvent.contentOffset.y)}}
         >
           <StatusBar hidden />
-          {this.props.bookModels.map(
+          {bookModels.map(
             bookModel => <BookSwipeContainer
                           key={bookModel.id}
                           bookModel={bookModel}
                          />
           )}
-          {this.state.isKeyboardShow ? <View style={{height: this.state.keyboardHeight}} /> : null}
+          {isKeyboardShow ? <View style={{height: keyboardHeight}} /> : null}
         </ScrollView>
-        {this.state.isKeyboardShow ?
-          <KeyboardDimissButton keyboardHeight={this.state.keyboardHeight}/> :
-          null
-        }
+        {isKeyboardShow ? <KeyboardDimissButton keyboardHeight={keyboardHeight}/>: null}
+        <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
       </View>
     );
   }

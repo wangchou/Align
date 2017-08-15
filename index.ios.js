@@ -1,118 +1,27 @@
 import React, { Component } from 'react';
-import moment from 'moment';
+import OnigiriNote from './app';
+import { Provider } from 'react-redux';
+import {applyMiddleware, createStore} from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+import {AsyncStorage} from 'react-native';
 import {
   AppRegistry,
-  StatusBar,
-  ScrollView,
-  Keyboard,
-  View,
-  Dimensions,
 } from 'react-native';
-import BookSwipeContainer from './components/BookSwipeContainer';
-import KeyboardDimissButton from './components/KeyboardDismissButton';
 
-global.isOnSwipe = false;
-global.focusedInputPY = 0;
-global.focusedInputOY = 0;
-global.focusedInputHeight = 0;
+const createOnigiriNoteStore = applyMiddleware(thunk)(createStore);
+const store = autoRehydrate()(createOnigiriNoteStore)(reducers);
+persistStore(store, {storage: AsyncStorage});
 
-const bookModels = [
-  {
-    id: "year book",
-    moment: moment(),
-    unit: "year",
-    format: "YYYY年",
-    height: 300
-  },
-  {
-    id: "month book",
-    moment: moment(),
-    unit: "month",
-    format: "YYYY年 M月",
-    height: 300
-  },
-  {
-    id: "day book",
-    moment: moment(),
-    unit: "day",
-    format: "M月 D日",
-    height: 300
-  },
-];
-
-const windowHeight = Dimensions.get('window').height;
-
-export default class OnigiriNote extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {isKeyboardShow: false};
-  }
-
-  componentDidMount() {
-    this.scrollY = 0;
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
-      if(!this.state.isKeyboardShow && isOnSwipe) {
-        Keyboard.dismiss();
-      } else {
-        const keyboardHeight = event.endCoordinates.height;
-        this.setState({isKeyboardShow: true, keyboardHeight});
-      }
-    });
-
-    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', (event) => {
-      this.setState({isKeyboardShow: false});
-    });
-
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-      if(focusedInputPY === 0) return;
-
-      const inputY = this.scrollY + focusedInputPY - focusedInputOY;
-      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + this.state.keyboardHeight)
-      const isInputTopInView = focusedInputPY < 0;
-      const isInputBottomCoverByKeyboard = focusedInputPY + focusedInputHeight + this.state.keyboardHeight > windowHeight;
-      if(isInputTopInView) {
-        this.scrollView.scrollTo({y: inputY});
-      } else if(isInputBottomCoverByKeyboard){
-        this.scrollView.scrollTo({y: alignInputBottomToKeyboardY});
-      }
-
-      focusedInputPY = 0;
-    });
-  }
-
-  componentWillUnmount() {
-    this.keyboardWillHideListener.remove();
-    this.keyboardWillShowListener.remove();
-    this.keyboardDidShowListener.remove();
-  }
-
+export default class Root extends Component {
   render() {
     return (
-      <View>
-        <ScrollView
-          ref={(scrollView) => {this.scrollView = scrollView}}
-          style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={'always'}
-          scrollEventThrottle={50}
-          onScroll={e => {this.scrollY = e.nativeEvent.contentOffset.y}}
-        >
-          <StatusBar hidden />
-          {bookModels.map(
-            bookModel => <BookSwipeContainer
-                          key={bookModel.id}
-                          bookModel={bookModel}
-                         />
-          )}
-          {this.state.isKeyboardShow ? <View style={{height: this.state.keyboardHeight}} /> : null}
-        </ScrollView>
-        {this.state.isKeyboardShow ?
-          <KeyboardDimissButton keyboardHeight={this.state.keyboardHeight}/> :
-          null
-        }
-      </View>
+      <Provider store={store}>
+        <OnigiriNote />
+      </Provider>
     );
   }
 }
 
-AppRegistry.registerComponent('OnigiriNote', () => OnigiriNote);
+AppRegistry.registerComponent('OnigiriNote', () => Root);

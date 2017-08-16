@@ -1,53 +1,36 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import OnigiriNote from './app';
+import { Provider } from 'react-redux';
+import {applyMiddleware, createStore, compose} from 'redux';
+import {persistStore, autoRehydrate} from 'redux-persist';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+import {AsyncStorage} from 'react-native';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View
 } from 'react-native';
 
-export default class OnigiriNote extends Component {
+const storeVersion = 'ようこそ実力至上主義の教室へ';
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(thunk),
+    autoRehydrate()
+  )
+)
+persistStore(store, {
+  storage: AsyncStorage,
+  keyPrefix: storeVersion
+});
+
+export default class Root extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <OnigiriNote />
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
-
-AppRegistry.registerComponent('OnigiriNote', () => OnigiriNote);
+AppRegistry.registerComponent('OnigiriNote', () => Root);

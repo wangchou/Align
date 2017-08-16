@@ -6,22 +6,25 @@ const intitialState = {
       id: "year book",
       moment: moment(),
       unit: "year",
-      format: "YYYY年",
-      height: 300
+      titleFormat: "YYYY年",
+      dataKeyFormat: "YYYY",
+      // height: 300
     },
     "month book": {
       id: "month book",
       moment: moment(),
       unit: "month",
-      format: "YYYY年 M月",
-      height: 300
+      titleFormat: "YYYY年 M月",
+      dataKeyFormat: "YYYY MMM",
+      // height: 300
     },
     "day book": {
       id: "day book",
       moment: moment(),
       unit: "day",
-      format: "M月 D日",
-      height: 300
+      titleFormat: "M月 D日",
+      dataKeyFormat: "YYYY MMM DD",
+      // height: 300
     }
   },
   bookshelfIds: ["year book", "month book", "day book"]
@@ -29,7 +32,6 @@ const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    default:
-      return state;
   }
+  return state;
 }

@@ -7,10 +7,8 @@ export default (state = intitialState, action) => {
     case SET_PAGE_DATA:
       return {
         ...state,
-        [action.payload.key]:action.payload.data
+        [action.dataKey]: action.data
       };
-      break;
-    default:
-      return state;
   }
+  return state;
 }

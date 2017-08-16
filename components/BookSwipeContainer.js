@@ -32,6 +32,8 @@ export default class BookSwipeContainer extends Component {
         this.props.swipeStarted();
       }
     }
+
+    // doing the hard coded infinite scroll
     this.onScrollEnd = (event) => {
       this.props.swipeEnded();
       const bookModel = this.props.bookModel;
@@ -49,8 +51,8 @@ export default class BookSwipeContainer extends Component {
     this.scrollToCenterPage();
   }
 
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate(props) {
+    return this.props.bookModel.id === props.bookModel.id;
   }
 
   render() {
@@ -58,13 +60,13 @@ export default class BookSwipeContainer extends Component {
     const pageViews = [-1, 0, 1]
       .map(shift => bookModel.moment.clone().add(shift, bookModel.unit))
       .map(moment => {
-        const key = bookModel.id + moment.format('YYYY MMM DD');
+        const title = moment.format(bookModel.titleFormat);
+        const dataKey = bookModel.id + "-" + moment.format(bookModel.dataKeyFormat);
         return (
           <BookPage
-            key={key}
-            moment={moment}
-            bookId={bookModel.id}
-            bookFormat={bookModel.format}
+            key={dataKey}
+            title={title}
+            dataKey={dataKey}
           />
         );
       });
@@ -79,6 +81,7 @@ export default class BookSwipeContainer extends Component {
         decelerationRate={'fast'}
         onMomentumScrollEnd= {this.onScrollEnd}
         keyboardShouldPersistTaps={'always'}
+        scrollEventThrottle={100}
         onScroll={this.onScroll}
       >
         {pageViews}

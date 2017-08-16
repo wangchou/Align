@@ -19,8 +19,8 @@ const windowHeight = Dimensions.get('window').height;
  *    when keyboard shows
  */
 
-global.focusedInputPY = 0;
-global.focusedInputOY = 0;
+global.focusedInputPY = 0; // PageY
+global.focusedInputOY = 0; // Relative Y to the parent of textInput
 global.focusedInputHeight = 0;
 
 @connect(state => ({
@@ -40,6 +40,8 @@ export default class KeyboardManager extends Component {
       } else {
         const keyboardHeight = event.endCoordinates.height;
         this.props.keyboardWillShow(keyboardHeight);
+        // cannot doing the keyboard scroll here
+        // because not knowing which textInput is focused
       }
     });
 
@@ -51,7 +53,7 @@ export default class KeyboardManager extends Component {
       const inputY = this.props.scrollY + focusedInputPY - focusedInputOY;
       const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + this.props.keyboardHeight)
       const isInputTopInView = focusedInputPY < 0;
-      const isInputBottomCoverByKeyboard = focusedInputPY + focusedInputHeight + this.props.keyboardHeight > windowHeight;
+      const isInputBottomCoverByKeyboard = (focusedInputPY + focusedInputHeight + this.props.keyboardHeight) > windowHeight;
       if(isInputTopInView) {
         this.props.verticalScrollTo(inputY);
       } else if(isInputBottomCoverByKeyboard){

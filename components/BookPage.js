@@ -7,19 +7,30 @@ import {
   Dimensions,
   Text,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {setData} from '../actions/pageData';
 
 const windowWidth = Dimensions.get('window').width;
 
+@connect((state, props) => ({
+  pageData: state.pageData[props.dataKey] || ""
+}), {
+  setData
+})
 export default class BookPage extends Component {
   constructor(props) {
      super(props);
      this.state = {
-       text: "haha"
+       text: props.pageData
      };
   }
+
+  componentWillReceiveProps(props) {
+    this.setState({text: props.pageData});
+  }
+
   render() {
-    const {moment, bookId, bookFormat} = this.props;
-    const title = moment.format(bookFormat);
+    const { title, dataKey, setData } = this.props;
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
@@ -31,6 +42,7 @@ export default class BookPage extends Component {
           style={styles.pageContent}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
+          onEndEditing={() => setData(dataKey, this.state.text)}
           onFocus={e => {
             this.textInput.measure((ox, oy, width, height, px, py) => {
               focusedInputOY = oy;

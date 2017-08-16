@@ -25,25 +25,18 @@ export default (state = intitialState, action) => {
           keyboardHeight: action.keyboardHeight
         }
       };
-      break;
 
     case KEYBOARD_WILL_HIDE:
       return { ...state, keyboard: intitialState.keyboard };
-      break;
 
     case ON_VERTICAL_SCROLL:
       return { ...state, scrollY: action.scrollY };
-      break;
 
     case INPUT_SWIPE_STARTED:
       return { ...state, isOnSwipe: true};
-      break;
 
     case INPUT_SWIPE_ENDED:
       return { ...state, isOnSwipe: false};
-      break;
-
-    default:
-      return state;
   }
+  return state;
 }

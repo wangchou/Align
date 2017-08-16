@@ -9,12 +9,14 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {swipeStarted, swipeEnded} from '../actions/ui';
+import {changeBookPage} from '../actions/books';
 
 const windowWidth = Dimensions.get('window').width;
 
 @connect(null,{
   swipeStarted,
-  swipeEnded
+  swipeEnded,
+  changeBookPage
 })
 export default class BookSwipeContainer extends Component {
   constructor(props) {
@@ -38,8 +40,8 @@ export default class BookSwipeContainer extends Component {
       this.props.swipeEnded();
       const bookModel = this.props.bookModel;
       const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
-      bookModel.moment.add(indexChange, bookModel.unit);
-      this.forceUpdate();
+      const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
+      this.props.changeBookPage(this.props.bookModel.id, newBookMomentStr);
     }
   }
 
@@ -52,13 +54,14 @@ export default class BookSwipeContainer extends Component {
   }
 
   shouldComponentUpdate(props) {
-    return this.props.bookModel.id === props.bookModel.id;
+    return this.props.bookModel.id !== props.bookModel.id ||
+           this.props.bookModel.momentStr !== props.bookModel.momentStr;
   }
 
   render() {
     const bookModel = this.props.bookModel;
     const pageViews = [-1, 0, 1]
-      .map(shift => bookModel.moment.clone().add(shift, bookModel.unit))
+      .map(shift => moment(bookModel.momentStr).clone().add(shift, bookModel.unit))
       .map(moment => {
         const title = moment.format(bookModel.titleFormat);
         const dataKey = bookModel.id + "-" + moment.format(bookModel.dataKeyFormat);

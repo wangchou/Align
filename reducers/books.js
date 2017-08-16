@@ -1,30 +1,31 @@
 import moment from 'moment';
+import {
+  CHANGE_BOOK_PAGE
+} from '../actions/actionTypes';
 
+const momentStr = moment().format();
 const intitialState = {
   byId: {
     "year book": {
       id: "year book",
-      moment: moment(),
+      momentStr,
       unit: "year",
       titleFormat: "YYYY年",
       dataKeyFormat: "YYYY",
-      // height: 300
     },
     "month book": {
       id: "month book",
-      moment: moment(),
+      momentStr,
       unit: "month",
       titleFormat: "YYYY年 M月",
       dataKeyFormat: "YYYY MMM",
-      // height: 300
     },
     "day book": {
       id: "day book",
-      moment: moment(),
+      momentStr,
       unit: "day",
       titleFormat: "M月 D日",
       dataKeyFormat: "YYYY MMM DD",
-      // height: 300
     }
   },
   bookshelfIds: ["year book", "month book", "day book"]
@@ -32,6 +33,18 @@ const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
+    case CHANGE_BOOK_PAGE:
+      const bookModel = state.byId[action.bookId];
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [action.bookId]: {
+            ...bookModel,
+            momentStr: action.momentStr
+          }
+        }
+      }
   }
   return state;
 }

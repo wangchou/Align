@@ -61,7 +61,7 @@ export default class BookSwipeContainer extends Component {
   render() {
     const bookModel = this.props.bookModel;
     const pageViews = [-1, 0, 1]
-      .map(shift => moment(bookModel.momentStr).clone().add(shift, bookModel.unit))
+      .map(shift => moment(bookModel.momentStr).add(shift, bookModel.unit))
       .map(moment => {
         const title = moment.format(bookModel.titleFormat);
         const dataKey = bookModel.id + "-" + moment.format(bookModel.dataKeyFormat);

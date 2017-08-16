@@ -25,7 +25,7 @@ import {
 export default class OnigiriNote extends Component {
   constructor(props) {
     super(props);
-    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y});}
+    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y, animated: false});}
   }
   render() {
     const {

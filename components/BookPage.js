@@ -22,19 +22,10 @@ export default class BookPage extends Component {
   constructor(props) {
      super(props);
      this.isFocused = false;
-     this.state = {
-       text: props.pageData
-     };
   }
 
   componentDidMount() {
      this.isFocused = false;
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      text: props.pageData
-    });
   }
 
   render() {
@@ -48,12 +39,10 @@ export default class BookPage extends Component {
           ref={textInput => this.textInput = textInput}
           multiline
           style={styles.pageContent}
-          onChangeText={(text) => this.setState({text})}
-          value={this.state.text}
-          onEndEditing={() => {
-            this.isFocused = false;
-            setData(dataKey, this.state.text);
+          onChangeText={(text) => {
+            setData(dataKey, text);
           }}
+          value={this.props.text}
           editable={!isOnSwipe || this.isFocused}
           onFocus={e => {
             this.isFocused = true;

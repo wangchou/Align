@@ -25,6 +25,7 @@ global.focusedInputHeight = 0;
 
 @connect(state => ({
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
+  isKeyboardShown: state.ui.keyboard.isKeyboardShown,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
   scrollY: state.ui.scrollY,
   isOnSwipe: state.ui.isOnSwipe
@@ -52,9 +53,9 @@ export default class KeyboardManager extends Component {
 
       const inputY = this.props.scrollY + focusedInputPY - focusedInputOY;
       const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + this.props.keyboardHeight)
-      const isInputTopInView = focusedInputPY < 0;
+      const isInputTopNotInView = focusedInputPY < 0;
       const isInputBottomCoverByKeyboard = (focusedInputPY + focusedInputHeight + this.props.keyboardHeight) > windowHeight;
-      if(isInputTopInView) {
+      if(isInputTopNotInView) {
         this.props.verticalScrollTo(inputY);
       } else if(isInputBottomCoverByKeyboard){
         this.props.verticalScrollTo(alignInputBottomToKeyboardY);

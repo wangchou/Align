@@ -12,7 +12,9 @@ import BookSwipeContainer from './components/BookSwipeContainer';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
-  onVerticalScroll
+  onVerticalScroll,
+  swipeStarted,
+  swipeEnded
 } from './actions/ui';
 
 @connect(state => ({
@@ -20,12 +22,26 @@ import {
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
 }), {
-  onVerticalScroll
+  onVerticalScroll,
+  swipeStarted,
+  swipeEnded
 })
 export default class OnigiriNote extends Component {
   constructor(props) {
     super(props);
-    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y, animated: false});}
+    const preventTextInputFocused = () => {
+      this.props.swipeStarted();
+      if(this.scrollEndTimer) {
+        clearTimeout(this.scrollEndTimer);
+      }
+      this.scrollEndTimer = setTimeout(this.props.swipeEnded, 100);
+    };
+    this.onScroll = (event) => {
+      preventTextInputFocused();
+      this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
+    }
+
+    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y});}
   }
   render() {
     const {
@@ -41,8 +57,9 @@ export default class OnigiriNote extends Component {
           style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'always'}
-          scrollEventThrottle={50}
-          onScroll={e => {onVerticalScroll(e.nativeEvent.contentOffset.y)}}
+          scrollEventThrottle={30}
+          decelerationRate={"fast"}
+          onScroll={this.onScroll}
         >
           <StatusBar hidden />
           {bookModels.map(

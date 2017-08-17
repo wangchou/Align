@@ -13,24 +13,32 @@ import {setData} from '../actions/pageData';
 const windowWidth = Dimensions.get('window').width;
 
 @connect((state, props) => ({
-  pageData: state.pageData[props.dataKey] || ""
+  pageData: state.pageData[props.dataKey] || "",
+  isOnSwipe: state.ui.isOnSwipe
 }), {
   setData
 })
 export default class BookPage extends Component {
   constructor(props) {
      super(props);
+     this.isFocused = false;
      this.state = {
        text: props.pageData
      };
   }
 
+  componentDidMount() {
+     this.isFocused = false;
+  }
+
   componentWillReceiveProps(props) {
-    this.setState({text: props.pageData});
+    this.setState({
+      text: props.pageData
+    });
   }
 
   render() {
-    const { title, dataKey, setData } = this.props;
+    const { title, dataKey, setData, isOnSwipe } = this.props;
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
@@ -42,8 +50,13 @@ export default class BookPage extends Component {
           style={styles.pageContent}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
-          onEndEditing={() => setData(dataKey, this.state.text)}
+          onEndEditing={() => {
+            this.isFocused = false;
+            setData(dataKey, this.state.text);
+          }}
+          editable={!isOnSwipe || this.isFocused}
           onFocus={e => {
+            this.isFocused = true;
             this.textInput.measure((ox, oy, width, height, px, py) => {
               focusedInputOY = oy;
               focusedInputPY = py;
@@ -56,7 +69,7 @@ export default class BookPage extends Component {
   }
 }
 
-const pageHeight = 300;
+const pageHeight = 270;
 const titleHeight = 22;
 const semiBold = "600";
 const light="300";

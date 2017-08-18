@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   Keyboard,
+  View
 } from 'react-native';
 import {connect} from 'react-redux';
 import {swipeStarted, swipeEnded} from '../actions/ui';
@@ -22,24 +23,29 @@ export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
     this.isKeyboardShow = false;
-    this._scrollView = null;
+    this.scrollView = null;
     this.scrollToCenterPage = () => {
-      this._scrollView.scrollTo({
-        x: windowWidth,
+      this.scrollView.scrollTo({
+        x: windowWidth + 20,
         animated: false
       });
     }
-    this.onScroll = (event) => {
-      if (Math.abs(event.nativeEvent.contentOffset.x - windowWidth) > 2) {
-        this.props.swipeStarted();
+
+    const preventTextInputFocused = () => {
+      this.props.swipeStarted();
+      if(this.scrollEndTimer) {
+        clearTimeout(this.scrollEndTimer);
       }
-    }
+      this.scrollEndTimer = setTimeout(this.props.swipeEnded, 100);
+    };
+
+    this.onScroll = preventTextInputFocused;
 
     // doing the hard coded infinite scroll
     this.onScrollEnd = (event) => {
       this.props.swipeEnded();
       const bookModel = this.props.bookModel;
-      const indexChange = event.nativeEvent.contentOffset.x/windowWidth - 1;
+      const indexChange = event.nativeEvent.contentOffset.x/(windowWidth + 20) - 1;
       const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
       this.props.changeBookPage(this.props.bookModel.id, newBookMomentStr);
     }
@@ -76,18 +82,23 @@ export default class BookSwipeContainer extends Component {
 
     return (
       <ScrollView
-        ref={(scrollView) => {this._scrollView = scrollView}}
+        ref={(scrollView) => {this.scrollView = scrollView}}
         style={styles.swipeContainer}
-        pagingEnabled
+        // pagingEnabled
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
         onMomentumScrollEnd= {this.onScrollEnd}
         keyboardShouldPersistTaps={'always'}
+        snapToInterval={windowWidth + 20}
         scrollEventThrottle={100}
         onScroll={this.onScroll}
       >
-        {pageViews}
+        {pageViews[0]}
+        <View style={{width: 20, backgroundColor: 'rgba(155, 155, 155, 0.3)'}} />
+        {pageViews[1]}
+        <View style={{width: 20, backgroundColor: 'rgba(155, 155, 155, 0.3)'}} />
+        {pageViews[2]}
       </ScrollView>
     );
   }

@@ -42,6 +42,7 @@ export default class BookPage extends Component {
           }}
           value={this.props.text}
           editable={!isOnSwipe || this.isFocused}
+          onEndEditing={() => {this.isFocused = false}}
           onFocus={e => {
             this.isFocused = true;
             this.textInput.measure((ox, oy, width, height, px, py) => {
@@ -81,7 +82,6 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     marginTop: 5,
     borderColor: 'rgba(200, 200, 200, 1.0)',
-    // borderWidth: 0.5,
     fontFamily: 'PingFang TC',
     fontSize,
     fontWeight: light,

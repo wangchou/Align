@@ -10,18 +10,20 @@ import {
   AppRegistry,
 } from 'react-native';
 
-const storeVersion = 'ようこそ実力至上主義の教室へ';
+const storeVersion = 'ようこそ実力至上主義の教室へ 6';
 const store = createStore(
   reducers,
   compose(
     applyMiddleware(thunk),
-    autoRehydrate()
+    // autoRehydrate()
   )
 )
+/*
 persistStore(store, {
   storage: AsyncStorage,
   keyPrefix: storeVersion
 });
+*/
 
 export default class Root extends Component {
   render() {

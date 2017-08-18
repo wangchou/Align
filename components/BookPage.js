@@ -10,8 +10,6 @@ import {
 import {connect} from 'react-redux';
 import {setData} from '../actions/pageData';
 
-const windowWidth = Dimensions.get('window').width;
-
 @connect((state, props) => ({
   pageData: state.pageData[props.dataKey] || "",
   isOnSwipe: state.ui.isOnSwipe
@@ -58,7 +56,10 @@ export default class BookPage extends Component {
   }
 }
 
-const pageHeight = 270;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const fontSize = Math.min(windowWidth, windowHeight) / 20;
+const pageHeight = fontSize * 17;
 const titleHeight = 22;
 const semiBold = "600";
 const light="300";
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     height: titleHeight,
     fontFamily: 'PingFang TC',
-    fontSize: 16,
+    fontSize,
     fontWeight: semiBold,
   },
   pageContent: {
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(200, 200, 200, 1.0)',
     // borderWidth: 0.5,
     fontFamily: 'PingFang TC',
-    fontSize: 16,
+    fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
   }

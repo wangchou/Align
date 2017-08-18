@@ -3,7 +3,8 @@ import {
   CHANGE_BOOK_PAGE
 } from '../actions/actionTypes';
 
-const momentStr = moment().format();
+const momentStr     = moment().format();
+const weekMomentStr = moment().startOf('isoweek').format();
 const intitialState = {
   byId: {
     "year book": {
@@ -20,15 +21,22 @@ const intitialState = {
       titleFormat: "YYYY年 M月",
       dataKeyFormat: "YYYY MMM",
     },
+    "week book": {
+      id: "week book",
+      momentStr: weekMomentStr,
+      unit: "weeks",
+      titleFormat: "M月 D日 ddd ~ (第W週)",
+      dataKeyFormat: "YYYY MM DD",
+    },
     "day book": {
       id: "day book",
       momentStr,
       unit: "day",
-      titleFormat: "M月 D日",
+      titleFormat: "M月 D日 ddd",
       dataKeyFormat: "YYYY MMM DD",
     }
   },
-  bookshelfIds: ["year book", "month book", "day book"]
+  bookshelfIds: ["year book", "month book", "week book", "day book"]
 };
 
 export default (state = intitialState, action) => {

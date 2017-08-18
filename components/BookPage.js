@@ -10,10 +10,8 @@ import {
 import {connect} from 'react-redux';
 import {setData} from '../actions/pageData';
 
-const windowWidth = Dimensions.get('window').width;
-
 @connect((state, props) => ({
-  pageData: state.pageData[props.dataKey] || "",
+  pageData: state.pageData[props.dataKey] || null,
   isOnSwipe: state.ui.isOnSwipe
 }), {
   setData
@@ -22,10 +20,13 @@ export default class BookPage extends Component {
   constructor(props) {
      super(props);
      this.isFocused = false;
+     this.state = {text: props.pageData};
   }
 
-  componentDidMount() {
-     this.isFocused = false;
+  componentWillReceiveProps(props) {
+    if (props.pageData !== this.state.text) {
+      this.setState({text: props.pageData});
+    }
   }
 
   render() {
@@ -41,9 +42,11 @@ export default class BookPage extends Component {
           style={styles.pageContent}
           onChangeText={(text) => {
             setData(dataKey, text);
+            this.setState({text});
           }}
-          value={this.props.text}
+          value={this.state.text}
           editable={!isOnSwipe || this.isFocused}
+          onEndEditing={() => {this.isFocused = false}}
           onFocus={e => {
             this.isFocused = true;
             this.textInput.measure((ox, oy, width, height, px, py) => {
@@ -58,7 +61,10 @@ export default class BookPage extends Component {
   }
 }
 
-const pageHeight = 270;
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const fontSize = Math.min(windowWidth, windowHeight) / 20;
+const pageHeight = fontSize * 17;
 const titleHeight = 22;
 const semiBold = "600";
 const light="300";
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
   pageTitle: {
     height: titleHeight,
     fontFamily: 'PingFang TC',
-    fontSize: 16,
+    fontSize,
     fontWeight: semiBold,
   },
   pageContent: {
@@ -80,9 +86,8 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     marginTop: 5,
     borderColor: 'rgba(200, 200, 200, 1.0)',
-    // borderWidth: 0.5,
     fontFamily: 'PingFang TC',
-    fontSize: 16,
+    fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
   }

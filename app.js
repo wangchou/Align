@@ -37,7 +37,6 @@ export default class OnigiriNote extends Component {
       this.scrollEndTimer = setTimeout(this.props.swipeEnded, 100);
     };
     this.onScroll = (event) => {
-      console.log('v scroll');
       preventTextInputFocused();
       this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
     }

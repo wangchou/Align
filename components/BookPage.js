@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {setData} from '../actions/pageData';
 
 @connect((state, props) => ({
-  pageData: state.pageData[props.dataKey] || "",
+  pageData: state.pageData[props.dataKey] || null,
   isOnSwipe: state.ui.isOnSwipe
 }), {
   setData
@@ -23,12 +23,10 @@ export default class BookPage extends Component {
      this.state = {text: props.pageData};
   }
 
-  componentDidMount() {
-     this.isFocused = false;
-  }
-
   componentWillReceiveProps(props) {
-    this.setState({text: props.pageData});
+    if (props.pageData !== this.state.text) {
+      this.setState({text: props.pageData});
+    }
   }
 
   render() {

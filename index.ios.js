@@ -25,7 +25,6 @@ export default class Root extends Component {
       keyPrefix: storeVersion
     }, () => {
       this.setState({ rehydrated: true })
-      console.log('restored')
     });
   }
 

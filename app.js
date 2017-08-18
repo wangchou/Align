@@ -58,7 +58,6 @@ export default class OnigiriNote extends Component {
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'always'}
           scrollEventThrottle={30}
-          decelerationRate={"fast"}
           onScroll={this.onScroll}
         >
           <StatusBar hidden />

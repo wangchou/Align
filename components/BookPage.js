@@ -47,7 +47,10 @@ export default class BookPage extends Component {
           {title}
         </Text>
         <TextInput
-          ref={textInput => this.textInput = textInput}
+          ref={textInput => {
+            this.textInput = textInput;
+            this.props.inputRef(textInput);
+          }}
           multiline
           style={styles.pageContent}
           onChangeText={(text) => {
@@ -56,7 +59,9 @@ export default class BookPage extends Component {
           }}
           value={this.state.text}
           editable={!isOnSwipe || this.state.isFocused}
-          onEndEditing={() => this.setState({isFocused: false})}
+          onEndEditing={() => {
+            this.setState({isFocused: false});
+          }}
           onFocus={e => {
             this.setState({isFocused: true});
             this.textInput.measure((ox, oy, width, height, px, py) => {

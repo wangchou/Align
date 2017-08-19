@@ -29,6 +29,7 @@ export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
     this.isKeyboardShow = false;
+    this.inputs = {};
   }
 
   scrollToCenterPage = () => {
@@ -53,6 +54,10 @@ export default class BookSwipeContainer extends Component {
   }
 
   componentDidUpdate() {
+    // focus the center page after swipe
+    const bookModel = this.props.bookModel;
+    const dataKey = bookModel.id + "-" + moment(bookModel.momentStr).format(bookModel.dataKeyFormat);
+    this.inputs[dataKey].focus();
     this.scrollToCenterPage();
   }
 
@@ -73,6 +78,7 @@ export default class BookSwipeContainer extends Component {
             key={dataKey}
             title={title}
             dataKey={dataKey}
+            inputRef={(r) => {this.inputs[dataKey] = r;}}
           />
         );
       });

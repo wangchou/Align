@@ -17,7 +17,9 @@ const pageSeparatorWidth = 20;
 const snapToInterval = windowWidth + pageSeparatorWidth;
 const pageCenterIndex = 2;
 
-@connect(null,{
+@connect(state => ({
+  isOnSwipe: state.ui.isOnSwipe
+}),{
   swipeStarted,
   swipeEnded,
   changeBookPage
@@ -27,32 +29,34 @@ export default class BookSwipeContainer extends Component {
     super(props);
     this.isKeyboardShow = false;
     this.scrollView = null;
-    this.scrollToCenterPage = () => {
-      this.scrollView.scrollTo({
-        x: snapToInterval * pageCenterIndex,
-        animated: false
-      });
+  }
+
+  scrollToCenterPage = () => {
+    this.scrollView.scrollTo({
+      x: snapToInterval * pageCenterIndex,
+      animated: false
+    });
+  }
+
+  // doing the hard coded infinite scroll
+  onScrollEnd = (event) => {
+    const indexChange = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
+    if (indexChange <= -1 || indexChange >= 1) {
+      const bookModel = this.props.bookModel;
+      const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
+      this.props.changeBookPage(bookModel.id, newBookMomentStr);
     }
+  }
 
-    const preventTextInputFocused = () => {
+  onTouchMove = () => {
+    if (!this.props.isOnSwipe) {
       this.props.swipeStarted();
-      if(this.scrollEndTimer) {
-        clearTimeout(this.scrollEndTimer);
-      }
-      this.scrollEndTimer = setTimeout(this.props.swipeEnded, 100);
-    };
+    }
+  }
 
-    this.onScroll = preventTextInputFocused;
-
-    // doing the hard coded infinite scroll
-    this.onScrollEnd = (event) => {
+  onTouchEnd = () => {
+    if (this.props.isOnSwipe) {
       this.props.swipeEnded();
-      const indexChange = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
-      if (indexChange <= -1 || indexChange >= 1) {
-        const bookModel = this.props.bookModel;
-        const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
-        this.props.changeBookPage(bookModel.id, newBookMomentStr);
-      }
     }
   }
 
@@ -96,7 +100,8 @@ export default class BookSwipeContainer extends Component {
         keyboardShouldPersistTaps={'always'}
         snapToInterval={snapToInterval}
         scrollEventThrottle={100}
-        onScroll={this.onScroll}
+        onTouchMove={this.onTouchMove}
+        onTouchEnd={this.onTouchEnd}
       >
         {pageViews[0]}
         <View style={styles.pageSeparator} />

@@ -21,28 +21,31 @@ import {
   bookModels: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
+  isOnSwipe: state.ui.isOnSwipe,
 }), {
   onVerticalScroll,
   swipeStarted,
   swipeEnded
 })
 export default class OnigiriNote extends Component {
-  constructor(props) {
-    super(props);
-    const preventTextInputFocused = () => {
-      this.props.swipeStarted();
-      if(this.scrollEndTimer) {
-        clearTimeout(this.scrollEndTimer);
-      }
-      this.scrollEndTimer = setTimeout(this.props.swipeEnded, 100);
-    };
-    this.onScroll = (event) => {
-      preventTextInputFocused();
-      this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
-    }
-
-    this.verticalScrollTo = (y) => {this.scrollView.scrollTo({y});}
+  onScroll = (event) => {
+    this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
   }
+
+  verticalScrollTo = y => this.scrollView.scrollTo({y})
+
+  onTouchMove = () => {
+    if (!this.props.isOnSwipe) {
+      this.props.swipeStarted();
+    }
+  }
+
+  onTouchEnd = () => {
+    if (this.props.isOnSwipe) {
+      this.props.swipeEnded();
+    }
+  }
+
   render() {
     const {
       isKeyboardShow,
@@ -59,6 +62,8 @@ export default class OnigiriNote extends Component {
           keyboardShouldPersistTaps={'always'}
           scrollEventThrottle={30}
           onScroll={this.onScroll}
+          onTouchMove={this.onTouchMove}
+          onTouchEnd={this.onTouchEnd}
         >
           <StatusBar hidden />
           {bookModels.map(

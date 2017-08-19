@@ -6,12 +6,16 @@ import {persistStore, autoRehydrate} from 'redux-persist';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 import {AsyncStorage, View} from 'react-native';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import {
   AppRegistry,
 } from 'react-native';
 
 const storeVersion = 'ようこそ実力至上主義の教室へ 2';
-const store = compose(autoRehydrate())(createStore)(reducers)
+const store = compose(autoRehydrate())(createStore)(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk))
+)
 
 export default class Root extends Component {
   constructor() {

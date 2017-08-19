@@ -19,7 +19,8 @@ const pageCenterIndex = 2;
 
 @connect((state, props) => ({
   bookModel: state.books.byId[props.bookId],
-  isOnSwipe: state.ui.isOnSwipe
+  isOnSwipe: state.ui.isOnSwipe,
+  isKeyboardShow: state.ui.keyboard.isKeyboardShow
 }),{
   swipeStarted,
   swipeEnded,
@@ -55,9 +56,11 @@ export default class BookSwipeContainer extends Component {
 
   componentDidUpdate() {
     // focus the center page after swipe
-    const bookModel = this.props.bookModel;
-    const dataKey = bookModel.id + "-" + moment(bookModel.momentStr).format(bookModel.dataKeyFormat);
-    this.inputs[dataKey].focus();
+    if(this.props.isKeyboardShow) {
+      const bookModel = this.props.bookModel;
+      const dataKey = bookModel.id + "-" + moment(bookModel.momentStr).format(bookModel.dataKeyFormat);
+      this.inputs[dataKey].focus();
+    }
     this.scrollToCenterPage();
   }
 
@@ -115,6 +118,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
+    borderRadius: 5
   },
   pageSeparator: {
     width: pageSeparatorWidth,

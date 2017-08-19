@@ -28,7 +28,6 @@ export default class BookSwipeContainer extends Component {
   constructor(props) {
     super(props);
     this.isKeyboardShow = false;
-    this.scrollView = null;
   }
 
   scrollToCenterPage = () => {
@@ -96,10 +95,9 @@ export default class BookSwipeContainer extends Component {
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
-        onMomentumScrollEnd= {this.onScrollEnd}
         keyboardShouldPersistTaps={'always'}
         snapToInterval={snapToInterval}
-        scrollEventThrottle={100}
+        onMomentumScrollEnd= {this.onScrollEnd}
         onTouchMove={this.onTouchMove}
         onTouchEnd={this.onTouchEnd}
       >

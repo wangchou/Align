@@ -17,7 +17,8 @@ const pageSeparatorWidth = 20;
 const snapToInterval = windowWidth + pageSeparatorWidth;
 const pageCenterIndex = 2;
 
-@connect(state => ({
+@connect((state, props) => ({
+  bookModel: state.books.byId[props.bookId],
   isOnSwipe: state.ui.isOnSwipe
 }),{
   swipeStarted,
@@ -44,18 +45,6 @@ export default class BookSwipeContainer extends Component {
       const bookModel = this.props.bookModel;
       const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
       this.props.changeBookPage(bookModel.id, newBookMomentStr);
-    }
-  }
-
-  onTouchMove = () => {
-    if (!this.props.isOnSwipe) {
-      this.props.swipeStarted();
-    }
-  }
-
-  onTouchEnd = () => {
-    if (this.props.isOnSwipe) {
-      this.props.swipeEnded();
     }
   }
 
@@ -98,8 +87,6 @@ export default class BookSwipeContainer extends Component {
         keyboardShouldPersistTaps={'always'}
         snapToInterval={snapToInterval}
         onMomentumScrollEnd= {this.onScrollEnd}
-        onTouchMove={this.onTouchMove}
-        onTouchEnd={this.onTouchEnd}
       >
         {pageViews[0]}
         <View style={styles.pageSeparator} />

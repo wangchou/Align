@@ -19,14 +19,24 @@ import {setData} from '../actions/pageData';
 export default class BookPage extends Component {
   constructor(props) {
      super(props);
-     this.isFocused = false;
-     this.state = {text: props.pageData};
+     this.state = {
+       text: props.pageData,
+       isFocused: false
+     };
   }
 
   componentWillReceiveProps(props) {
     if (props.pageData !== this.state.text) {
       this.setState({text: props.pageData});
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.state.text !== nextState.text ||
+      this.props.isOnSwipe !== nextProps.isOnSwipe ||
+      this.state.isFocused !== nextState.isFocused
+    );
   }
 
   render() {
@@ -45,10 +55,10 @@ export default class BookPage extends Component {
             this.setState({text});
           }}
           value={this.state.text}
-          editable={!isOnSwipe || this.isFocused}
-          onEndEditing={() => {this.isFocused = false}}
+          editable={!isOnSwipe || this.state.isFocused}
+          onEndEditing={() => this.setState({isFocused: false})}
           onFocus={e => {
-            this.isFocused = true;
+            this.setState({isFocused: true});
             this.textInput.measure((ox, oy, width, height, px, py) => {
               focusedInputOY = oy;
               focusedInputPY = py;

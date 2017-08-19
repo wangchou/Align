@@ -46,6 +46,10 @@ export default class OnigiriNote extends Component {
     }
   }
 
+  shouldComponentUpdate(props) {
+    return this.props.isKeyboardShow !== props.isKeyboardShow;
+  }
+
   render() {
     const {
       isKeyboardShow,
@@ -53,6 +57,14 @@ export default class OnigiriNote extends Component {
       bookModels,
       onVerticalScroll
     } = this.props;
+
+    const books = bookModels.map(bookModel =>
+       <BookSwipeContainer
+        key={bookModel.id}
+        bookId={bookModel.id}
+       />
+    );
+
     return (
       <View>
         <ScrollView
@@ -63,13 +75,8 @@ export default class OnigiriNote extends Component {
           onTouchMove={this.onTouchMove}
           onTouchEnd={this.onTouchEnd}
         >
+          {books}
           <StatusBar hidden />
-          {bookModels.map(
-            bookModel => <BookSwipeContainer
-                          key={bookModel.id}
-                          bookModel={bookModel}
-                         />
-          )}
           {isKeyboardShow ? <View style={{height: keyboardHeight}} /> : null}
         </ScrollView>
         {isKeyboardShow ? <KeyboardDimissButton keyboardHeight={keyboardHeight}/>: null}

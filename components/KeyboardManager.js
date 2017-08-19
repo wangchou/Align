@@ -36,6 +36,7 @@ global.focusedInputHeight = 0;
 export default class KeyboardManager extends Component {
   componentDidMount() {
     this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
+      // do not dismiss keyboard after keyboard show up
       if(!this.props.isKeyboardShow && this.props.isOnSwipe) {
         Keyboard.dismiss();
       } else {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import OnigiriNote from './app';
+import OnigiriNote from './src/app';
 import { Provider } from 'react-redux';
 import {applyMiddleware, createStore, compose} from 'redux';
 import {persistStore, autoRehydrate} from 'redux-persist';
 import thunk from 'redux-thunk';
-import reducers from './reducers';
+import reducers from './src/reducers';
 import {AsyncStorage, View} from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {

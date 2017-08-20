@@ -9,7 +9,7 @@ const intitialState = {
   byId: {
     "year book": {
       id: "year book",
-      time: now, // bookmark time
+      time: now, // bookmark time string
       unit: "year",
       titleFormat: "YYYY年",
       dataKeyFormat: "YYYY",

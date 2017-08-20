@@ -12,8 +12,8 @@ import {swipeStarted, swipeEnded} from '../actions/ui';
 import {changeBookPage} from '../actions/books';
 import {
   getTime,
-  getDataKey,
-  getTitle
+  getPageDataKey,
+  getPageTitle
 } from '../utils/books';
 
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +30,7 @@ const pageCenterIndex = 2;
   swipeEnded,
   changeBookPage
 })
-export default class BookSwipeContainer extends Component {
+export default class BookSwipeView extends Component {
   constructor(props) {
     super(props);
     this.isKeyboardShow = false;
@@ -61,7 +61,7 @@ export default class BookSwipeContainer extends Component {
     // focus the center page after swipe
     if(this.props.isKeyboardShow) {
       const book = this.props.book;
-      const dataKey = getDataKey(book);
+      const dataKey = getPageDataKey(book);
       this.inputs[dataKey].focus();
     }
     this.scrollToCenterPage();
@@ -76,8 +76,8 @@ export default class BookSwipeContainer extends Component {
     const book = this.props.book;
     const pageViews = [-2, -1, 0, 1, 2]
       .map(shift => {
-        const title = getTitle(book, shift);
-        const dataKey = getDataKey(book, shift);
+        const title = getPageTitle(book, shift);
+        const dataKey = getPageDataKey(book, shift);
         return (
           <BookPage
             key={dataKey}
@@ -90,13 +90,15 @@ export default class BookSwipeContainer extends Component {
 
     return (
       <ScrollView
-        ref={(scrollView) => {this.scrollView = scrollView}}
         style={styles.swipeContainer}
+        ref={(scrollView) => {this.scrollView = scrollView}}
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate={'fast'}
         keyboardShouldPersistTaps={'always'}
         snapToInterval={snapToInterval}
+
+        // Event Handler
         onMomentumScrollEnd= {this.onScrollEnd}
       >
         {pageViews[0]}

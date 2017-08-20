@@ -46,18 +46,20 @@ export default class BookPage extends Component {
           {title}
         </Text>
         <TextInput
+          style={styles.pageContent}
           ref={textInput => {
             this.textInput = textInput;
             this.props.inputRef(textInput);
           }}
+          value={this.state.text}
+          editable={!isOnSwipe || this.state.isFocused}
           multiline
-          style={styles.pageContent}
+
+          // Event Handler
           onChangeText={(text) => {
             setData(dataKey, text);
             this.setState({text});
           }}
-          value={this.state.text}
-          editable={!isOnSwipe || this.state.isFocused}
           onEndEditing={() => {
             this.setState({isFocused: false});
           }}

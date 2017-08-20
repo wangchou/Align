@@ -29,6 +29,10 @@ export default class KeyboardDimissButton extends Component {
           height: 1,
           width: 0
         }
+      },
+      text: {
+        fontSize: 20,
+        color: 'white'
       }
     });
     return (
@@ -36,9 +40,11 @@ export default class KeyboardDimissButton extends Component {
         <TouchableHighlight
           style={styles.button}
           underlayColor='#ff7043'
+
+          // Event Handler
           onPress={Keyboard.dismiss}
         >
-          <Text style={{fontSize: 20, color: 'white'}}>v</Text>
+          <Text style={styles.text}>v</Text>
         </TouchableHighlight>
       </View>
     );

@@ -7,7 +7,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import BookSwipeContainer from './components/BookSwipeContainer';
+import BookSwipeView from './components/BookSwipeView';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
@@ -46,7 +46,8 @@ export default class OnigiriNote extends Component {
   }
 
   shouldComponentUpdate(props) {
-    return this.props.isKeyboardShow !== props.isKeyboardShow;
+    return this.props.isKeyboardShow !== props.isKeyboardShow ||
+           this.props.keyboardHeight !== props.keyboardHeight;
   }
 
   render() {
@@ -57,28 +58,37 @@ export default class OnigiriNote extends Component {
       onVerticalScroll
     } = this.props;
 
-    const bookContainers = books.map(book =>
-       <BookSwipeContainer
+    const bookViews = books.map(book =>
+       <BookSwipeView
         key={book.id}
         bookId={book.id}
        />
     );
 
+    let keyboardAvoidingView = null;
+    let keyboardDismissButton = null;
+    if (isKeyboardShow) {
+      keyboardAvoidingView = <View style={{height: keyboardHeight}} />;
+      keyboardDismissButton = <KeyboardDimissButton keyboardHeight={keyboardHeight}/>;
+    }
+
     return (
       <View>
         <ScrollView
-          ref={(scrollView) => {this.scrollView = scrollView}}
           style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
+          ref={(scrollView) => {this.scrollView = scrollView}}
           keyboardShouldPersistTaps={'always'}
+
+          // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={this.onTouchMove}
           onTouchEnd={this.onTouchEnd}
         >
-          {bookContainers}
+          {bookViews}
           <StatusBar hidden />
-          {isKeyboardShow ? <View style={{height: keyboardHeight}} /> : null}
+          {keyboardAvoidingView}
         </ScrollView>
-        {isKeyboardShow ? <KeyboardDimissButton keyboardHeight={keyboardHeight}/>: null}
+        {keyboardDismissButton}
         <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
       </View>
     );

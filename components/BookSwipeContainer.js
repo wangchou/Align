@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {swipeStarted, swipeEnded} from '../actions/ui';
 import {changeBookPage} from '../actions/books';
 import {
-  getMomentStr,
+  getTime,
   getDataKey,
   getTitle
 } from '../utils/books';
@@ -22,7 +22,7 @@ const snapToInterval = windowWidth + pageSeparatorWidth;
 const pageCenterIndex = 2;
 
 @connect((state, props) => ({
-  bookModel: state.books.byId[props.bookId],
+  book: state.books.byId[props.bookId],
   isOnSwipe: state.ui.isOnSwipe,
   isKeyboardShow: state.ui.keyboard.isKeyboardShow
 }),{
@@ -48,8 +48,8 @@ export default class BookSwipeContainer extends Component {
   onScrollEnd = (event) => {
     const indexChange = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
     if (indexChange <= -1 || indexChange >= 1) {
-      const bookModel = this.props.bookModel;
-      this.props.changeBookPage(bookModel.id, getMomentStr(bookModel, indexChange));
+      const book = this.props.book;
+      this.props.changeBookPage(book.id, getTime(book, indexChange));
     }
   }
 
@@ -60,24 +60,24 @@ export default class BookSwipeContainer extends Component {
   componentDidUpdate() {
     // focus the center page after swipe
     if(this.props.isKeyboardShow) {
-      const bookModel = this.props.bookModel;
-      const dataKey = getDataKey(bookModel);
+      const book = this.props.book;
+      const dataKey = getDataKey(book);
       this.inputs[dataKey].focus();
     }
     this.scrollToCenterPage();
   }
 
   shouldComponentUpdate(props) {
-    return this.props.bookModel.id !== props.bookModel.id ||
-           this.props.bookModel.momentStr !== props.bookModel.momentStr;
+    return this.props.book.id !== props.book.id ||
+           this.props.book.time !== props.book.time;
   }
 
   render() {
-    const bookModel = this.props.bookModel;
+    const book = this.props.book;
     const pageViews = [-2, -1, 0, 1, 2]
       .map(shift => {
-        const title = getTitle(bookModel, shift);
-        const dataKey = getDataKey(bookModel, shift);
+        const title = getTitle(book, shift);
+        const dataKey = getDataKey(book, shift);
         return (
           <BookPage
             key={dataKey}

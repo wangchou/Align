@@ -11,7 +11,7 @@ import {
   AppRegistry,
 } from 'react-native';
 
-const storeVersion = 'ようこそ実力至上主義の教室へ 2';
+const storeVersion = 'ようこそ実力至上主義の教室へ 3';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))

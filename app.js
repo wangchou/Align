@@ -17,7 +17,7 @@ import {
 } from './actions/ui';
 
 @connect(state => ({
-  bookModels: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),
+  books: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
   isOnSwipe: state.ui.isOnSwipe,
@@ -53,14 +53,14 @@ export default class OnigiriNote extends Component {
     const {
       isKeyboardShow,
       keyboardHeight,
-      bookModels,
+      books,
       onVerticalScroll
     } = this.props;
 
-    const books = bookModels.map(bookModel =>
+    const bookContainers = books.map(book =>
        <BookSwipeContainer
-        key={bookModel.id}
-        bookId={bookModel.id}
+        key={book.id}
+        bookId={book.id}
        />
     );
 
@@ -74,7 +74,7 @@ export default class OnigiriNote extends Component {
           onTouchMove={this.onTouchMove}
           onTouchEnd={this.onTouchEnd}
         >
-          {books}
+          {bookContainers}
           <StatusBar hidden />
           {isKeyboardShow ? <View style={{height: keyboardHeight}} /> : null}
         </ScrollView>

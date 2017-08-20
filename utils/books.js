@@ -1,18 +1,18 @@
 import moment from 'moment';
 
-export const getMomentStr = (bookModel, shift = 0) => {
-  return moment(bookModel.momentStr)
-           .add(shift, bookModel.unit)
+export const getTime = (book, shift = 0) => {
+  return moment(book.time)
+           .add(shift, book.unit)
            .format();
 }
 
-export const getDataKey = (bookModel, shift = 0) => {
-  return bookModel.id + "-" + moment(bookModel.momentStr)
-                                .add(shift, bookModel.unit)
-                                .format(bookModel.dataKeyFormat);
+export const getDataKey = (book, shift = 0) => {
+  return book.id + "-" + moment(book.time)
+                           .add(shift, book.unit)
+                           .format(book.dataKeyFormat);
 }
-export const getTitle = (bookModel, shift = 0) => {
-  return moment(bookModel.momentStr)
-           .add(shift, bookModel.unit)
-           .format(bookModel.titleFormat);
+export const getTitle = (book, shift = 0) => {
+  return moment(book.time)
+           .add(shift, book.unit)
+           .format(book.titleFormat);
 }

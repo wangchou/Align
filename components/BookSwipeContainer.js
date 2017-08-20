@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import BookPage from './BookPage';
 import {
   StyleSheet,
@@ -11,6 +10,11 @@ import {
 import {connect} from 'react-redux';
 import {swipeStarted, swipeEnded} from '../actions/ui';
 import {changeBookPage} from '../actions/books';
+import {
+  getMomentStr,
+  getDataKey,
+  getTitle
+} from '../utils/books';
 
 const windowWidth = Dimensions.get('window').width;
 const pageSeparatorWidth = 20;
@@ -45,8 +49,7 @@ export default class BookSwipeContainer extends Component {
     const indexChange = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
     if (indexChange <= -1 || indexChange >= 1) {
       const bookModel = this.props.bookModel;
-      const newBookMomentStr = moment(bookModel.momentStr).add(indexChange, bookModel.unit).format();
-      this.props.changeBookPage(bookModel.id, newBookMomentStr);
+      this.props.changeBookPage(bookModel.id, getMomentStr(bookModel, indexChange));
     }
   }
 
@@ -58,7 +61,7 @@ export default class BookSwipeContainer extends Component {
     // focus the center page after swipe
     if(this.props.isKeyboardShow) {
       const bookModel = this.props.bookModel;
-      const dataKey = bookModel.id + "-" + moment(bookModel.momentStr).format(bookModel.dataKeyFormat);
+      const dataKey = getDataKey(bookModel);
       this.inputs[dataKey].focus();
     }
     this.scrollToCenterPage();
@@ -72,16 +75,15 @@ export default class BookSwipeContainer extends Component {
   render() {
     const bookModel = this.props.bookModel;
     const pageViews = [-2, -1, 0, 1, 2]
-      .map(shift => moment(bookModel.momentStr).add(shift, bookModel.unit))
-      .map(moment => {
-        const title = moment.format(bookModel.titleFormat);
-        const dataKey = bookModel.id + "-" + moment.format(bookModel.dataKeyFormat);
+      .map(shift => {
+        const title = getTitle(bookModel, shift);
+        const dataKey = getDataKey(bookModel, shift);
         return (
           <BookPage
             key={dataKey}
             title={title}
             dataKey={dataKey}
-            inputRef={(r) => {this.inputs[dataKey] = r;}}
+            inputRef={r => {this.inputs[dataKey] = r;}}
           />
         );
       });

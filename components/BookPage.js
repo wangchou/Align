@@ -55,7 +55,7 @@ export default class BookPage extends Component {
           editable={!isOnSwipe || this.state.isFocused}
           multiline
 
-          // Event Handler
+          // Event Handlers
           onChangeText={(text) => {
             setData(dataKey, text);
             this.setState({text});

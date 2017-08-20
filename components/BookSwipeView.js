@@ -23,7 +23,6 @@ const pageCenterIndex = 2;
 
 @connect((state, props) => ({
   book: state.books.byId[props.bookId],
-  isOnSwipe: state.ui.isOnSwipe,
   isKeyboardShow: state.ui.keyboard.isKeyboardShow
 }),{
   swipeStarted,
@@ -37,6 +36,15 @@ export default class BookSwipeView extends Component {
     this.inputs = {};
   }
 
+  // doing the hard coded infinite scroll
+  onScrollEnd = (event) => {
+    const shift = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
+    if (Math.abs(shift) >= 1) {
+      const book = this.props.book;
+      this.props.changeBookPage(book.id, getTime(book, shift));
+    }
+  }
+
   scrollToCenterPage = () => {
     this.scrollView.scrollTo({
       x: snapToInterval * pageCenterIndex,
@@ -44,13 +52,10 @@ export default class BookSwipeView extends Component {
     });
   }
 
-  // doing the hard coded infinite scroll
-  onScrollEnd = (event) => {
-    const indexChange = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
-    if (indexChange <= -1 || indexChange >= 1) {
-      const book = this.props.book;
-      this.props.changeBookPage(book.id, getTime(book, indexChange));
-    }
+  focusPage = (shift = 0) => {
+    const book = this.props.book;
+    const dataKey = getPageDataKey(book, shift);
+    this.inputs[dataKey].focus();
   }
 
   componentDidMount() {
@@ -58,11 +63,8 @@ export default class BookSwipeView extends Component {
   }
 
   componentDidUpdate() {
-    // focus the center page after swipe
     if(this.props.isKeyboardShow) {
-      const book = this.props.book;
-      const dataKey = getPageDataKey(book);
-      this.inputs[dataKey].focus();
+      this.focusPage();
     }
     this.scrollToCenterPage();
   }

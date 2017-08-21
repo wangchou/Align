@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import BookSwipeView from './components/BookSwipeView';
 import KeyboardDimissButton from './components/KeyboardDismissButton';
+import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
   onVerticalScroll,
@@ -67,9 +68,12 @@ export default class OnigiriNote extends Component {
 
     let keyboardAvoidingView = null;
     let keyboardDismissButton = null;
+    let todayButton = null;
     if (isKeyboardShow) {
       keyboardAvoidingView = <View style={{height: keyboardHeight}} />;
       keyboardDismissButton = <KeyboardDimissButton keyboardHeight={keyboardHeight}/>;
+    } else {
+      todayButton = <TodayButton />;
     }
 
     return (
@@ -89,6 +93,7 @@ export default class OnigiriNote extends Component {
           {keyboardAvoidingView}
         </ScrollView>
         {keyboardDismissButton}
+        {todayButton}
         <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
       </View>
     );

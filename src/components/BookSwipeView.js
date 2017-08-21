@@ -23,6 +23,7 @@ const pageCenterIndex = 2;
 
 @connect((state, props) => ({
   book: state.books.byId[props.bookId],
+  bookTime: state.books.byId[props.bookId].time,
   isKeyboardShow: state.ui.keyboard.isKeyboardShow
 }),{
   swipeStarted,
@@ -71,7 +72,7 @@ export default class BookSwipeView extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.book.time !== props.book.time;
+           this.props.bookTime !== props.bookTime;
   }
 
   render() {

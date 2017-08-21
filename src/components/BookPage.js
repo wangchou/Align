@@ -32,6 +32,7 @@ export default class BookPage extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
+      this.props.dataKey !== nextProps.dataKey ||
       this.state.text !== nextState.text ||
       this.props.isOnSwipe !== nextProps.isOnSwipe ||
       this.state.isFocused !== nextState.isFocused

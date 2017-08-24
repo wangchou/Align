@@ -5,6 +5,8 @@ import {
   TextInput,
   Dimensions,
   Text,
+  TouchableHighlight,
+  Button
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setData} from '../actions/pageData';
@@ -52,14 +54,14 @@ export default class BookPage extends Component {
             this.textInput = textInput;
             this.props.inputRef(textInput);
           }}
-          value={this.state.text}
           editable={!isOnSwipe || this.state.isFocused}
           multiline
 
           // Event Handlers
           onChangeText={(text) => {
-            setData(dataKey, text);
-            this.setState({text});
+            console.log('onChangeText', text);
+            // setData(dataKey, text);
+            // this.setState({text});
           }}
           onEndEditing={() => {
             this.setState({isFocused: false});
@@ -72,7 +74,19 @@ export default class BookPage extends Component {
               focusedInputHeight = height;
             });
           }}
-        />
+          onSelectionChange={(event) => console.log(event.nativeEvent, event.nativeEvent.selection)}
+          onPress={()=>{alert('qoo');}}
+        >
+          {this.state.text}
+          <Text
+            style={{
+              color: 'rgba(126, 211, 33, 1)'
+            }}
+            onPress={()=>console.log('onPress')}
+          >
+           ☒
+          </Text>
+        </TextInput>
       </View>
     );
   }
@@ -107,5 +121,10 @@ const styles = StyleSheet.create({
     fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
+  },
+  checkbox: {
+    backgroundColor: 'pink',
+    width: 20,
+    height: 20
   }
 });

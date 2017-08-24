@@ -11,7 +11,7 @@ import {
   AppRegistry,
 } from 'react-native';
 
-const storeVersion = '日富美';
+const storeVersion = '日富美 88';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))

@@ -38,7 +38,6 @@ export default class FloatEditBar extends Component {
         <Button
           ref={r => this.checkboxButton = r}
           title={'☐'}
-          style={styles.checkboxButton}
           color={'rgba(126, 211, 33, 1)'}
           onPress={()=>{this.checkboxButton.title = 'o'}}
         />

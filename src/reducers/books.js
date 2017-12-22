@@ -1,10 +1,15 @@
 import moment from 'moment';
 import {
-  CHANGE_BOOK_PAGE
+  CHANGE_BOOK_PAGE,
+  GOTO_TODAY_PAGE
 } from '../actions/actionTypes';
+import {
+  getNow,
+  getStartOfWeekTime
+} from '../utils/books';
 
-const now = moment().format();
-const startOfWeek = moment().startOf('isoweek').format();
+const now = getNow();
+const startOfWeek = getStartOfWeekTime();
 const intitialState = {
   byId: {
     "year book": {
@@ -53,6 +58,19 @@ export default (state = intitialState, action) => {
           }
         }
       }
+    case GOTO_TODAY_PAGE:
+      const newById = { ...state.byId };
+      state.bookshelfIds.forEach(bookId => {
+        if (newById[bookId].unit !== 'weeks') {
+          newById[bookId].time = getNow();
+        } else {
+          newById[bookId].time = getStartOfWeekTime();
+        }
+      });
+      return {
+        ...state,
+        byId: newById
+      };
   }
   return state;
 }

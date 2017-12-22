@@ -8,7 +8,8 @@ import {
   Dimensions,
 } from 'react-native';
 import BookSwipeView from './components/BookSwipeView';
-import KeyboardDimissButton from './components/KeyboardDismissButton';
+import FloatEditBar from './components/FloatEditBar';
+import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
   onVerticalScroll,
@@ -66,10 +67,13 @@ export default class OnigiriNote extends Component {
     );
 
     let keyboardAvoidingView = null;
-    let keyboardDismissButton = null;
+    let floatEditBar = null;
+    let todayButton = null;
     if (isKeyboardShow) {
       keyboardAvoidingView = <View style={{height: keyboardHeight}} />;
-      keyboardDismissButton = <KeyboardDimissButton keyboardHeight={keyboardHeight}/>;
+      floatEditBar = <FloatEditBar keyboardHeight={keyboardHeight}/>;
+    } else {
+      todayButton = <TodayButton />;
     }
 
     return (
@@ -88,7 +92,8 @@ export default class OnigiriNote extends Component {
           <StatusBar hidden />
           {keyboardAvoidingView}
         </ScrollView>
-        {keyboardDismissButton}
+        {floatEditBar}
+        {todayButton}
         <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
       </View>
     );

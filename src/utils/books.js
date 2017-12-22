@@ -11,8 +11,18 @@ export const getPageDataKey = (book, shift = 0) => {
                            .add(shift, book.unit)
                            .format(book.dataKeyFormat);
 }
+
 export const getPageTitle = (book, shift = 0) => {
   return moment(book.time)
            .add(shift, book.unit)
            .format(book.titleFormat);
 }
+
+export const getStartOfWeekTime = () => {
+  return moment().startOf('isoweek').format();
+};
+
+export const getNow = () => {
+  return moment().format();
+};
+

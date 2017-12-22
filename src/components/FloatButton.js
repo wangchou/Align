@@ -7,12 +7,13 @@ import {
   Text
 } from 'react-native';
 
-export default class KeyboardDimissButton extends Component {
+export default class FloatButton extends Component {
   render() {
-    const styles = StyleSheet.create({
+    const {color, underColor, bottom, onPress, text} = this.props;
+    const styles = {
       button: {
-        backgroundColor: '#ff5722',
-        borderColor: '#ff5722',
+        backgroundColor: color,
+        borderColor: color,
         borderWidth: 1,
         height: 40,
         width: 40,
@@ -20,7 +21,7 @@ export default class KeyboardDimissButton extends Component {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: this.props.keyboardHeight + 10,
+        bottom,
         right:10,
         shadowColor: "#000000",
         shadowOpacity: 0.8,
@@ -34,19 +35,20 @@ export default class KeyboardDimissButton extends Component {
         fontSize: 20,
         color: 'white'
       }
-    });
+    };
     return (
       <View>
         <TouchableHighlight
           style={styles.button}
-          underlayColor='#ff7043'
+          underlayColor={underColor}
 
           // Event Handler
-          onPress={Keyboard.dismiss}
+          onPress={onPress}
         >
-          <Text style={styles.text}>v</Text>
+          <Text style={styles.text}>{text}</Text>
         </TouchableHighlight>
       </View>
     );
   }
 }
+

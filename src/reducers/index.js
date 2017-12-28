@@ -1,10 +1,10 @@
 import {combineReducers} from 'redux';
 import books from './books';
-import pageData from './pageData';
+import pages from './pages';
 import ui from './ui';
 
 export default combineReducers({
   books,
-  pageData,
+  pages,
   ui
 });

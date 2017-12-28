@@ -9,10 +9,10 @@ import {
   Button
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setData} from '../actions/pageData';
+import {setData} from '../actions/pages';
 
 @connect((state, props) => ({
-  pageData: state.pageData[props.dataKey] || null,
+  page: state.pages[props.dataKey] || null,
   isOnSwipe: state.ui.isOnSwipe
 }), {
   setData
@@ -21,14 +21,14 @@ export default class BookPage extends Component {
   constructor(props) {
      super(props);
      this.state = {
-       text: props.pageData,
+       text: props.page,
        isFocused: false
      };
   }
 
   componentWillReceiveProps(props) {
-    if (props.pageData !== this.state.text) {
-      this.setState({text: props.pageData});
+    if (props.page !== this.state.text) {
+      this.setState({text: props.page});
     }
   }
 

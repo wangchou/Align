@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  CHANGE_BOOK_PAGE,
+  GOTO_PAGE,
   GOTO_TODAY_PAGE
 } from '../actions/actionTypes';
 import {
@@ -46,7 +46,7 @@ const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case CHANGE_BOOK_PAGE:
+    case GOTO_PAGE:
       const book = state.byId[action.bookId];
       return {
         ...state,

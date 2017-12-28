@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BookPage from './BookPage';
+import Page from './Page';
 import {
   StyleSheet,
   ScrollView,
@@ -30,7 +30,7 @@ const pageCenterIndex = 2;
   swipeEnded,
   changeBookPage
 })
-export default class BookSwipeView extends Component {
+export default class Book extends Component {
   constructor(props) {
     super(props);
     this.isKeyboardShow = false;
@@ -82,7 +82,7 @@ export default class BookSwipeView extends Component {
         const title = getPageTitle(book, shift);
         const dataKey = getPageDataKey(book, shift);
         return (
-          <BookPage
+          <Page
             key={dataKey}
             title={title}
             dataKey={dataKey}

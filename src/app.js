@@ -7,7 +7,7 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import BookSwipeView from './components/BookSwipeView';
+import Book from './components/Book';
 import FloatEditBar from './components/FloatEditBar';
 import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
@@ -60,7 +60,7 @@ export default class OnigiriNote extends Component {
     } = this.props;
 
     const bookViews = books.map(book =>
-       <BookSwipeView
+       <Book
         key={book.id}
         bookId={book.id}
        />

@@ -7,7 +7,7 @@ import {
 import {
   keyboardWillShow,
   keyboardWillHide,
-} from '../actions/ui';
+} from '../actions/actions';
 
 const windowHeight = Dimensions.get('window').height;
 

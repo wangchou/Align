@@ -8,8 +8,11 @@ import {
   View
 } from 'react-native';
 import {connect} from 'react-redux';
-import {swipeStarted, swipeEnded} from '../actions/ui';
-import {changeBookPage} from '../actions/books';
+import {
+  swipeStarted,
+  swipeEnded,
+  gotoPage
+} from '../actions/actions';
 import {
   getTime,
   getPageDataKey,
@@ -28,7 +31,7 @@ const pageCenterIndex = 2;
 }),{
   swipeStarted,
   swipeEnded,
-  changeBookPage
+  gotoPage
 })
 export default class Book extends Component {
   constructor(props) {
@@ -43,7 +46,7 @@ export default class Book extends Component {
     const shift = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
     if (Math.abs(shift) >= 1) {
       const book = this.props.book;
-      this.props.changeBookPage(book.id, getTime(book, shift));
+      this.props.gotoPage(book.id, getTime(book, shift));
     }
   }
 

@@ -15,7 +15,7 @@ import {
   onVerticalScroll,
   swipeStarted,
   swipeEnded
-} from './actions/ui';
+} from './actions/actions';
 
 @connect(state => ({
   books: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),

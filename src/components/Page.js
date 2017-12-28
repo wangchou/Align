@@ -9,7 +9,7 @@ import {
   Button
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setData} from '../actions/pages';
+import {setData}  from '../actions/actions';
 
 @connect((state, props) => ({
   page: state.pages[props.dataKey] || null,
@@ -26,6 +26,7 @@ export default class BookPage extends Component {
      };
   }
 
+  // React Life-cycle methods
   componentWillReceiveProps(props) {
     if (props.page !== this.state.text) {
       this.setState({text: props.page});
@@ -88,6 +89,7 @@ export default class BookPage extends Component {
   }
 }
 
+// Component Styles
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const fontSize = Math.min(windowWidth, windowHeight) / 20;

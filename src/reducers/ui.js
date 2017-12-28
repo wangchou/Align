@@ -4,7 +4,7 @@ import {
   ON_VERTICAL_SCROLL,
   INPUT_SWIPE_STARTED,
   INPUT_SWIPE_ENDED
-} from '../actions/actionTypes';
+} from '../actions/actions';
 
 const intitialState = {
   keyboard: {

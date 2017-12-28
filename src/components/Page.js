@@ -79,12 +79,8 @@ export default class BookPage extends Component {
         >
           {this.state.text}
           <Text
-            style={{
-              color: 'rgba(126, 211, 33, 1)'
-            }}
             onPress={()=>console.log('onPress')}
           >
-           ☒
           </Text>
         </TextInput>
       </View>

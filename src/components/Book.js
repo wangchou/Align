@@ -37,6 +37,7 @@ export default class Book extends Component {
     this.inputs = {};
   }
 
+  // section: Event Handlers and utils
   // doing the hard coded infinite scroll
   onScrollEnd = (event) => {
     const shift = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
@@ -59,6 +60,7 @@ export default class Book extends Component {
     this.inputs[dataKey].focus();
   }
 
+  // section: React Life-cycle methods
   componentDidMount() {
     this.scrollToCenterPage();
   }

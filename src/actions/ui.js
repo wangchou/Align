@@ -12,9 +12,7 @@ export const keyboardWillShow = (keyboardHeight) => ({
   keyboardHeight
 });
 
-export const keyboardWillHide = (keyboardHeight) => ({
-  type: KEYBOARD_WILL_HIDE,
-});
+export const keyboardWillHide = () => ({type: KEYBOARD_WILL_HIDE});
 
 export const onVerticalScroll = (scrollY) => ({
   type: ON_VERTICAL_SCROLL,

@@ -7,6 +7,7 @@ import {
   getNow,
   getStartOfWeekTime
 } from '../utils/books';
+import immutable from 'object-path-immutable'
 
 const now = getNow();
 const startOfWeek = getStartOfWeekTime();
@@ -41,26 +42,16 @@ const intitialState = {
       dataKeyFormat: "YYYY MMM DD",
     }
   },
-  bookshelfIds: ["year book", "month book", "week book", "day book"]
+  ids: ["year book", "month book", "week book", "day book"]
 };
 
 export default (state = intitialState, action) => {
   switch (action.type) {
     case GOTO_PAGE:
-      const book = state.byId[action.bookId];
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [action.bookId]: {
-            ...book,
-            time: action.time
-          }
-        }
-      }
+      return immutable.set(state, ["byId", action.bookId, "time"], action.time);
     case GOTO_TODAY_PAGE:
       const newById = { ...state.byId };
-      state.bookshelfIds.forEach(bookId => {
+      state.ids.forEach(bookId => {
         if (newById[bookId].unit !== 'weeks') {
           newById[bookId].time = getNow();
         } else {

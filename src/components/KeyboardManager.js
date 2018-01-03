@@ -7,7 +7,7 @@ import {
 import {
   keyboardWillShow,
   keyboardWillHide,
-} from '../actions/actions';
+} from '../actions';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -25,7 +25,6 @@ global.focusedInputHeight = 0;
 
 @connect(state => ({
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
-  isKeyboardShown: state.ui.keyboard.isKeyboardShown,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
   scrollY: state.ui.scrollY,
   isOnSwipe: state.ui.isOnSwipe

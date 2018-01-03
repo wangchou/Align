@@ -12,7 +12,7 @@ import {
   swipeStarted,
   swipeEnded,
   gotoPage
-} from '../actions/actions';
+} from '../actions';
 import {
   getTime,
   getPageDataKey,

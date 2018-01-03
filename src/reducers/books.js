@@ -2,7 +2,7 @@ import moment from 'moment';
 import {
   GOTO_PAGE,
   GOTO_TODAY_PAGE
-} from '../actions/actions';
+} from '../actions';
 import {
   getNow,
   getStartOfWeekTime

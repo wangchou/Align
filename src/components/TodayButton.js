@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FloatButton from './FloatButton';
 import {connect} from 'react-redux';
-import {gotoTodayPage} from '../actions/actions';
+import {gotoTodayPage} from '../actions';
 
 @connect(null, {
   gotoTodayPage

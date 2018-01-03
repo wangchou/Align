@@ -1,4 +1,4 @@
-import {SET_PAGE_DATA} from '../actions/actions';
+import {SET_PAGE_DATA} from '../actions';
 import immutable from 'object-path-immutable'
 
 const intitialState = {};

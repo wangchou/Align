@@ -9,7 +9,7 @@ import {
   Button
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setData}  from '../actions/actions';
+import {setData}  from '../actions';
 
 @connect((state, props) => ({
   page: state.pages[props.dataKey] || null,
@@ -17,7 +17,7 @@ import {setData}  from '../actions/actions';
 }), {
   setData
 })
-export default class BookPage extends Component {
+export default class Page extends Component {
   constructor(props) {
      super(props);
      this.state = {
@@ -60,9 +60,8 @@ export default class BookPage extends Component {
 
           // Event Handlers
           onChangeText={(text) => {
-            console.log('onChangeText', text);
-            // setData(dataKey, text);
-            // this.setState({text});
+            setData(dataKey, text);
+            this.setState({text});
           }}
           onEndEditing={() => {
             this.setState({isFocused: false});
@@ -75,14 +74,8 @@ export default class BookPage extends Component {
               focusedInputHeight = height;
             });
           }}
-          onSelectionChange={(event) => console.log(event.nativeEvent, event.nativeEvent.selection)}
-          onPress={()=>{alert('qoo');}}
         >
           {this.state.text}
-          <Text
-            onPress={()=>console.log('onPress')}
-          >
-          </Text>
         </TextInput>
       </View>
     );

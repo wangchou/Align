@@ -15,10 +15,12 @@ import {
   onVerticalScroll,
   swipeStarted,
   swipeEnded
-} from './actions/actions';
+} from './actions';
 
 @connect(state => ({
+  // data
   books: state.books.ids.map(bookId => state.books.byId[bookId]),
+  // ui state
   isKeyboardShow: state.ui.keyboard.isKeyboardShow,
   keyboardHeight: state.ui.keyboard.keyboardHeight,
   isOnSwipe: state.ui.isOnSwipe,
@@ -80,7 +82,7 @@ export default class OnigiriNote extends Component {
       <View>
         <ScrollView
           style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
-          ref={(scrollView) => {this.scrollView = scrollView}}
+          ref={ref => {this.scrollView = ref}}
           keyboardShouldPersistTaps={'always'}
 
           // Event Handlers

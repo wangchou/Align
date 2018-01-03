@@ -22,7 +22,7 @@ export default class Page extends Component {
      super(props);
      this.state = {
        text: props.text,
-       isFocused: false
+       isEditable: true
      };
   }
 
@@ -32,12 +32,7 @@ export default class Page extends Component {
     this.setState({text});
   }
 
-  onEndEditing = () => {
-    this.setState({isFocused: false});
-  }
-
   onFocus = (e) => {
-    this.setState({isFocused: true});
     this.textInput.measure((ox, oy, width, height, px, py) => {
       focusedInputOY = oy;
       focusedInputPY = py;
@@ -47,15 +42,17 @@ export default class Page extends Component {
 
   // React Life-cycle methods
   componentWillReceiveProps(props) {
-    this.setState({text: props.text});
+    this.setState({
+      text: props.text,
+      isEditable: this.textInput.isFocused() || !props.isOnSwipe
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      this.props.isOnSwipe !== nextProps.isOnSwipe ||
-      this.state.text !== nextState.text ||
-      this.state.isFocused !== nextState.isFocused
+      this.state.isEditable !== nextState.isEditable ||
+      this.state.text !== nextState.text
     );
   }
 
@@ -73,9 +70,8 @@ export default class Page extends Component {
             this.props.inputRef(textInput);
           }}
           onChangeText={this.onChangeText}
-          onEndEditing={this.onEndEditing}
           onFocus={this.onFocus}
-          editable={!isOnSwipe || this.state.isFocused}
+          editable={this.state.isEditable}
           multiline
         >
           {this.state.text}

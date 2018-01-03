@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import {
   Keyboard,
   Dimensions,
@@ -11,33 +10,15 @@ import {
 
 const windowHeight = Dimensions.get('window').height;
 
-
-/*
- * KeyboardManager doing two things
- * 1. make sure keyboard not show when swiping textInput
- * 2. make keyboard avoiding focused textInput and show keyboard dismiss button
- *    when keyboard shows
- */
-
 global.focusedInputPY = 0; // PageY
 global.focusedInputOY = 0; // Relative Y to the parent of textInput
 global.focusedInputHeight = 0;
 
-@connect(state => ({
-  isOnSwipe: state.ui.isOnSwipe
-}))
 export default class KeyboardManager extends Component {
   componentDidMount() {
     this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
-      // do not dismiss keyboard after keyboard show up
-      if(!this.props.isKeyboardShow && this.props.isOnSwipe) {
-        Keyboard.dismiss();
-      } else {
-        const keyboardHeight = event.endCoordinates.height;
-        this.props.onKeyboardWillShow(keyboardHeight);
-        // cannot doing the keyboard scroll here
-        // because not knowing which textInput is focused
-      }
+      const keyboardHeight = event.endCoordinates.height;
+      this.props.onKeyboardWillShow(keyboardHeight);
     });
 
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.props.onKeyboardWillHide);

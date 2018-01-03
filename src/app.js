@@ -12,7 +12,6 @@ import FloatEditBar from './components/FloatEditBar';
 import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
-  onVerticalScroll,
   swipeStarted,
   swipeEnded
 } from './actions';
@@ -25,13 +24,29 @@ import {
   keyboardHeight: state.ui.keyboard.keyboardHeight,
   isOnSwipe: state.ui.isOnSwipe,
 }), {
-  onVerticalScroll,
   swipeStarted,
   swipeEnded
 })
 export default class OnigiriNote extends Component {
+  constructor(){
+    super();
+    this.state = {
+      scrollY: 0,
+      isKeyboardShow: false,
+      keyboardHeight: 0
+    };
+  }
+
   onScroll = (event) => {
-    this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
+    this.setState({scrollY: event.nativeEvent.contentOffset.y});
+  }
+
+  onKeyboardWillShow = (height) => {
+    this.setState({keyboardHeight: height, isKeyboardShow: true});
+  }
+
+  onKeyboardWillHide = () => {
+    this.setState({isKeyboardShow: false});
   }
 
   verticalScrollTo = y => this.scrollView.scrollTo({y})
@@ -48,23 +63,13 @@ export default class OnigiriNote extends Component {
     }
   }
 
-  shouldComponentUpdate(props) {
-    return this.props.isKeyboardShow !== props.isKeyboardShow ||
-           this.props.keyboardHeight !== props.keyboardHeight;
-  }
-
   render() {
-    const {
-      isKeyboardShow,
-      keyboardHeight,
-      books,
-      onVerticalScroll
-    } = this.props;
-
-    const bookViews = books.map(book =>
+    const {isKeyboardShow, keyboardHeight, scrollY} = this.state;
+    const bookViews = this.props.books.map(book =>
        <Book
         key={book.id}
         bookId={book.id}
+        isKeyboardShow={isKeyboardShow}
        />
     );
 
@@ -96,7 +101,14 @@ export default class OnigiriNote extends Component {
         </ScrollView>
         {floatEditBar}
         {todayButton}
-        <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
+        <KeyboardManager
+          isKeyboardShow={isKeyboardShow}
+          keyboardHeight={keyboardHeight}
+          onKeyboardWillShow={this.onKeyboardWillShow}
+          onKeyboardWillHide={this.onKeyboardWillHide}
+          scrollY={scrollY}
+          verticalScrollTo={this.verticalScrollTo}
+        />
       </View>
     );
   }

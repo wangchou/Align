@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
 import OnigiriNote from './src/app';
-import { Provider } from 'react-redux';
-import {applyMiddleware, createStore, compose} from 'redux';
-import {persistStore, autoRehydrate} from 'redux-persist';
-import thunk from 'redux-thunk';
 import reducers from './src/reducers';
-import {AsyncStorage, View} from 'react-native';
+
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { applyMiddleware, createStore, compose } from 'redux';
+import { persistStore, autoRehydrate } from 'redux-persist';
+import thunk from 'redux-thunk';
+import { AsyncStorage, View } from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {
-  AppRegistry,
-} from 'react-native';
+import { AppRegistry } from 'react-native';
 
 const storeVersion = '日富美0000';
 const store = compose(autoRehydrate())(createStore)(

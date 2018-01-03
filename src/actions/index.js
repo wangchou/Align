@@ -13,7 +13,6 @@ export const KEYBOARD_WILL_HIDE = 'KEYBOARD_WILL_HIDE';
 export const INPUT_FOCUSED = 'INPUT_FOCUSED';
 export const INPUT_SWIPE_STARTED = 'SWIPE START';
 export const INPUT_SWIPE_ENDED = 'SWIPE END';
-export const ON_VERTICAL_SCROLL = 'ON VERTICAL SCROLL';
 
 const actionCreatorCreator = (actionType, names=null) => (...rest) => {
   if(names == null){
@@ -37,9 +36,5 @@ export const gotoTodayPage = actionCreatorCreator(GOTO_TODAY_PAGE);
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['dataKey', 'data']);
 
 // ui
-export const keyboardWillShow = actionCreatorCreator(KEYBOARD_WILL_SHOW, ['keyboardHeight']);
-export const keyboardWillHide = actionCreatorCreator(KEYBOARD_WILL_HIDE);
-
-export const onVerticalScroll = actionCreatorCreator(ON_VERTICAL_SCROLL, ['scrollY']);
 export const swipeStarted = actionCreatorCreator(INPUT_SWIPE_STARTED);
 export const swipeEnded = actionCreatorCreator(INPUT_SWIPE_ENDED);

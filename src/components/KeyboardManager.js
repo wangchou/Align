@@ -24,14 +24,8 @@ global.focusedInputOY = 0; // Relative Y to the parent of textInput
 global.focusedInputHeight = 0;
 
 @connect(state => ({
-  isKeyboardShow: state.ui.keyboard.isKeyboardShow,
-  keyboardHeight: state.ui.keyboard.keyboardHeight,
-  scrollY: state.ui.scrollY,
   isOnSwipe: state.ui.isOnSwipe
-}), {
-  keyboardWillShow,
-  keyboardWillHide,
-})
+}))
 export default class KeyboardManager extends Component {
   componentDidMount() {
     this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
@@ -40,13 +34,13 @@ export default class KeyboardManager extends Component {
         Keyboard.dismiss();
       } else {
         const keyboardHeight = event.endCoordinates.height;
-        this.props.keyboardWillShow(keyboardHeight);
+        this.props.onKeyboardWillShow(keyboardHeight);
         // cannot doing the keyboard scroll here
         // because not knowing which textInput is focused
       }
     });
 
-    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.props.keyboardWillHide);
+    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.props.onKeyboardWillHide);
 
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
       if(focusedInputPY === 0) return;

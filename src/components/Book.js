@@ -25,9 +25,7 @@ const snapToInterval = windowWidth + pageSeparatorWidth;
 const pageCenterIndex = 2;
 
 @connect((state, props) => ({
-  book: state.books.byId[props.bookId],
-  bookTime: state.books.byId[props.bookId].time,
-  isKeyboardShow: state.ui.keyboard.isKeyboardShow
+  book: state.books.byId[props.bookId]
 }),{
   swipeStarted,
   swipeEnded,
@@ -36,7 +34,6 @@ const pageCenterIndex = 2;
 export default class Book extends Component {
   constructor(props) {
     super(props);
-    this.isKeyboardShow = false;
     this.inputs = {};
   }
 
@@ -77,7 +74,7 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.bookTime !== props.bookTime;
+           this.props.book.time !== props.book.time;
   }
 
   render() {

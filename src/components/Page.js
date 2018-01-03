@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import {setData}  from '../actions';
 
 @connect((state, props) => ({
-  page: state.pages[props.dataKey] || null,
+  text: state.pages[props.dataKey] || null,
   isOnSwipe: state.ui.isOnSwipe
 }), {
   setData
@@ -21,29 +21,46 @@ export default class Page extends Component {
   constructor(props) {
      super(props);
      this.state = {
-       text: props.page,
+       text: props.text,
        isFocused: false
      };
   }
 
+  // Event Handlers
+  onChangeText = (text) => {
+    this.props.setData(this.props.dataKey, text);
+    this.setState({text});
+  }
+
+  onEndEditing = () => {
+    this.setState({isFocused: false});
+  }
+
+  onFocus = (e) => {
+    this.setState({isFocused: true});
+    this.textInput.measure((ox, oy, width, height, px, py) => {
+      focusedInputOY = oy;
+      focusedInputPY = py;
+      focusedInputHeight = height;
+    });
+  }
+
   // React Life-cycle methods
   componentWillReceiveProps(props) {
-    if (props.page !== this.state.text) {
-      this.setState({text: props.page});
-    }
+    this.setState({text: props.text});
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      this.state.text !== nextState.text ||
       this.props.isOnSwipe !== nextProps.isOnSwipe ||
+      this.state.text !== nextState.text ||
       this.state.isFocused !== nextState.isFocused
     );
   }
 
   render() {
-    const { title, dataKey, setData, isOnSwipe } = this.props;
+    const { title, isOnSwipe } = this.props;
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
@@ -55,25 +72,11 @@ export default class Page extends Component {
             this.textInput = textInput;
             this.props.inputRef(textInput);
           }}
+          onChangeText={this.onChangeText}
+          onEndEditing={this.onEndEditing}
+          onFocus={this.onFocus}
           editable={!isOnSwipe || this.state.isFocused}
           multiline
-
-          // Event Handlers
-          onChangeText={(text) => {
-            setData(dataKey, text);
-            this.setState({text});
-          }}
-          onEndEditing={() => {
-            this.setState({isFocused: false});
-          }}
-          onFocus={e => {
-            this.setState({isFocused: true});
-            this.textInput.measure((ox, oy, width, height, px, py) => {
-              focusedInputOY = oy;
-              focusedInputPY = py;
-              focusedInputHeight = height;
-            });
-          }}
         >
           {this.state.text}
         </TextInput>

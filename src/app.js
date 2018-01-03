@@ -17,11 +17,7 @@ import {
 } from './actions';
 
 @connect(state => ({
-  // data
   books: state.books.ids.map(bookId => state.books.byId[bookId]),
-  // ui state
-  isKeyboardShow: state.ui.keyboard.isKeyboardShow,
-  keyboardHeight: state.ui.keyboard.keyboardHeight,
   isOnSwipe: state.ui.isOnSwipe,
 }), {
   swipeStarted,

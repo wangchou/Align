@@ -3,10 +3,6 @@ import {
   Keyboard,
   Dimensions,
 } from 'react-native';
-import {
-  keyboardWillShow,
-  keyboardWillHide,
-} from '../actions';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -16,14 +12,11 @@ global.focusedInputHeight = 0;
 
 export default class KeyboardManager extends Component {
   componentDidMount() {
-    this.keyboardWillShowListener = Keyboard.addListener('keyboardWillShow', (event) => {
-      const keyboardHeight = event.endCoordinates.height;
-      this.props.onKeyboardWillShow(keyboardHeight);
-    });
-
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', this.props.onKeyboardWillHide);
 
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+      const keyboardHeight = event.endCoordinates.height;
+      this.props.onKeyboardWillShow(keyboardHeight);
       if(focusedInputPY === 0) return;
 
       const inputY = this.props.scrollY + focusedInputPY - focusedInputOY;
@@ -42,7 +35,6 @@ export default class KeyboardManager extends Component {
 
   componentWillUnmount() {
     this.keyboardWillHideListener.remove();
-    this.keyboardWillShowListener.remove();
     this.keyboardDidShowListener.remove();
   }
 

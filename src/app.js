@@ -48,6 +48,7 @@ export default class OnigiriNote extends Component {
   render() {
     const {isKeyboardShow, keyboardHeight, scrollY} = this.state;
     const {bookIds, setIsTouchMoving} = this.props;
+
     const bookViews = bookIds.map(bookId =>
        <Book
         key={bookId}

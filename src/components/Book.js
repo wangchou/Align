@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {
-  swipeStarted,
-  swipeEnded,
   gotoPage
 } from '../actions';
 import {
@@ -26,9 +24,7 @@ const pageCenterIndex = 2;
 
 @connect((state, props) => ({
   book: state.books.byId[props.bookId]
-}),{
-  swipeStarted,
-  swipeEnded,
+}), {
   gotoPage
 })
 export default class Book extends Component {

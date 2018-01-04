@@ -1,19 +1,16 @@
 import {
-  INPUT_SWIPE_STARTED,
-  INPUT_SWIPE_ENDED
+  SET_IS_TOUCH_MOVING
 } from '../actions';
 
 const intitialState = {
-  isOnSwipe: false
+  isTouchMoving: false
 };
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case INPUT_SWIPE_STARTED:
-      return { ...state, isOnSwipe: true};
+    case SET_IS_TOUCH_MOVING:
+      return { ...state, isTouchMoving: action.isTouchMoving };
 
-    case INPUT_SWIPE_ENDED:
-      return { ...state, isOnSwipe: false};
   }
   return state;
 }

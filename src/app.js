@@ -12,20 +12,18 @@ import FloatEditBar from './components/FloatEditBar';
 import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
-  swipeStarted,
-  swipeEnded
+  setIsTouchMoving
 } from './actions';
 
 @connect(state => ({
-  books: state.books.ids.map(bookId => state.books.byId[bookId]),
-  isOnSwipe: state.ui.isOnSwipe,
+  bookIds: state.books.ids,
+  isTouchMoving: state.ui.isTouchMoving,
 }), {
-  swipeStarted,
-  swipeEnded
+  setIsTouchMoving
 })
 export default class OnigiriNote extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       scrollY: 0,
       isKeyboardShow: false,
@@ -47,24 +45,13 @@ export default class OnigiriNote extends Component {
 
   verticalScrollTo = y => this.scrollView.scrollTo({y})
 
-  onTouchMove = () => {
-    if (!this.props.isOnSwipe) {
-      this.props.swipeStarted();
-    }
-  }
-
-  onTouchEnd = () => {
-    if (this.props.isOnSwipe) {
-      this.props.swipeEnded();
-    }
-  }
-
   render() {
     const {isKeyboardShow, keyboardHeight, scrollY} = this.state;
-    const bookViews = this.props.books.map(book =>
+    const {bookIds, setIsTouchMoving} = this.props;
+    const bookViews = bookIds.map(bookId =>
        <Book
-        key={book.id}
-        bookId={book.id}
+        key={bookId}
+        bookId={bookId}
         isKeyboardShow={isKeyboardShow}
        />
     );
@@ -88,13 +75,14 @@ export default class OnigiriNote extends Component {
 
           // Event Handlers
           onScroll={this.onScroll}
-          onTouchMove={this.onTouchMove}
-          onTouchEnd={this.onTouchEnd}
+          onTouchMove={() => setIsTouchMoving(true)}
+          onTouchEnd={() => setIsTouchMoving(false)}
         >
           {bookViews}
           <StatusBar hidden />
           {keyboardAvoidingView}
         </ScrollView>
+
         {floatEditBar}
         {todayButton}
         <KeyboardManager

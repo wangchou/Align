@@ -32,7 +32,7 @@ export default class KeyboardManager extends Component {
       const isInputBottomCoverByKeyboard = (focusedInputPY + focusedInputHeight + this.props.keyboardHeight) > windowHeight;
       if(isInputTopNotInView) {
         this.props.verticalScrollTo(inputY);
-      } else if(isInputBottomCoverByKeyboard){
+      } else if(isInputBottomCoverByKeyboard) {
         this.props.verticalScrollTo(alignInputBottomToKeyboardY);
       }
 

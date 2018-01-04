@@ -13,7 +13,7 @@ import {setData}  from '../actions';
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || null,
-  isOnSwipe: state.ui.isOnSwipe
+  isTouchMoving: state.ui.isTouchMoving
 }), {
   setData
 })
@@ -44,7 +44,7 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isEditable: this.textInput.isFocused() || !props.isOnSwipe
+      isEditable: this.textInput.isFocused() || !props.isTouchMoving
     });
   }
 
@@ -57,7 +57,7 @@ export default class Page extends Component {
   }
 
   render() {
-    const { title, isOnSwipe } = this.props;
+    const { title } = this.props;
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>

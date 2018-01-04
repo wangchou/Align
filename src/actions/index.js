@@ -7,8 +7,7 @@ export const GOTO_TODAY_PAGE = 'GOTO_TODAY_PAGE';
 export const SET_PAGE_DATA = 'SET PAGE DATA';
 
 // ui
-export const INPUT_SWIPE_STARTED = 'SWIPE START';
-export const INPUT_SWIPE_ENDED = 'SWIPE END';
+export const SET_IS_TOUCH_MOVING = 'SET IS TOUCH MOVING';
 
 const actionCreatorCreator = (actionType, names=null) => (...rest) => {
   if(names == null){
@@ -32,5 +31,4 @@ export const gotoTodayPage = actionCreatorCreator(GOTO_TODAY_PAGE);
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['dataKey', 'data']);
 
 // ui
-export const swipeStarted = actionCreatorCreator(INPUT_SWIPE_STARTED);
-export const swipeEnded = actionCreatorCreator(INPUT_SWIPE_ENDED);
+export const setIsTouchMoving = actionCreatorCreator(SET_IS_TOUCH_MOVING, ['isTouchMoving']);

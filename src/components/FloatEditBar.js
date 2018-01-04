@@ -36,12 +36,6 @@ export default class FloatEditBar extends Component {
     return (
       <View style={styles.editBar}>
         <Button
-          ref={r => this.checkboxButton = r}
-          title={'☐'}
-          color={'rgba(126, 211, 33, 1)'}
-          onPress={()=>{this.checkboxButton.title = 'o'}}
-        />
-        <Button
           title={'完了'}
           color={'rgba(125, 125, 125, 1)'}
           onPress={Keyboard.dismiss}

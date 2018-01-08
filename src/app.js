@@ -57,6 +57,7 @@ export default class OnigiriNote extends Component {
           keyboardShouldPersistTaps={'always'}
           scrollEventThrottle={16}
 
+          keyboardDismissMode={'interactive'}
           // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={onTouchMove}
@@ -66,7 +67,6 @@ export default class OnigiriNote extends Component {
           <StatusBar hidden />
           <KeyboardAvoidingView />
         </ScrollView>
-        <FloatEditBar />
         <TodayButton />
         <KeyboardManager />
       </View>

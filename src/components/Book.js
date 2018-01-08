@@ -51,6 +51,15 @@ export default class Book extends Component {
     });
   }
 
+  onScroll = (event) => {
+    const shift = Math.round(event.nativeEvent.contentOffset.x/snapToInterval) - pageCenterIndex;
+    if(shift !== 0) {
+      if(this.props.isKeyboardShow) {
+        this.focusPage(shift);
+      }
+    }
+  }
+
   focusPage = (shift = 0) => {
     const book = this.props.book;
     const dataKey = getPageDataKey(book, shift);
@@ -99,6 +108,8 @@ export default class Book extends Component {
         decelerationRate={'fast'}
         keyboardShouldPersistTaps={'always'}
         snapToInterval={snapToInterval}
+        onScroll={this.onScroll}
+        scrollEventThrottle={16}
 
         // Event Handler
         onMomentumScrollEnd= {this.onMomentumScrollEnd}

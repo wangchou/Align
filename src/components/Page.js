@@ -13,7 +13,11 @@ import {setData}  from '../actions';
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || null,
-  isTouchMoving: state.ui.isTouchMoving
+  isTouchMoving: state.ui.isTouchMoving,
+  isKeyboardShow: state.ui.isKeyboardShow,
+  keyboardHeight: state.ui.keyboardHeight,
+  scrollY: state.ui.scrollY,
+  scrollTo: state.ui.scrollTo
 }), {
   setData
 })
@@ -34,9 +38,21 @@ export default class Page extends Component {
 
   onFocus = (e) => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
-      focusedInputPY = py - oy;
-      focusedInputHeight = height;
-      console.log(`onFocus: \n\tpy:${focusedInputPY},\n\theight:${height}`);
+      const focusedInputPY = py - oy;
+      const focusedInputHeight = height;
+
+      const floatEditBarHeight = 45;
+      const keyboardHeight = this.props.keyboardHeight + floatEditBarHeight;
+      const inputY = this.props.scrollY + focusedInputPY;
+      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + keyboardHeight)
+
+      const isInputTopNotInView = focusedInputPY < 0;
+      const isInputBottomNotInView = (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight;
+      if(isInputTopNotInView) {
+        this.props.scrollTo(inputY);
+      } else if(isInputBottomNotInView) {
+        this.props.scrollTo(alignInputBottomToKeyboardY);
+      }
     });
   }
 

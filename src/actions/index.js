@@ -36,3 +36,4 @@ export const setIsTouchMoving = actionCreatorCreator(SET_UI_STATE, ['isTouchMovi
 export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY']);
 export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHeight']);
 export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow']);
+export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo']);

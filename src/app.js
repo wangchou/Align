@@ -14,7 +14,8 @@ import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
   setIsTouchMoving,
-  setScrollY
+  setScrollY,
+  setScrollTo
 } from './actions';
 
 @connect(state => ({
@@ -22,14 +23,17 @@ import {
 }), {
   onTouchMove: () => setIsTouchMoving(true),
   onTouchEnd: () => setIsTouchMoving(false),
-  setScrollY
+  setScrollY,
+  setScrollTo
 })
 export default class OnigiriNote extends Component {
   onScroll = (event) => {
-    setScrollY(event.nativeEvent.contentOffset.y);
+    this.props.setScrollY(event.nativeEvent.contentOffset.y);
   }
 
-  verticalScrollTo = y => this.scrollView.scrollTo({y})
+  componentDidMount() {
+    this.props.setScrollTo(y => this.scrollView.scrollTo({y}));
+  }
 
   render() {
     const {
@@ -64,7 +68,7 @@ export default class OnigiriNote extends Component {
         </ScrollView>
         <FloatEditBar />
         <TodayButton />
-        <KeyboardManager verticalScrollTo={this.verticalScrollTo} />
+        <KeyboardManager />
       </View>
     );
   }

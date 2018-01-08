@@ -6,7 +6,8 @@ const intitialState = {
   isTouchMoving: false,
   isKeyboardShow: false,
   keyboardHeight: 0,
-  scrollY: 0
+  scrollY: 0,
+  scrollTo: () => {}
 };
 
 export default (state = intitialState, action) => {

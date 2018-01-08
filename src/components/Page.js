@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import {setData}  from '../actions';
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || null,
+  text: state.pages[props.dataKey] || '',
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -39,10 +39,9 @@ export default class Page extends Component {
   onFocus = (e) => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy;
-      const focusedInputHeight = height;
+      const focusedInputHeight = height + oy;
 
-      const floatEditBarHeight = 45;
-      const keyboardHeight = this.props.keyboardHeight + floatEditBarHeight;
+      const keyboardHeight = this.props.keyboardHeight;
       const inputY = this.props.scrollY + focusedInputPY;
       const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + keyboardHeight)
 

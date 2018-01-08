@@ -36,7 +36,7 @@ export default class Book extends Component {
 
   // section: Event Handlers and utils
   // doing the hard coded infinite scroll
-  onScrollEnd = (event) => {
+  onMomentumScrollEnd = (event) => {
     const shift = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
     if (Math.abs(shift) >= 1) {
       const book = this.props.book;
@@ -82,7 +82,7 @@ export default class Book extends Component {
         const dataKey = getPageDataKey(book, shift);
         return (
           <Page
-            key={dataKey}
+            key={shift}
             title={title}
             dataKey={dataKey}
             inputRef={r => {this.inputs[dataKey] = r;}}
@@ -101,7 +101,7 @@ export default class Book extends Component {
         snapToInterval={snapToInterval}
 
         // Event Handler
-        onMomentumScrollEnd= {this.onScrollEnd}
+        onMomentumScrollEnd= {this.onMomentumScrollEnd}
       >
         {pageViews[0]}
         <View style={styles.pageSeparator} />

@@ -38,7 +38,7 @@ const intitialState = {
       id: "day book",
       time: now,
       unit: "day",
-      titleFormat: "M月 D日 ddd",
+      titleFormat: "M月 D日 (ddd)",
       dataKeyFormat: "YYYY MMM DD",
     }
   },

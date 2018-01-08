@@ -50,13 +50,15 @@ export default (state = intitialState, action) => {
     case GOTO_PAGE:
       return immutable.set(state, ["byId", action.bookId, "time"], action.time);
     case GOTO_TODAY_PAGE:
-      const newById = { ...state.byId };
+      const newById = {};
       state.ids.forEach(bookId => {
-        if (newById[bookId].unit !== 'weeks') {
-          newById[bookId].time = getNow();
+        const newBook = { ...state.byId[bookId] };
+        if (newBook.unit !== 'weeks') {
+          newBook.time = getNow();
         } else {
-          newById[bookId].time = getStartOfWeekTime();
+          newBook.time = getStartOfWeekTime();
         }
+        newById[bookId] = newBook;
       });
       return {
         ...state,

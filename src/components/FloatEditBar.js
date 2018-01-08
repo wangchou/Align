@@ -21,11 +21,12 @@ export default class FloatEditBar extends Component {
     if(!this.props.isKeyboardShow) return null;
     const styles = {
       editBar: {
-        width: windowWidth,
+        width: 60,
         height: 45,
 
         position: 'absolute',
         bottom: this.props.keyboardHeight,
+        right: 0,
 
         flex: 1,
         flexDirection: 'row',
@@ -34,6 +35,7 @@ export default class FloatEditBar extends Component {
 
         backgroundColor: 'rgba(240, 240, 240, 1)',
         borderTopWidth: 0.5,
+        borderLeftWidth: 0.5,
         borderBottomWidth: 0.5,
         borderColor: 'rgba(155, 155, 155, 0.2)'
       }

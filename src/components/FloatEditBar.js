@@ -21,7 +21,7 @@ export default class FloatEditBar extends Component {
     if(!this.props.isKeyboardShow) return null;
     const styles = {
       editBar: {
-        width: 60,
+        width: windowWidth,
         height: 45,
 
         position: 'absolute',

@@ -7,7 +7,7 @@ export const GOTO_TODAY_PAGE = 'GOTO_TODAY_PAGE';
 export const SET_PAGE_DATA = 'SET PAGE DATA';
 
 // ui
-export const SET_IS_TOUCH_MOVING = 'SET IS TOUCH MOVING';
+export const SET_UI_STATE = 'SET UI STATE';
 
 const actionCreatorCreator = (actionType, names=null) => (...rest) => {
   if(names == null){
@@ -17,6 +17,7 @@ const actionCreatorCreator = (actionType, names=null) => (...rest) => {
     names.forEach((name, i) => dataObject[name] = rest[i]);
     return {
       type: actionType,
+      names,
       ...dataObject
     };
   }
@@ -31,4 +32,7 @@ export const gotoTodayPage = actionCreatorCreator(GOTO_TODAY_PAGE);
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['dataKey', 'data']);
 
 // ui
-export const setIsTouchMoving = actionCreatorCreator(SET_IS_TOUCH_MOVING, ['isTouchMoving']);
+export const setIsTouchMoving = actionCreatorCreator(SET_UI_STATE, ['isTouchMoving']);
+export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY']);
+export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHeight']);
+export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow']);

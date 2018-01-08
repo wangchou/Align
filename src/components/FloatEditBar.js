@@ -8,11 +8,17 @@ import {
   Text,
   Button
 } from 'react-native';
+import {connect} from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 
+@connect(state => ({
+  isKeyboardShow: state.ui.isKeyboardShow,
+  keyboardHeight: state.ui.keyboardHeight
+}))
 export default class FloatEditBar extends Component {
   render() {
+    if(!this.props.isKeyboardShow) return null;
     const styles = {
       editBar: {
         width: windowWidth,

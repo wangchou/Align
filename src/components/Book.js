@@ -23,7 +23,8 @@ const snapToInterval = windowWidth + pageSeparatorWidth;
 const pageCenterIndex = 2;
 
 @connect((state, props) => ({
-  book: state.books.byId[props.bookId]
+  book: state.books.byId[props.bookId],
+  isKeyboardShow: state.ui.isKeyboardShow
 }), {
   gotoPage
 })

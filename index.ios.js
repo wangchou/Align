@@ -10,7 +10,7 @@ import { AsyncStorage, View } from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { AppRegistry } from 'react-native';
 
-const storeVersion = '2018/1/4 17:15';
+const storeVersion = '2018/1/8 14:15';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
   composeWithDevTools(applyMiddleware(thunk))

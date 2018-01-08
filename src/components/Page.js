@@ -34,9 +34,9 @@ export default class Page extends Component {
 
   onFocus = (e) => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
-      focusedInputOY = oy;
-      focusedInputPY = py;
+      focusedInputPY = py - oy;
       focusedInputHeight = height;
+      console.log(`onFocus: \n\tpy:${focusedInputPY},\n\theight:${height}`);
     });
   }
 

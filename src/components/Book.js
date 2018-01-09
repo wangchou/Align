@@ -112,6 +112,8 @@ export default class Book extends Component {
         // Event Handler
         onMomentumScrollEnd= {this.onMomentumScrollEnd}
       >
+        // Warning: Do not put other component between pageViews
+        // or will get TextInput focus and rerender issue.
         {pageViews}
       </ScrollView>
     );

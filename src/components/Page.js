@@ -88,9 +88,8 @@ export default class Page extends Component {
           onFocus={this.onFocus}
           editable={this.state.isEditable}
           multiline
-        >
-          {this.state.text}
-        </TextInput>
+          value={this.state.text}
+        />
       </View>
     );
   }

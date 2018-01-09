@@ -7,7 +7,8 @@ const intitialState = {
   isKeyboardShow: false,
   keyboardHeight: 0,
   scrollY: 0,
-  scrollTo: () => {}
+  scrollTo: () => {},
+  focusedBookId: null
 };
 
 export default (state = intitialState, action) => {

@@ -24,7 +24,8 @@ const pageCenterIndex = 2;
 
 @connect((state, props) => ({
   book: state.books.byId[props.bookId],
-  isKeyboardShow: state.ui.isKeyboardShow
+  isKeyboardShow: state.ui.isKeyboardShow,
+  focusedBookId: state.ui.focusedBookId
 }), {
   gotoPage
 })
@@ -53,7 +54,8 @@ export default class Book extends Component {
 
   onScroll = (event) => {
     const shift = Math.round(event.nativeEvent.contentOffset.x/snapToInterval) - pageCenterIndex;
-    if(this.props.isKeyboardShow) {
+    if(this.props.isKeyboardShow &&
+       this.props.focusedBookId === this.props.book.id) {
       this.focusPage(shift);
     }
   }
@@ -61,7 +63,6 @@ export default class Book extends Component {
   focusPage = (shift = 0) => {
     const book = this.props.book;
     const dataKey = getPageDataKey(book, shift);
-
     this.inputs[dataKey].focus();
   }
 
@@ -71,9 +72,6 @@ export default class Book extends Component {
   }
 
   componentDidUpdate() {
-    if(this.props.isKeyboardShow) {
-      this.focusPage();
-    }
     this.scrollToCenterPage();
   }
 
@@ -91,6 +89,7 @@ export default class Book extends Component {
         return (
           <Page
             key={dataKey}
+            bookId={book.id}
             title={title}
             dataKey={dataKey}
             inputRef={r => {this.inputs[dataKey] = r;}}

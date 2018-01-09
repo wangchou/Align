@@ -9,7 +9,10 @@ import {
   Button
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setData}  from '../actions';
+import {
+  setData,
+  setFocusedBookId
+}  from '../actions';
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
@@ -19,7 +22,8 @@ import {setData}  from '../actions';
   scrollY: state.ui.scrollY,
   scrollTo: state.ui.scrollTo
 }), {
-  setData
+  setData,
+  setFocusedBookId
 })
 export default class Page extends Component {
   constructor(props) {
@@ -37,6 +41,7 @@ export default class Page extends Component {
   }
 
   onFocus = (e) => {
+    this.props.setFocusedBookId(this.props.bookId);
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy;
       const focusedInputHeight = height + oy;

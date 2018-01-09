@@ -53,16 +53,15 @@ export default class Book extends Component {
 
   onScroll = (event) => {
     const shift = Math.round(event.nativeEvent.contentOffset.x/snapToInterval) - pageCenterIndex;
-    if(shift !== 0) {
-      if(this.props.isKeyboardShow) {
-        this.focusPage(shift);
-      }
+    if(this.props.isKeyboardShow) {
+      this.focusPage(shift);
     }
   }
 
   focusPage = (shift = 0) => {
     const book = this.props.book;
     const dataKey = getPageDataKey(book, shift);
+
     this.inputs[dataKey].focus();
   }
 
@@ -91,7 +90,7 @@ export default class Book extends Component {
         const dataKey = getPageDataKey(book, shift);
         return (
           <Page
-            key={shift}
+            key={dataKey}
             title={title}
             dataKey={dataKey}
             inputRef={r => {this.inputs[dataKey] = r;}}
@@ -114,15 +113,7 @@ export default class Book extends Component {
         // Event Handler
         onMomentumScrollEnd= {this.onMomentumScrollEnd}
       >
-        {pageViews[0]}
-        <View style={styles.pageSeparator} />
-        {pageViews[1]}
-        <View style={styles.pageSeparator} />
-        {pageViews[2]}
-        <View style={styles.pageSeparator} />
-        {pageViews[3]}
-        <View style={styles.pageSeparator} />
-        {pageViews[4]}
+        {pageViews}
       </ScrollView>
     );
   }
@@ -136,9 +127,5 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
     borderRadius: 5
-  },
-  pageSeparator: {
-    width: pageSeparatorWidth,
-    backgroundColor: 'rgba(155, 155, 155, 0.3)'
   }
 });

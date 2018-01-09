@@ -104,12 +104,15 @@ const pageHeight = fontSize * 17;
 const titleHeight = 22;
 const semiBold = "600";
 const light="300";
+const pageSeparatorWidth = 20;
 const styles = StyleSheet.create({
   pageView: {
-    width: windowWidth,
+    width: windowWidth + pageSeparatorWidth,
     paddingTop: 5,
     paddingLeft: 10,
     paddingRight: 10,
+    borderColor: 'rgba(155, 155, 155, 0.3)',
+    borderRightWidth: 20,
   },
   pageTitle: {
     height: titleHeight,

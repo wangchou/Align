@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import FloatButton from './FloatButton';
 import {connect} from 'react-redux';
-import {gotoTodayPage} from '../actions/books';
+import {gotoTodayPage} from '../actions';
 
-@connect(null, {
+@connect(state => ({
+  isKeyboardShow: state.ui.isKeyboardShow,
+}), {
   gotoTodayPage
 })
 export default class TodayButton extends Component {
   render() {
+    if(this.props.isKeyboardShow) return null;
     return (
       <FloatButton
         text={'今'}

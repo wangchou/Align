@@ -1,12 +1,13 @@
 import moment from 'moment';
 import {
-  CHANGE_BOOK_PAGE,
+  GOTO_PAGE,
   GOTO_TODAY_PAGE
-} from '../actions/actionTypes';
+} from '../actions';
 import {
   getNow,
   getStartOfWeekTime
 } from '../utils/books';
+import immutable from 'object-path-immutable'
 
 const now = getNow();
 const startOfWeek = getStartOfWeekTime();
@@ -37,35 +38,27 @@ const intitialState = {
       id: "day book",
       time: now,
       unit: "day",
-      titleFormat: "M月 D日 ddd",
+      titleFormat: "M月 D日 (ddd)",
       dataKeyFormat: "YYYY MMM DD",
     }
   },
-  bookshelfIds: ["year book", "month book", "week book", "day book"]
+  ids: ["year book", "month book", "week book", "day book"]
 };
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case CHANGE_BOOK_PAGE:
-      const book = state.byId[action.bookId];
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [action.bookId]: {
-            ...book,
-            time: action.time
-          }
-        }
-      }
+    case GOTO_PAGE:
+      return immutable.set(state, ["byId", action.bookId, "time"], action.time);
     case GOTO_TODAY_PAGE:
-      const newById = { ...state.byId };
-      state.bookshelfIds.forEach(bookId => {
-        if (newById[bookId].unit !== 'weeks') {
-          newById[bookId].time = getNow();
+      const newById = {};
+      state.ids.forEach(bookId => {
+        const newBook = { ...state.byId[bookId] };
+        if (newBook.unit !== 'weeks') {
+          newBook.time = getNow();
         } else {
-          newById[bookId].time = getStartOfWeekTime();
+          newBook.time = getStartOfWeekTime();
         }
+        newById[bookId] = newBook;
       });
       return {
         ...state,

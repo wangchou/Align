@@ -7,94 +7,68 @@ import {
   View,
   Dimensions,
 } from 'react-native';
-import BookSwipeView from './components/BookSwipeView';
+import Book from './components/Book';
 import FloatEditBar from './components/FloatEditBar';
+import KeyboardAvoidingView from './components/KeyboardAvoidingView';
 import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
-  onVerticalScroll,
-  swipeStarted,
-  swipeEnded
-} from './actions/ui';
+  setIsTouchMoving,
+  setScrollY,
+  setScrollTo
+} from './actions';
 
 @connect(state => ({
-  books: state.books.bookshelfIds.map(bookId => state.books.byId[bookId]),
-  isKeyboardShow: state.ui.keyboard.isKeyboardShow,
-  keyboardHeight: state.ui.keyboard.keyboardHeight,
-  isOnSwipe: state.ui.isOnSwipe,
+  bookIds: state.books.ids,
 }), {
-  onVerticalScroll,
-  swipeStarted,
-  swipeEnded
+  onTouchMove: () => setIsTouchMoving(true),
+  onTouchEnd: () => setIsTouchMoving(false),
+  setScrollY,
+  setScrollTo
 })
 export default class OnigiriNote extends Component {
   onScroll = (event) => {
-    this.props.onVerticalScroll(event.nativeEvent.contentOffset.y);
+    this.props.setScrollY(event.nativeEvent.contentOffset.y);
   }
 
-  verticalScrollTo = y => this.scrollView.scrollTo({y})
-
-  onTouchMove = () => {
-    if (!this.props.isOnSwipe) {
-      this.props.swipeStarted();
-    }
-  }
-
-  onTouchEnd = () => {
-    if (this.props.isOnSwipe) {
-      this.props.swipeEnded();
-    }
-  }
-
-  shouldComponentUpdate(props) {
-    return this.props.isKeyboardShow !== props.isKeyboardShow ||
-           this.props.keyboardHeight !== props.keyboardHeight;
+  componentDidMount() {
+    this.props.setScrollTo(y => this.scrollView.scrollTo({y}));
   }
 
   render() {
     const {
-      isKeyboardShow,
-      keyboardHeight,
-      books,
-      onVerticalScroll
+      bookIds,
+      onTouchMove,
+      onTouchEnd
     } = this.props;
 
-    const bookViews = books.map(book =>
-       <BookSwipeView
-        key={book.id}
-        bookId={book.id}
+    const bookViews = bookIds.map(bookId =>
+       <Book
+        key={bookId}
+        bookId={bookId}
        />
     );
-
-    let keyboardAvoidingView = null;
-    let floatEditBar = null;
-    let todayButton = null;
-    if (isKeyboardShow) {
-      keyboardAvoidingView = <View style={{height: keyboardHeight}} />;
-      floatEditBar = <FloatEditBar keyboardHeight={keyboardHeight}/>;
-    } else {
-      todayButton = <TodayButton />;
-    }
 
     return (
       <View>
         <ScrollView
           style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
-          ref={(scrollView) => {this.scrollView = scrollView}}
+          ref={ref => {this.scrollView = ref}}
           keyboardShouldPersistTaps={'always'}
+          scrollEventThrottle={16}
 
+          keyboardDismissMode={'interactive'}
           // Event Handlers
           onScroll={this.onScroll}
-          onTouchMove={this.onTouchMove}
-          onTouchEnd={this.onTouchEnd}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
           {bookViews}
           <StatusBar hidden />
-          {keyboardAvoidingView}
+          <KeyboardAvoidingView />
         </ScrollView>
-        {floatEditBar}
-        {todayButton}
-        <KeyboardManager verticalScrollTo={this.verticalScrollTo}/>
+        <TodayButton />
+        <KeyboardManager />
       </View>
     );
   }

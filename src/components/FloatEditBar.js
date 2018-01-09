@@ -8,11 +8,17 @@ import {
   Text,
   Button
 } from 'react-native';
+import {connect} from 'react-redux';
 
 const windowWidth = Dimensions.get('window').width;
 
+@connect(state => ({
+  isKeyboardShow: state.ui.isKeyboardShow,
+  keyboardHeight: state.ui.keyboardHeight
+}))
 export default class FloatEditBar extends Component {
   render() {
+    if(!this.props.isKeyboardShow) return null;
     const styles = {
       editBar: {
         width: windowWidth,
@@ -20,6 +26,7 @@ export default class FloatEditBar extends Component {
 
         position: 'absolute',
         bottom: this.props.keyboardHeight,
+        right: 0,
 
         flex: 1,
         flexDirection: 'row',
@@ -28,6 +35,7 @@ export default class FloatEditBar extends Component {
 
         backgroundColor: 'rgba(240, 240, 240, 1)',
         borderTopWidth: 0.5,
+        borderLeftWidth: 0.5,
         borderBottomWidth: 0.5,
         borderColor: 'rgba(155, 155, 155, 0.2)'
       }
@@ -35,12 +43,6 @@ export default class FloatEditBar extends Component {
 
     return (
       <View style={styles.editBar}>
-        <Button
-          ref={r => this.checkboxButton = r}
-          title={'☐'}
-          color={'rgba(126, 211, 33, 1)'}
-          onPress={()=>{this.checkboxButton.title = 'o'}}
-        />
         <Button
           title={'完了'}
           color={'rgba(125, 125, 125, 1)'}

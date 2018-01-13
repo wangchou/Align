@@ -1,5 +1,5 @@
-import {SET_PAGE_DATA} from '../actions';
-import immutable from 'object-path-immutable'
+import immutable from 'object-path-immutable';
+import { SET_PAGE_DATA } from '../actions';
 
 const intitialState = {};
 
@@ -9,4 +9,4 @@ export default (state = intitialState, action) => {
       return immutable.set(state, [action.dataKey], action.data);
   }
   return state;
-}
+};

@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
-import {
-  Keyboard,
-  Dimensions,
-} from 'react-native';
-import {connect} from 'react-redux';
+import { Component } from 'react';
+import { Keyboard } from 'react-native';
+import { connect } from 'react-redux';
 import {
   setKeyboardHeight,
-  setIsKeyboardShow
+  setIsKeyboardShow,
 } from '../actions';
 
 
 @connect(null, {
   setKeyboardHeight,
-  setIsKeyboardShow
+  setIsKeyboardShow,
 })
 export default class KeyboardManager extends Component {
   componentDidMount() {
@@ -23,7 +20,7 @@ export default class KeyboardManager extends Component {
       this.props.setIsKeyboardShow(true);
     });
 
-    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', ()=>{
+    this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', () => {
       this.props.setIsKeyboardShow(false);
     });
   }

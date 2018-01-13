@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import Page from './Page';
+import { connect } from 'react-redux';
 import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  Keyboard,
-  View
 } from 'react-native';
-import {connect} from 'react-redux';
+import Page from './Page';
 import {
-  gotoPage
+  gotoPage,
 } from '../actions';
 import {
   getTime,
   getPageDataKey,
-  getPageTitle
+  getPageTitle,
 } from '../utils/books';
 
 const windowWidth = Dimensions.get('window').width;
@@ -25,9 +23,9 @@ const pageCenterIndex = 2;
 @connect((state, props) => ({
   book: state.books.byId[props.bookId],
   isKeyboardShow: state.ui.isKeyboardShow,
-  focusedBookId: state.ui.focusedBookId
+  focusedBookId: state.ui.focusedBookId,
 }), {
-  gotoPage
+  gotoPage,
 })
 export default class Book extends Component {
   constructor(props) {
@@ -35,43 +33,8 @@ export default class Book extends Component {
     this.inputs = {};
   }
 
-  // section: Event Handlers and utils
-  // doing the hard coded infinite scroll
-  onMomentumScrollEnd = (event) => {
-    const shift = event.nativeEvent.contentOffset.x/snapToInterval - pageCenterIndex;
-    if (Math.abs(shift) >= 1) {
-      const book = this.props.book;
-      this.props.gotoPage(book.id, getTime(book, shift));
-    }
-  }
-
-  scrollToCenterPage = () => {
-    this.scrollView.scrollTo({
-      x: snapToInterval * pageCenterIndex,
-      animated: false
-    });
-  }
-
-  onScroll = (event) => {
-    const shift = Math.round(event.nativeEvent.contentOffset.x/snapToInterval) - pageCenterIndex;
-    if(this.props.isKeyboardShow &&
-       this.props.focusedBookId === this.props.book.id) {
-      this.focusPage(shift);
-    }
-  }
-
-  focusPage = (shift = 0) => {
-    const book = this.props.book;
-    const dataKey = getPageDataKey(book, shift);
-    this.inputs[dataKey].focus();
-  }
-
   // section: React Life-cycle methods
   componentDidMount() {
-    this.scrollToCenterPage();
-  }
-
-  componentDidUpdate() {
     this.scrollToCenterPage();
   }
 
@@ -80,10 +43,44 @@ export default class Book extends Component {
            this.props.book.time !== props.book.time;
   }
 
+  componentDidUpdate() {
+    this.scrollToCenterPage();
+  }
+
+  // section: Event Handlers and utils
+  // doing the hard coded infinite scroll
+  onMomentumScrollEnd = (event) => {
+    const shift = event.nativeEvent.contentOffset.x / snapToInterval - pageCenterIndex;
+    if (Math.abs(shift) >= 1) {
+      const { book } = this.props;
+      this.props.gotoPage(book.id, getTime(book, shift));
+    }
+  }
+
+  onScroll = (event) => {
+    const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex;
+    if (this.props.isKeyboardShow &&
+       this.props.focusedBookId === this.props.book.id) {
+      this.focusPage(shift);
+    }
+  }
+
+  scrollToCenterPage = () => {
+    this.scrollView.scrollTo({
+      x: snapToInterval * pageCenterIndex,
+      animated: false,
+    });
+  }
+
+  focusPage = (shift = 0) => {
+    const dataKey = getPageDataKey(this.props.book, shift);
+    this.inputs[dataKey].focus();
+  }
+
   render() {
-    const book = this.props.book;
+    const { book } = this.props;
     const pageViews = [-2, -1, 0, 1, 2]
-      .map(shift => {
+      .map((shift) => {
         const title = getPageTitle(book, shift);
         const dataKey = getPageDataKey(book, shift);
         return (
@@ -92,7 +89,7 @@ export default class Book extends Component {
             bookId={book.id}
             title={title}
             dataKey={dataKey}
-            inputRef={r => {this.inputs[dataKey] = r;}}
+            inputRef={(r) => { this.inputs[dataKey] = r; }}
           />
         );
       });
@@ -100,20 +97,18 @@ export default class Book extends Component {
     return (
       <ScrollView
         style={styles.swipeContainer}
-        ref={(scrollView) => {this.scrollView = scrollView}}
+        ref={(scrollView) => { this.scrollView = scrollView; }}
         horizontal
         showsHorizontalScrollIndicator={false}
-        decelerationRate={'fast'}
-        keyboardShouldPersistTaps={'always'}
+        decelerationRate="fast"
+        keyboardShouldPersistTaps="always"
         snapToInterval={snapToInterval}
         onScroll={this.onScroll}
         scrollEventThrottle={16}
 
         // Event Handler
-        onMomentumScrollEnd= {this.onMomentumScrollEnd}
+        onMomentumScrollEnd={this.onMomentumScrollEnd}
       >
-        // Warning: Do not put other component between pageViews
-        // or will get TextInput focus and rerender issue.
         {pageViews}
       </ScrollView>
     );
@@ -127,6 +122,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
-    borderRadius: 5
-  }
+    borderRadius: 5,
+  },
 });

@@ -1,38 +1,37 @@
-import OnigiriNote from './src/app';
-import reducers from './src/reducers';
-
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist';
 import thunk from 'redux-thunk';
-import { AsyncStorage, View } from 'react-native';
+import { AsyncStorage, AppRegistry } from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { AppRegistry } from 'react-native';
+
+import OnigiriNote from './src/app';
+import reducers from './src/reducers';
 
 const storeVersion = '2018/1/9 00:15';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+  composeWithDevTools(applyMiddleware(thunk)),
+);
 
 export default class Root extends Component {
   constructor() {
-    super()
-    this.state = { rehydrated: false }
+    super();
+    this.state = { rehydrated: false };
   }
 
-  componentWillMount(){
+  componentWillMount() {
     persistStore(store, {
       storage: AsyncStorage,
-      keyPrefix: storeVersion
+      keyPrefix: storeVersion,
     }, () => {
-      this.setState({ rehydrated: true })
+      this.setState({ rehydrated: true });
     });
   }
 
   render() {
-    if(!this.state.rehydrated){
+    if (!this.state.rehydrated) {
       return null;
     }
 

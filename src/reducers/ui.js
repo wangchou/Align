@@ -1,5 +1,5 @@
 import {
-  SET_UI_STATE
+  SET_UI_STATE,
 } from '../actions';
 
 const intitialState = {
@@ -8,17 +8,18 @@ const intitialState = {
   keyboardHeight: 0,
   scrollY: 0,
   scrollTo: () => {},
-  focusedBookId: null
+  focusedBookId: null,
 };
 
 export default (state = intitialState, action) => {
   switch (action.type) {
     case SET_UI_STATE:
-      const newState = { ...state };
-      action.names.forEach((name) => {
-        newState[name] = action[name];
-      });
-      return newState;
+      return {
+        ...state,
+        ...action.names.map(name => ({
+          [name]: action[name],
+        })),
+      };
   }
   return state;
-}
+};

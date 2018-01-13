@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   StatusBar,
   ScrollView,
-  Keyboard,
   View,
-  Dimensions,
 } from 'react-native';
 import Book from './components/Book';
-import FloatEditBar from './components/FloatEditBar';
 import KeyboardAvoidingView from './components/KeyboardAvoidingView';
 import TodayButton from './components/TodayButton';
 import KeyboardManager from './components/KeyboardManager';
 import {
   setIsTouchMoving,
   setScrollY,
-  setScrollTo
+  setScrollTo,
 } from './actions';
 
 @connect(state => ({
@@ -24,40 +21,39 @@ import {
   onTouchMove: () => setIsTouchMoving(true),
   onTouchEnd: () => setIsTouchMoving(false),
   setScrollY,
-  setScrollTo
+  setScrollTo,
 })
 export default class OnigiriNote extends Component {
-  onScroll = (event) => {
-    this.props.setScrollY(event.nativeEvent.contentOffset.y);
+  componentDidMount() {
+    this.props.setScrollTo(y => this.scrollView.scrollTo({ y }));
   }
 
-  componentDidMount() {
-    this.props.setScrollTo(y => this.scrollView.scrollTo({y}));
+  onScroll = (event) => {
+    this.props.setScrollY(event.nativeEvent.contentOffset.y);
   }
 
   render() {
     const {
       bookIds,
       onTouchMove,
-      onTouchEnd
+      onTouchEnd,
     } = this.props;
 
     const bookViews = bookIds.map(bookId =>
-       <Book
+      (<Book
         key={bookId}
         bookId={bookId}
-       />
-    );
+      />));
 
     return (
       <View>
         <ScrollView
-          style={{backgroundColor: 'rgba(155, 155, 155, 0.1)'}}
-          ref={ref => {this.scrollView = ref}}
-          keyboardShouldPersistTaps={'always'}
+          style={{ backgroundColor: 'rgba(155, 155, 155, 0.1)' }}
+          ref={(ref) => { this.scrollView = ref; }}
+          keyboardShouldPersistTaps="always"
           scrollEventThrottle={16}
 
-          keyboardDismissMode={'interactive'}
+          keyboardDismissMode="interactive"
           // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={onTouchMove}

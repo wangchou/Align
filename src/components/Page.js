@@ -5,14 +5,12 @@ import {
   TextInput,
   Dimensions,
   Text,
-  TouchableHighlight,
-  Button
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   setData,
-  setFocusedBookId
-}  from '../actions';
+  setFocusedBookId,
+} from '../actions';
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
@@ -20,51 +18,25 @@ import {
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
   scrollY: state.ui.scrollY,
-  scrollTo: state.ui.scrollTo
+  scrollTo: state.ui.scrollTo,
 }), {
   setData,
-  setFocusedBookId
+  setFocusedBookId,
 })
 export default class Page extends Component {
   constructor(props) {
-     super(props);
-     this.state = {
-       text: props.text,
-       isEditable: true
-     };
-  }
-
-  // Event Handlers
-  onChangeText = (text) => {
-    this.props.setData(this.props.dataKey, text);
-    this.setState({text});
-  }
-
-  onFocus = (e) => {
-    this.props.setFocusedBookId(this.props.bookId);
-    this.textInput.measure((ox, oy, width, height, px, py) => {
-      const focusedInputPY = py - oy;
-      const focusedInputHeight = height + oy;
-
-      const keyboardHeight = this.props.keyboardHeight;
-      const inputY = this.props.scrollY + focusedInputPY;
-      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + keyboardHeight)
-
-      const isInputTopNotInView = focusedInputPY < 0;
-      const isInputBottomNotInView = (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight;
-      if(isInputTopNotInView) {
-        this.props.scrollTo(inputY);
-      } else if(isInputBottomNotInView) {
-        this.props.scrollTo(alignInputBottomToKeyboardY);
-      }
-    });
+    super(props);
+    this.state = {
+      text: props.text,
+      isEditable: true,
+    };
   }
 
   // React Life-cycle methods
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isEditable: this.textInput.isFocused() || !props.isTouchMoving
+      isEditable: this.textInput.isFocused() || !props.isTouchMoving,
     });
   }
 
@@ -76,6 +48,33 @@ export default class Page extends Component {
     );
   }
 
+
+  // Event Handlers
+  onChangeText = (text) => {
+    this.props.setData(this.props.dataKey, text);
+    this.setState({ text });
+  }
+
+  onFocus = () => {
+    this.props.setFocusedBookId(this.props.bookId);
+    this.textInput.measure((ox, oy, width, height, px, py) => {
+      const focusedInputPY = py - oy;
+      const focusedInputHeight = height + oy;
+
+      const { keyboardHeight } = this.props;
+      const inputY = this.props.scrollY + focusedInputPY;
+      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + keyboardHeight);
+
+      const isInputTopNotInView = focusedInputPY < 0;
+      const isInputBottomNotInView = (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight;
+      if (isInputTopNotInView) {
+        this.props.scrollTo(inputY);
+      } else if (isInputBottomNotInView) {
+        this.props.scrollTo(alignInputBottomToKeyboardY);
+      }
+    });
+  }
+
   render() {
     const { title } = this.props;
     return (
@@ -85,7 +84,7 @@ export default class Page extends Component {
         </Text>
         <TextInput
           style={styles.pageContent}
-          ref={textInput => {
+          ref={(textInput) => {
             this.textInput = textInput;
             this.props.inputRef(textInput);
           }}
@@ -106,8 +105,8 @@ const windowHeight = Dimensions.get('window').height;
 const fontSize = Math.min(windowWidth, windowHeight) / 20;
 const pageHeight = fontSize * 17;
 const titleHeight = 22;
-const semiBold = "600";
-const light="300";
+const semiBold = '600';
+const light = '300';
 const pageSeparatorWidth = 20;
 const styles = StyleSheet.create({
   pageView: {
@@ -137,6 +136,6 @@ const styles = StyleSheet.create({
   checkbox: {
     backgroundColor: 'pink',
     width: 20,
-    height: 20
-  }
+    height: 20,
+  },
 });

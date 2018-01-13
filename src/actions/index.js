@@ -9,18 +9,19 @@ export const SET_PAGE_DATA = 'SET PAGE DATA';
 // ui
 export const SET_UI_STATE = 'SET UI STATE';
 
-const actionCreatorCreator = (actionType, names=null) => (...rest) => {
-  if(names == null){
-    return {type: actionType};
-  } else {
-    const dataObject = {};
-    names.forEach((name, i) => dataObject[name] = rest[i]);
-    return {
-      type: actionType,
-      names,
-      ...dataObject
-    };
+const actionCreatorCreator = (actionType, names = null) => (...rest) => {
+  if (names == null) {
+    return { type: actionType };
   }
+  const dataObject = {};
+  names.forEach((name, i) => {
+    dataObject[name] = rest[i];
+  });
+  return {
+    type: actionType,
+    names,
+    ...dataObject,
+  };
 };
 
 // ActionCreators

@@ -9,7 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import OnigiriNote from './src/app';
 import reducers from './src/reducers';
 
-const storeVersion = '2018/1/9 00:15';
+const storeVersion = '2018/1/15 00:15';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
   composeWithDevTools(applyMiddleware(thunk)),

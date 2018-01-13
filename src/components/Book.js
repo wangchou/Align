@@ -50,7 +50,7 @@ export default class Book extends Component {
   // section: Event Handlers and utils
   // doing the hard coded infinite scroll
   onMomentumScrollEnd = (event) => {
-    const shift = event.nativeEvent.contentOffset.x / snapToInterval - pageCenterIndex;
+    const shift = (event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex;
     if (Math.abs(shift) >= 1) {
       const { book } = this.props;
       this.props.gotoPage(book.id, getTime(book, shift));

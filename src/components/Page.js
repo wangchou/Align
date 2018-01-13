@@ -63,10 +63,12 @@ export default class Page extends Component {
 
       const { keyboardHeight } = this.props;
       const inputY = this.props.scrollY + focusedInputPY;
-      const alignInputBottomToKeyboardY = inputY + (focusedInputHeight - windowHeight + keyboardHeight);
+      const alignInputBottomToKeyboardY =
+        inputY + (focusedInputHeight - windowHeight) + keyboardHeight;
 
       const isInputTopNotInView = focusedInputPY < 0;
-      const isInputBottomNotInView = (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight;
+      const isInputBottomNotInView =
+        (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight;
       if (isInputTopNotInView) {
         this.props.scrollTo(inputY);
       } else if (isInputBottomNotInView) {

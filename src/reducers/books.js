@@ -52,15 +52,15 @@ export default (state = intitialState, action) => {
       return {
         ...state,
         byId: {
-          ...state.ids.map((bookId) => {
+          ...state.ids.reduce((byId, bookId) => {
             const newBook = { ...state.byId[bookId] };
             if (newBook.unit !== 'weeks') {
               newBook.time = getNow();
             } else {
               newBook.time = getStartOfWeekTime();
             }
-            return { [bookId]: newBook };
-          }),
+            return {...byId, [bookId]: newBook };
+          }, {}),
         },
       };
   }

@@ -16,9 +16,9 @@ export default (state = intitialState, action) => {
     case SET_UI_STATE:
       return {
         ...state,
-        ...action.names.map(name => ({
-          [name]: action[name],
-        })),
+        ...action.names.reduce((obj, name) => ({
+          ...obj, [name]: action[name]
+        }), {}),
       };
   }
   return state;

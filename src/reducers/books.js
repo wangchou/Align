@@ -59,7 +59,7 @@ export default (state = intitialState, action) => {
             } else {
               newBook.time = getStartOfWeekTime();
             }
-            return {...byId, [bookId]: newBook };
+            return { ...byId, [bookId]: newBook };
           }, {}),
         },
       };

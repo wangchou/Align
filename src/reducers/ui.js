@@ -17,7 +17,7 @@ export default (state = intitialState, action) => {
       return {
         ...state,
         ...action.names.reduce((obj, name) => ({
-          ...obj, [name]: action[name]
+          ...obj, [name]: action[name],
         }), {}),
       };
   }

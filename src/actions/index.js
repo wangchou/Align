@@ -1,7 +1,17 @@
+import {
+  getNow,
+  getStartOfWeekTime,
+} from '../utils/books';
+
+// CONSTANTS
+export const YEAR_BOOK_ID = 'year book';
+export const MONTH_BOOK_ID = 'month book';
+export const WEEK_BOOK_ID = 'week book';
+export const DAY_BOOK_ID = 'DAY book';
+
 // ActionTypes
 // book
 export const GOTO_PAGE = 'GOTO_PAGE';
-export const GOTO_TODAY_PAGE = 'GOTO_TODAY_PAGE';
 
 // page
 export const SET_PAGE_DATA = 'SET PAGE DATA';
@@ -9,25 +19,23 @@ export const SET_PAGE_DATA = 'SET PAGE DATA';
 // ui
 export const SET_UI_STATE = 'SET UI STATE';
 
-const actionCreatorCreator = (actionType, names = null) => (...rest) => {
-  if (names == null) {
-    return { type: actionType };
-  }
-  const dataObject = {};
-  names.forEach((name, i) => {
-    dataObject[name] = rest[i];
-  });
-  return {
-    type: actionType,
-    names,
-    ...dataObject,
-  };
-};
+const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
+  type: actionType,
+  payload: names.reduce((payload, name, i) => ({
+    ...payload,
+    [name]: rest[i],
+  }), {}),
+});
 
 // ActionCreators
 // book
 export const gotoPage = actionCreatorCreator(GOTO_PAGE, ['bookId', 'time']);
-export const gotoTodayPage = actionCreatorCreator(GOTO_TODAY_PAGE);
+export const gotoTodayPage = () => ([
+  gotoPage(YEAR_BOOK_ID, getNow()),
+  gotoPage(MONTH_BOOK_ID, getNow()),
+  gotoPage(WEEK_BOOK_ID, getStartOfWeekTime()),
+  gotoPage(DAY_BOOK_ID, getNow()),
+]);
 
 // page
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['dataKey', 'data']);

@@ -8,11 +8,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import OnigiriNote from './src/app';
 import reducers from './src/reducers';
+import array from './src/utils/arrayMiddleware';
 
-const storeVersion = '2018/1/14 10:51';
+const storeVersion = '2018/1/15 10:51';
 const store = compose(autoRehydrate())(createStore)(
   reducers,
-  composeWithDevTools(applyMiddleware(thunk)),
+  composeWithDevTools(applyMiddleware(thunk, array)),
 );
 
 export default class Root extends Component {

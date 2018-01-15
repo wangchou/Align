@@ -3,13 +3,18 @@
 
   "plugins": [
     "react-native",
-    "prettier"
+    "prettier",
+    "jest"
   ],
 
   "extends": [
     "airbnb",
     "prettier/react"
   ],
+
+  "env": {
+    "jest/globals": true
+  },
 
   "rules": {
     "react/prop-types": 0,

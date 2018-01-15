@@ -3,7 +3,8 @@
 
   "plugins": [
     "react-native",
-    "prettier"
+    "prettier",
+    "jest"
   ],
 
   "extends": [
@@ -11,11 +12,14 @@
     "prettier/react"
   ],
 
+  "env": {
+    "jest/globals": true
+  },
+
   "rules": {
     "react/prop-types": 0,
     "default-case": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "no-use-before-define": 0,
-    "react/prefer-stateless-function": 0
+    "no-use-before-define": 0
   }
 }

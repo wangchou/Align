@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore, compose } from 'redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { applyMiddleware, createStore } from 'redux';
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import thunk from 'redux-thunk';
-import { AsyncStorage, AppRegistry } from 'react-native';
+import { AppRegistry } from 'react-native';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import iCloudStorage from 'react-native-icloudstore';
 
 import OnigiriNote from './src/app';
 import reducers from './src/reducers';
 import array from './src/utils/arrayMiddleware';
 
-const storeVersion = '2018/1/15 10:51';
-const store = compose(autoRehydrate())(createStore)(
-  reducers,
+const config = {
+  storage: iCloudStorage,
+  key: 'primary',
+  keyPrefix: '2018/1/17 19:00',
+  blacklist: ['ui'],
+};
+
+const store = createStore(
+  persistCombineReducers(config, reducers),
+  undefined,
   composeWithDevTools(applyMiddleware(thunk, array)),
 );
 
@@ -23,10 +31,7 @@ export default class Root extends Component {
   }
 
   componentWillMount() {
-    persistStore(store, {
-      storage: AsyncStorage,
-      keyPrefix: storeVersion,
-    }, () => {
+    persistStore(store, null, () => {
       this.setState({ rehydrated: true });
     });
   }

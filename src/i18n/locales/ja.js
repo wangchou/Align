@@ -3,12 +3,12 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-} from '../../constans';
-import { getTitleFormatI18nKey } from '../utils';
+} from '../../constants';
+import Keys from '../keys';
 
 export default {
-  [getTitleFormatI18nKey(YEAR_BOOK_ID)]: 'YYYY年',
-  [getTitleFormatI18nKey(MONTH_BOOK_ID)]: 'YYYY年 M月',
-  [getTitleFormatI18nKey(WEEK_BOOK_ID)]: 'YYYY年 M月 D日～ (第W週)',
-  [getTitleFormatI18nKey(DAY_BOOK_ID)]: 'YYYY年 M月 D日 (dddd)',
+  [Keys[YEAR_BOOK_ID].titleFormat]: 'YYYY年',
+  [Keys[MONTH_BOOK_ID].titleFormat]: 'YYYY年 M月',
+  [Keys[WEEK_BOOK_ID].titleFormat]: 'YYYY年 M月 D日～ (第W週)',
+  [Keys[DAY_BOOK_ID].titleFormat]: 'YYYY年 M月 D日 (dddd)',
 };

@@ -1,5 +1,5 @@
 import immutable from 'object-path-immutable';
-import { SET_PAGE_DATA } from '../actions';
+import { SET_PAGE_DATA } from '../constants';
 
 const intitialState = {};
 

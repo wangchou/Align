@@ -3,7 +3,7 @@ import moment from 'moment';
 import en from './locales/en';
 import zh from './locales/zh';
 import ja from './locales/ja';
-import { getTitleFormatI18nKey } from './utils';
+import Keys from './keys';
 
 getLanguages().then((languages) => {
   if (languages[0].startsWith('ja')) {
@@ -28,6 +28,4 @@ I18n.translations = {
   ja,
 };
 
-export const getTitleFormatI18n = bookId => I18n.t(getTitleFormatI18nKey(bookId));
-
-export default I18n;
+export const getTitleFormatI18n = bookId => I18n.t(Keys[bookId].titleFormat);

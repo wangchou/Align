@@ -1,6 +1,6 @@
 import {
   SET_UI_STATE,
-} from '../actions';
+} from '../constants';
 
 const intitialState = {
   isTouchMoving: false,

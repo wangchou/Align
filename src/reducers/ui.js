@@ -1,6 +1,6 @@
 import {
   SET_UI_STATE,
-} from '../constants';
+} from '../constants'
 
 const intitialState = {
   isTouchMoving: false,
@@ -9,7 +9,7 @@ const intitialState = {
   scrollY: 0,
   scrollTo: () => {},
   focusedBookId: null,
-};
+}
 
 export default (state = intitialState, action) => {
   switch (action.type) {
@@ -17,7 +17,7 @@ export default (state = intitialState, action) => {
       return {
         ...state,
         ...action.payload,
-      };
+      }
   }
-  return state;
-};
+  return state
+}

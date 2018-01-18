@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   StatusBar,
   ScrollView,
   View,
-} from 'react-native';
-import Book from './components/Book';
-import KeyboardAvoidingView from './components/KeyboardAvoidingView';
-import TodayButton from './components/TodayButton';
-import KeyboardManager from './components/KeyboardManager';
+} from 'react-native'
+import Book from './components/Book'
+import KeyboardAvoidingView from './components/KeyboardAvoidingView'
+import TodayButton from './components/TodayButton'
+import KeyboardManager from './components/KeyboardManager'
 import {
   setIsTouchMoving,
   setScrollY,
   setScrollTo,
-} from './actions';
+} from './actions'
 
 @connect(state => ({
   bookIds: state.books.ids,
@@ -25,11 +25,11 @@ import {
 })
 export default class OnigiriNote extends Component {
   componentDidMount() {
-    this.props.setScrollTo(y => this.scrollView.scrollTo({ y }));
+    this.props.setScrollTo(y => this.scrollView.scrollTo({ y }))
   }
 
   onScroll = (event) => {
-    this.props.setScrollY(event.nativeEvent.contentOffset.y);
+    this.props.setScrollY(event.nativeEvent.contentOffset.y)
   }
 
   render() {
@@ -37,19 +37,19 @@ export default class OnigiriNote extends Component {
       bookIds,
       onTouchMove,
       onTouchEnd,
-    } = this.props;
+    } = this.props
 
     const bookViews = bookIds.map(bookId =>
       (<Book
         key={bookId}
         bookId={bookId}
-      />));
+      />))
 
     return (
       <View>
         <ScrollView
           style={{ backgroundColor: 'rgba(155, 155, 155, 0.1)' }}
-          ref={(ref) => { this.scrollView = ref; }}
+          ref={(ref) => { this.scrollView = ref }}
           keyboardShouldPersistTaps="always"
           scrollEventThrottle={16}
 
@@ -66,6 +66,6 @@ export default class OnigiriNote extends Component {
         <TodayButton />
         <KeyboardManager />
       </View>
-    );
+    )
   }
 }

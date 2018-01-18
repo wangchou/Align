@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 import {
   TouchableHighlight,
   View,
   Text,
-} from 'react-native';
+} from 'react-native'
 
 export default (props) => {
   const {
     color, underColor, bottom, onPress, text,
-  } = props;
+  } = props
   const styles = {
     button: {
       backgroundColor: color,
@@ -34,7 +34,7 @@ export default (props) => {
       fontSize: 20,
       color: 'white',
     },
-  };
+  }
   return (
     <View>
     <TouchableHighlight
@@ -47,6 +47,6 @@ export default (props) => {
     <Text style={styles.text}>{text}</Text>
     </TouchableHighlight>
     </View>
-  );
-};
+  )
+}
 

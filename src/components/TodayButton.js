@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import FloatButton from './FloatButton';
-import { gotoTodayPage } from '../actions';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import FloatButton from './FloatButton'
+import { gotoTodayPage } from '../actions'
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,
@@ -10,7 +10,7 @@ import { gotoTodayPage } from '../actions';
 })
 export default class TodayButton extends Component {
   render() {
-    if (this.props.isKeyboardShow) return null;
+    if (this.props.isKeyboardShow) return null
     return (
       <FloatButton
         text="今"
@@ -19,7 +19,7 @@ export default class TodayButton extends Component {
         onPress={this.props.gotoTodayPage}
         bottom={10}
       />
-    );
+    )
   }
 }
 

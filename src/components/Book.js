@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   StyleSheet,
   ScrollView,
   Dimensions,
-} from 'react-native';
-import Page from './Page';
+} from 'react-native'
+import Page from './Page'
 import {
   gotoPage,
-} from '../actions';
+} from '../actions'
 import {
   getTime,
   getPageDataKey,
   getPageTitle,
-} from '../utils/books';
+} from '../utils/books'
 
-const windowWidth = Dimensions.get('window').width;
-const pageSeparatorWidth = 20;
-const snapToInterval = windowWidth + pageSeparatorWidth;
-const pageCenterIndex = 2;
+const windowWidth = Dimensions.get('window').width
+const pageSeparatorWidth = 20
+const snapToInterval = windowWidth + pageSeparatorWidth
+const pageCenterIndex = 2
 
 @connect((state, props) => ({
   book: state.books.byId[props.bookId],
@@ -29,39 +29,39 @@ const pageCenterIndex = 2;
 })
 export default class Book extends Component {
   constructor(props) {
-    super(props);
-    this.inputs = {};
+    super(props)
+    this.inputs = {}
   }
 
   // section: React Life-cycle methods
   componentDidMount() {
-    this.scrollToCenterPage();
+    this.scrollToCenterPage()
   }
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.book.time !== props.book.time;
+           this.props.book.time !== props.book.time
   }
 
   componentDidUpdate() {
-    this.scrollToCenterPage();
+    this.scrollToCenterPage()
   }
 
   // section: Event Handlers and utils
   // doing the hard coded infinite scroll
   onMomentumScrollEnd = (event) => {
-    const shift = (event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex;
+    const shift = (event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (Math.abs(shift) >= 1) {
-      const { book } = this.props;
-      this.props.gotoPage(book.id, getTime(book, shift));
+      const { book } = this.props
+      this.props.gotoPage(book.id, getTime(book, shift))
     }
   }
 
   onScroll = (event) => {
-    const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex;
+    const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (this.props.isKeyboardShow &&
        this.props.focusedBookId === this.props.book.id) {
-      this.focusPage(shift);
+      this.focusPage(shift)
     }
   }
 
@@ -69,35 +69,35 @@ export default class Book extends Component {
     this.scrollView.scrollTo({
       x: snapToInterval * pageCenterIndex,
       animated: false,
-    });
+    })
   }
 
   focusPage = (shift = 0) => {
-    const dataKey = getPageDataKey(this.props.book, shift);
-    this.inputs[dataKey].focus();
+    const dataKey = getPageDataKey(this.props.book, shift)
+    this.inputs[dataKey].focus()
   }
 
   render() {
-    const { book } = this.props;
+    const { book } = this.props
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
-        const title = getPageTitle(book, shift);
-        const dataKey = getPageDataKey(book, shift);
+        const title = getPageTitle(book, shift)
+        const dataKey = getPageDataKey(book, shift)
         return (
           <Page
             key={dataKey}
             bookId={book.id}
             title={title}
             dataKey={dataKey}
-            inputRef={(r) => { this.inputs[dataKey] = r; }}
+            inputRef={(r) => { this.inputs[dataKey] = r }}
           />
-        );
-      });
+        )
+      })
 
     return (
       <ScrollView
         style={styles.swipeContainer}
-        ref={(scrollView) => { this.scrollView = scrollView; }}
+        ref={(scrollView) => { this.scrollView = scrollView }}
         horizontal
         showsHorizontalScrollIndicator={false}
         decelerationRate="fast"
@@ -111,7 +111,7 @@ export default class Book extends Component {
       >
         {pageViews}
       </ScrollView>
-    );
+    )
   }
 }
 
@@ -124,4 +124,4 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderRadius: 5,
   },
-});
+})

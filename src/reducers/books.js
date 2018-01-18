@@ -1,18 +1,18 @@
-import immutable from 'object-path-immutable';
+import immutable from 'object-path-immutable'
 import {
   GOTO_PAGE,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-} from '../constants';
+} from '../constants'
 import {
   getNow,
   getStartOfWeekTime,
-} from '../utils/books';
+} from '../utils/books'
 
-const now = getNow();
-const startOfWeek = getStartOfWeekTime();
+const now = getNow()
+const startOfWeek = getStartOfWeekTime()
 export const intitialState = {
   byId: {
     [YEAR_BOOK_ID]: {
@@ -46,12 +46,12 @@ export const intitialState = {
     WEEK_BOOK_ID,
     DAY_BOOK_ID,
   ],
-};
+}
 
 export default (state = intitialState, action) => {
   switch (action.type) {
     case GOTO_PAGE:
-      return immutable.set(state, ['byId', action.payload.bookId, 'time'], action.payload.time);
+      return immutable.set(state, ['byId', action.payload.bookId, 'time'], action.payload.time)
   }
-  return state;
-};
+  return state
+}

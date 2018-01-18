@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   Keyboard,
   View,
   Dimensions,
   Button,
-} from 'react-native';
-import { connect } from 'react-redux';
+} from 'react-native'
+import { connect } from 'react-redux'
 
-const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,
@@ -15,7 +15,7 @@ const windowWidth = Dimensions.get('window').width;
 }))
 export default class FloatEditBar extends Component {
   render() {
-    if (!this.props.isKeyboardShow) return null;
+    if (!this.props.isKeyboardShow) return null
     const styles = {
       editBar: {
         width: windowWidth,
@@ -36,7 +36,7 @@ export default class FloatEditBar extends Component {
         borderBottomWidth: 0.5,
         borderColor: 'rgba(155, 155, 155, 0.2)',
       },
-    };
+    }
 
     return (
       <View style={styles.editBar}>
@@ -46,7 +46,7 @@ export default class FloatEditBar extends Component {
           onPress={Keyboard.dismiss}
         />
       </View>
-    );
+    )
   }
 }
 

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   View,
-} from 'react-native';
-import { connect } from 'react-redux';
+} from 'react-native'
+import { connect } from 'react-redux'
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,
@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 }))
 export default class KeyboardAvoidingView extends Component {
   render() {
-    if (!this.props.isKeyboardShow) return null;
+    if (!this.props.isKeyboardShow) return null
 
-    return <View style={{ height: this.props.keyboardHeight }} />;
+    return <View style={{ height: this.props.keyboardHeight }} />
   }
 }
 

@@ -3,21 +3,15 @@ import {
   getStartOfWeekTime,
 } from '../utils/books';
 
-// CONSTANTS
-export const YEAR_BOOK_ID = 'year book';
-export const MONTH_BOOK_ID = 'month book';
-export const WEEK_BOOK_ID = 'week book';
-export const DAY_BOOK_ID = 'DAY book';
-
-// ActionTypes
-// book
-export const GOTO_PAGE = 'GOTO_PAGE';
-
-// page
-export const SET_PAGE_DATA = 'SET PAGE DATA';
-
-// ui
-export const SET_UI_STATE = 'SET UI STATE';
+import {
+  YEAR_BOOK_ID,
+  MONTH_BOOK_ID,
+  WEEK_BOOK_ID,
+  DAY_BOOK_ID,
+  GOTO_PAGE,
+  SET_PAGE_DATA,
+  SET_UI_STATE,
+} from '../constans';
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
   type: actionType,

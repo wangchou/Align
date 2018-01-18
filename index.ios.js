@@ -14,7 +14,7 @@ import array from './src/utils/arrayMiddleware';
 const config = {
   storage: iCloudStorage,
   key: 'primary',
-  keyPrefix: '2018/1/17 19:00',
+  keyPrefix: '2018/1/18 12:00',
   blacklist: ['ui'],
 };
 

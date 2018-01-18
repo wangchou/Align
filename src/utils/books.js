@@ -9,6 +9,7 @@ export const getTime = (book, shift = 0) => moment(book.time)
 export const getPageTitle = (book, shift = 0) => moment(book.time)
   .add(shift, book.unit)
   .format(getTitleFormatI18n(book.id));
+
 export const getPageDataKey = (book, shift = 0) => `${book.id}-${moment(book.time)
   .add(shift, book.unit)
   .format(book.dataKeyFormat)}`;

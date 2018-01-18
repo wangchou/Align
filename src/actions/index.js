@@ -11,7 +11,7 @@ import {
   GOTO_PAGE,
   SET_PAGE_DATA,
   SET_UI_STATE,
-} from '../constans';
+} from '../constants';
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
   type: actionType,

@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import Book from './components/Book'
 import KeyboardAvoidingView from './components/KeyboardAvoidingView'
+import FloatEditBar from './components/FloatEditBar'
 import TodayButton from './components/TodayButton'
 import KeyboardManager from './components/KeyboardManager'
 import {
@@ -53,7 +54,6 @@ export default class OnigiriNote extends Component {
           keyboardShouldPersistTaps="always"
           scrollEventThrottle={16}
 
-          keyboardDismissMode="interactive"
           // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={onTouchMove}
@@ -64,6 +64,7 @@ export default class OnigiriNote extends Component {
           <KeyboardAvoidingView />
         </ScrollView>
         <TodayButton />
+        <FloatEditBar />
         <KeyboardManager />
       </View>
     )

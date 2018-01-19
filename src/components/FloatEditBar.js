@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
   Keyboard,
-  View,
   Dimensions,
-  Button,
+  TouchableHighlight,
+  Text,
 } from 'react-native'
 import { connect } from 'react-redux'
 
+export const floatEditBarHeight = 45
 const windowWidth = Dimensions.get('window').width
 
 @connect(state => ({
@@ -17,12 +18,12 @@ export default class FloatEditBar extends Component {
   render() {
     if (!this.props.isKeyboardShow) return null
     const styles = {
-      editBar: {
+      button: {
         width: windowWidth,
-        height: 45,
+        height: floatEditBarHeight,
 
         position: 'absolute',
-        bottom: this.props.keyboardHeight,
+        bottom: this.props.keyboardHeight - floatEditBarHeight,
         right: 0,
 
         flex: 1,
@@ -36,16 +37,19 @@ export default class FloatEditBar extends Component {
         borderBottomWidth: 0.5,
         borderColor: 'rgba(155, 155, 155, 0.2)',
       },
+      text: {
+        fontSize: 20,
+        color: 'rgba(125, 125, 125, 1)',
+      },
     }
 
     return (
-      <View style={styles.editBar}>
-        <Button
-          title="完了"
-          color="rgba(125, 125, 125, 1)"
-          onPress={Keyboard.dismiss}
-        />
-      </View>
+    <TouchableHighlight
+      style={styles.button}
+      onPress={Keyboard.dismiss}
+    >
+      <Text style={styles.text}>完了</Text>
+    </TouchableHighlight>
     )
   }
 }

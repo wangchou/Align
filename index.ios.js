@@ -1,21 +1,24 @@
 import React, { Component } from 'react'
+import { AppRegistry } from 'react-native'
+
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
 import { persistStore, persistCombineReducers } from 'redux-persist'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import thunk from 'redux-thunk'
-import { AppRegistry } from 'react-native'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import iCloudStorage from 'react-native-icloudstore'
+import storage from 'redux-persist/lib/storage'
 
 import OnigiriNote from './src/app'
 import reducers from './src/reducers'
 import array from './src/utils/arrayMiddleware'
 
 const config = {
-  storage: iCloudStorage,
   key: 'primary',
-  keyPrefix: '2018/1/18 14:00',
+  version: 0,
+  storage,
   blacklist: ['ui'],
+  stateReconciler: autoMergeLevel2,
 }
 
 const store = createStore(

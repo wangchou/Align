@@ -29,3 +29,5 @@ I18n.translations = {
 }
 
 export const getTitleFormatI18n = bookId => I18n.t(Keys[bookId].titleFormat)
+
+export default I18n

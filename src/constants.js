@@ -13,3 +13,6 @@ export const SET_PAGE_DATA = 'SET PAGE DATA'
 
 // ui
 export const SET_UI_STATE = 'SET UI STATE'
+
+// i18n keys
+export const DONE_BUTTON = 'DONE BUTTON'

@@ -7,6 +7,11 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
+import I18n from '../i18n'
+import {
+  DONE_BUTTON,
+} from '../constants'
+
 export const floatEditBarHeight = 45
 const windowWidth = Dimensions.get('window').width
 
@@ -48,7 +53,7 @@ export default class FloatEditBar extends Component {
       style={styles.button}
       onPress={Keyboard.dismiss}
     >
-      <Text style={styles.text}>完了</Text>
+      <Text style={styles.text}>{I18n.t(DONE_BUTTON)}</Text>
     </TouchableHighlight>
     )
   }

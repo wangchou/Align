@@ -3,6 +3,7 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
+  DONE_BUTTON,
 } from '../../constants'
 import Keys from '../keys'
 
@@ -11,4 +12,5 @@ export default {
   [Keys[MONTH_BOOK_ID].titleFormat]: 'MMM YYYY',
   [Keys[WEEK_BOOK_ID].titleFormat]: 'MMM Do YYYY ～ ([week] W)',
   [Keys[DAY_BOOK_ID].titleFormat]: 'MMM Do YYYY (ddd)',
+  [DONE_BUTTON]: 'Done',
 }

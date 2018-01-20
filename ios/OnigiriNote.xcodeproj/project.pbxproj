@@ -1049,6 +1049,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = idv.wcl.OnigiriNote;
 				PRODUCT_NAME = OnigiriNote;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1073,6 +1074,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = idv.wcl.OnigiriNote;
 				PRODUCT_NAME = OnigiriNote;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

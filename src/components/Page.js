@@ -5,6 +5,7 @@ import {
   TextInput,
   Dimensions,
   Text,
+  PanResponder,
 } from 'react-native'
 import { connect } from 'react-redux'
 import {
@@ -28,7 +29,6 @@ export default class Page extends Component {
     super(props)
     this.state = {
       text: props.text,
-      isEditable: true,
     }
   }
 
@@ -36,14 +36,12 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isEditable: this.textInput.isFocused() || !props.isTouchMoving,
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      this.state.isEditable !== nextState.isEditable ||
       this.state.text !== nextState.text
     )
   }
@@ -78,7 +76,7 @@ export default class Page extends Component {
   }
 
   render() {
-    const { title } = this.props
+    const { title, isTouchMoving } = this.props
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
@@ -93,6 +91,7 @@ export default class Page extends Component {
           onChangeText={this.onChangeText}
           onFocus={this.onFocus}
           editable={this.state.isEditable}
+          pointerEvents={isTouchMoving ? 'none' : 'auto'}
           multiline
           value={this.state.text}
         />

@@ -16,7 +16,7 @@
     "moment": "^2.18.1",
     "object-path-immutable": "^0.5.2",
     "react": "16.2.0",
-    "react-native": "https://github.com/facebook/react-native#6c4ef287ad95eb14475a9f512487e5d05949309a",
+    "react-native": "^0.53.0",
     "react-native-i18n": "^2.0.10",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",

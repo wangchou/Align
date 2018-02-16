@@ -79,6 +79,7 @@ export default class Page extends Component {
   render() {
     const { title, isTouchMoving } = this.props
     const textChilds = this.state.text
+      .replace('\u2611', '\u2611\uFE0E')
       .match(/\u2610|\u2611|[^\u2610\u2611]+/g);
 
     const textComponentChilds = textChilds && textChilds

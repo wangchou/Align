@@ -33,10 +33,11 @@ export default class Page extends Component {
   }
 
   // React Life-cycle methods
-  componentWillReceiveProps(props) {
-    this.setState({
-      text: props.text,
-    })
+  getDerivedStateFromProps(props, state) {
+    return {
+      ...state,
+      text: props.text
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -77,24 +78,56 @@ export default class Page extends Component {
 
   render() {
     const { title, isTouchMoving } = this.props
+    const textChilds = this.state.text
+      .match(/\u2610|\u2611|[^\u2610\u2611]+/g);
+
+    const textComponentChilds = textChilds && textChilds
+      .map((subText, i) => {
+        let key = `${i}in${this.state.text}`
+        let style = {};
+        let onPress = null;
+        if(subText === '\u2610') {
+          style={color: 'red'}
+          onPress = () => {
+            const text = textChilds.map((t, j) =>(i===j ? '\u2611': t)).join('')
+            this.onChangeText(text)
+          }
+        }
+        if(subText === '\u2611') {
+          style={color: 'green'}
+          onPress = () => {
+            const text = textChilds.map((t, j) =>(i===j ? '\u2610': t)).join('')
+            this.onChangeText(text)
+          }
+        }
+        return <Text key={key} style={style} onPress={onPress}>{subText}</Text>
+      })
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
           {title}
         </Text>
-        <TextInput
-          style={styles.pageContent}
-          ref={(textInput) => {
-            this.textInput = textInput
-            this.props.inputRef(textInput)
-          }}
-          onChangeText={this.onChangeText}
-          onFocus={this.onFocus}
-          editable={this.state.isEditable}
-          pointerEvents={isTouchMoving ? 'none' : 'auto'}
-          multiline
-          value={this.state.text}
-        />
+        <View>
+          <TextInput
+            style={styles.underTextInput}
+            ref={(textInput) => {
+              this.textInput = textInput
+              this.props.inputRef(textInput)
+            }}
+            onChangeText={this.onChangeText}
+            onFocus={this.onFocus}
+            editable={this.state.isEditable}
+            pointerEvents={isTouchMoving ? 'none' : 'auto'}
+            multiline
+            value={this.state.text}
+          />
+          <Text
+            style={styles.topCustomText}
+            pointerEvents="box-none"
+          >
+            {textComponentChilds}
+          </Text>
+        </View>
       </View>
     )
   }
@@ -109,6 +142,7 @@ const titleHeight = 25
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20
+const fontFamily= 'PingFang TC'
 const styles = StyleSheet.create({
   pageView: {
     width: windowWidth + pageSeparatorWidth,
@@ -120,19 +154,36 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     height: titleHeight,
-    fontFamily: 'PingFang TC',
+    fontFamily,
     fontSize,
     fontWeight: semiBold,
   },
-  pageContent: {
+  underTextInput: {
+    width: windowWidth - 20,
     height: pageHeight - titleHeight - 15,
     textAlign: 'justify',
     marginTop: 5,
     borderColor: 'rgba(200, 200, 200, 1.0)',
-    fontFamily: 'PingFang TC',
+    fontFamily,
+    fontSize,
+    fontWeight: light,
+    color: 'rgba(32, 32, 32, 0)',
+    backgroundColor: 'rgba(255, 0, 0, 0)'
+  },
+  topCustomText: {
+    position: 'absolute',
+    top: 0,
+    width: windowWidth -20,
+    height: pageHeight - titleHeight - 15,
+    textAlign: 'justify',
+    paddingTop: 5,
+    marginTop: 5,
+    borderColor: 'rgba(200, 200, 200, 1.0)',
+    fontFamily,
     fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
+    backgroundColor: 'rgba(0, 255, 0, 0)'
   },
   checkbox: {
     backgroundColor: 'pink',

@@ -33,7 +33,7 @@ export default class Root extends Component {
     this.state = { rehydrated: false }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     persistStore(store, null, () => {
       this.setState({ rehydrated: true })
     })

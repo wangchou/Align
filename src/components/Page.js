@@ -17,7 +17,7 @@ const EMPTY_CHECKBOX = '\uF1DB'
 const CHECKED_CHECKBOX = '\uE800'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || `${EMPTY_CHECKBOX}`,
+  text: state.pages[props.dataKey] || ``,
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -81,7 +81,13 @@ export default class Page extends Component {
 
   render() {
     const { title, isTouchMoving } = this.props
-    const textChilds = this.state.text
+
+    // workaround to fix cjk auto-suggestion failed when text is empty string
+    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
+    let text = this.state.text;
+    text = (text === '' | !text) ? '\ufffc' : text;
+
+    const textChilds = text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`,'g'));
 
     const textComponentChilds = textChilds && textChilds
@@ -95,9 +101,9 @@ export default class Page extends Component {
             fontFamily: 'circle-checkbox'
           }
           onPress = () => {
-            const text = textChilds.map((t, j) =>(i===j ? CHECKED_CHECKBOX: t)).join('')
-            this.onChangeText(text)
-            console.log(text)
+            this.onChangeText(
+              textChilds.map((t, j) =>(i===j ? CHECKED_CHECKBOX: t)).join('')
+            )
           }
         }
         if(subText === CHECKED_CHECKBOX) {
@@ -106,9 +112,9 @@ export default class Page extends Component {
             fontFamily: 'circle-checkbox'
           }
           onPress = () => {
-            const text = textChilds.map((t, j) =>(i===j ? EMPTY_CHECKBOX: t)).join('')
-            this.onChangeText(text)
-            console.log(text)
+            this.onChangeText(
+              textChilds.map((t, j) =>(i===j ? EMPTY_CHECKBOX: t)).join('')
+            )
           }
         }
         return <Text key={key} style={style} onPress={onPress}>{subText}</Text>

@@ -12,9 +12,10 @@ import {
   setData,
   setFocusedBookId,
 } from '../actions'
-
-const EMPTY_CHECKBOX = '\uF1DB'
-const CHECKED_CHECKBOX = '\uE800'
+import {
+  EMPTY_CHECKBOX,
+  CHECKED_CHECKBOX
+} from '../constants'
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || ``,

@@ -8,6 +8,7 @@ import {
 import Book from './components/Book'
 import KeyboardAvoidingView from './components/KeyboardAvoidingView'
 import TodayButton from './components/TodayButton'
+import FloatEditBar from './components/FloatEditBar'
 import KeyboardManager from './components/KeyboardManager'
 import {
   setIsTouchMoving,
@@ -63,6 +64,7 @@ export default class OnigiriNote extends Component {
           <StatusBar hidden />
           <KeyboardAvoidingView />
         </ScrollView>
+        <FloatEditBar />
         <TodayButton />
         <KeyboardManager />
       </View>

@@ -16,3 +16,7 @@ export const SET_UI_STATE = 'SET UI STATE'
 
 // i18n keys
 export const DONE_BUTTON = 'DONE BUTTON'
+
+// unicode checkbox
+export const EMPTY_CHECKBOX = '\uF1DB'
+export const CHECKED_CHECKBOX = '\uE800'

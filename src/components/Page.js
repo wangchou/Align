@@ -17,7 +17,7 @@ const EMPTY_CHECKBOX = '\uF1DB'
 const CHECKED_CHECKBOX = '\uE800'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || 'abc \uE800 def \uF1DB 超酷的',
+  text: state.pages[props.dataKey] || `${EMPTY_CHECKBOX}`,
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -130,8 +130,9 @@ export default class Page extends Component {
             editable={this.state.isEditable}
             pointerEvents={isTouchMoving ? 'none' : 'auto'}
             multiline
-            value={this.state.text}
-          />
+          >
+            {textComponentChilds}
+          </TextInput>
           <Text
             style={styles.topCustomText}
             pointerEvents="box-none"

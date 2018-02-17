@@ -11,6 +11,8 @@ import { connect } from 'react-redux'
 import {
   setData,
   setFocusedBookId,
+  setFocusedPageId,
+  setSelection,
 } from '../actions'
 import {
   EMPTY_CHECKBOX,
@@ -27,6 +29,8 @@ import {
 }), {
   setData,
   setFocusedBookId,
+  setFocusedPageId,
+  setSelection,
 })
 export default class Page extends Component {
   constructor(props) {
@@ -37,11 +41,10 @@ export default class Page extends Component {
   }
 
   // React Life-cycle methods
-  getDerivedStateFromProps(props, state) {
-    return {
-      ...state,
+  componentWillReceiveProps(props, state) {
+    this.setState({
       text: props.text
-    }
+    })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -60,6 +63,7 @@ export default class Page extends Component {
 
   onFocus = () => {
     this.props.setFocusedBookId(this.props.bookId)
+    this.props.setFocusedPageId(this.props.dataKey)
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
@@ -78,6 +82,16 @@ export default class Page extends Component {
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
     })
+  }
+
+  onBlur = () => {
+    this.props.setFocusedBookId(null)
+    this.props.setFocusedPageId(null)
+    this.props.setSelection(null)
+  }
+
+  onSelctionChange = (event) => {
+    this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
   }
 
   render() {
@@ -134,6 +148,8 @@ export default class Page extends Component {
             }}
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onSelectionChange={this.onSelctionChange}
             editable={this.state.isEditable}
             pointerEvents={isTouchMoving ? 'none' : 'auto'}
             multiline

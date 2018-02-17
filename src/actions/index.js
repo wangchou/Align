@@ -11,6 +11,7 @@ import {
   GOTO_PAGE,
   SET_PAGE_DATA,
   SET_UI_STATE,
+  SET_UI_SELECTION,
 } from '../constants'
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
@@ -41,3 +42,25 @@ export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHe
 export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow'])
 export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
 export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
+export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
+export const setSelection = (dataKey, selection) => ({
+  type: SET_UI_SELECTION,
+  dataKey,
+  selection
+})
+
+// insertCheckbox
+export const insertText = (text) => (dispatch, getState) => {
+  const {
+    ui:{
+      focusedPageId:dataKey,
+      selection
+    },
+    pages
+  } = getState();
+  const {start, end} = selection[dataKey]
+
+  const oldText = pages[dataKey]
+  const newText = oldText ? oldText.slice(0, start) + text + oldText.slice(end) : text
+  dispatch(setData(dataKey, newText))
+}

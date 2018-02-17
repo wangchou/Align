@@ -10,9 +10,11 @@ export const GOTO_PAGE = 'GOTO_PAGE'
 
 // page
 export const SET_PAGE_DATA = 'SET PAGE DATA'
+export const INSERT_TEXT = 'INSERT TEXT THUNK ACTION'
 
 // ui
 export const SET_UI_STATE = 'SET UI STATE'
+export const SET_UI_SELECTION = 'SET UI SELECTION'
 
 // i18n keys
 export const DONE_BUTTON = 'DONE BUTTON'

@@ -13,8 +13,11 @@ import {
   setFocusedBookId,
 } from '../actions'
 
+const EMPTY_CHECKBOX = '\uF1DB'
+const CHECKED_CHECKBOX = '\uE800'
+
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
+  text: state.pages[props.dataKey] || 'abc \uE800 def \uF1DB 超酷的',
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -79,26 +82,33 @@ export default class Page extends Component {
   render() {
     const { title, isTouchMoving } = this.props
     const textChilds = this.state.text
-      .replace('\u2611', '\u2611\uFE0E')
-      .match(/\u2610|\u2611|[^\u2610\u2611]+/g);
+      .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`,'g'));
 
     const textComponentChilds = textChilds && textChilds
       .map((subText, i) => {
         let key = `${i}in${this.state.text}`
         let style = {};
         let onPress = null;
-        if(subText === '\u2610') {
-          style={color: 'red'}
+        if(subText === EMPTY_CHECKBOX) {
+          style={
+            color: 'red',
+            fontFamily: 'circle-checkbox'
+          }
           onPress = () => {
-            const text = textChilds.map((t, j) =>(i===j ? '\u2611': t)).join('')
+            const text = textChilds.map((t, j) =>(i===j ? CHECKED_CHECKBOX: t)).join('')
             this.onChangeText(text)
+            console.log(text)
           }
         }
-        if(subText === '\u2611') {
-          style={color: 'green'}
+        if(subText === CHECKED_CHECKBOX) {
+          style={
+            color: 'green',
+            fontFamily: 'circle-checkbox'
+          }
           onPress = () => {
-            const text = textChilds.map((t, j) =>(i===j ? '\u2610': t)).join('')
+            const text = textChilds.map((t, j) =>(i===j ? EMPTY_CHECKBOX: t)).join('')
             this.onChangeText(text)
+            console.log(text)
           }
         }
         return <Text key={key} style={style} onPress={onPress}>{subText}</Text>

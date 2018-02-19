@@ -16,7 +16,9 @@ import {
 } from '../actions'
 import {
   EMPTY_CHECKBOX,
-  CHECKED_CHECKBOX
+  CHECKED_CHECKBOX,
+  checkedCheckboxColor,
+  emptyCheckboxColor,
 } from '../constants'
 
 @connect((state, props) => ({
@@ -111,10 +113,7 @@ export default class Page extends Component {
         let style = {};
         let onPress = null;
         if(subText === EMPTY_CHECKBOX) {
-          style={
-            color: 'red',
-            fontFamily: 'circle-checkbox'
-          }
+          style=styles.emptyCheckbox
           onPress = () => {
             this.onChangeText(
               textChilds.map((t, j) =>(i===j ? CHECKED_CHECKBOX: t)).join('')
@@ -122,10 +121,7 @@ export default class Page extends Component {
           }
         }
         if(subText === CHECKED_CHECKBOX) {
-          style={
-            color: 'green',
-            fontFamily: 'circle-checkbox'
-          }
+          style=styles.checkedCheckbox
           onPress = () => {
             this.onChangeText(
               textChilds.map((t, j) =>(i===j ? EMPTY_CHECKBOX: t)).join('')
@@ -224,5 +220,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
     width: 20,
     height: 20,
+  },
+  emptyCheckbox :{
+    fontFamily: 'circle-checkbox',
+    color: emptyCheckboxColor,
+  },
+  checkedCheckbox :{
+    fontFamily: 'circle-checkbox',
+    color: checkedCheckboxColor,
   },
 })

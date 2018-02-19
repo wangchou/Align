@@ -13,6 +13,8 @@ import {
   DONE_BUTTON,
   EMPTY_CHECKBOX,
   CHECKED_CHECKBOX,
+  checkedCheckboxColor,
+  emptyCheckboxColor,
 } from '../constants'
 import {
   insertText,
@@ -66,10 +68,10 @@ export default class FloatEditBar extends Component {
     return (
       <View style={styles.bar}>
         <TouchableOpacity onPress={()=>insertText(CHECKED_CHECKBOX)}>
-          <Text style={{...styles.text, fontFamily, color: 'green'}}>{CHECKED_CHECKBOX}</Text>
+          <Text style={{...styles.text, fontFamily, color: checkedCheckboxColor}}>{CHECKED_CHECKBOX}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>insertText(EMPTY_CHECKBOX)}>
-          <Text style={{...styles.text, fontFamily, color: 'red'}}>{EMPTY_CHECKBOX}</Text>
+          <Text style={{...styles.text, fontFamily, color: emptyCheckboxColor}}>{EMPTY_CHECKBOX}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={Keyboard.dismiss}>
           <Text style={styles.text} >{I18n.t(DONE_BUTTON)}</Text>

@@ -38,6 +38,7 @@ export default class Page extends Component {
     super(props)
     this.state = {
       text: props.text,
+      isEditable: true,
     }
   }
 
@@ -45,13 +46,15 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
+      isEditable: !this.props.isTouchMoving || (this.textInput && this.textInput.isFocused())
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      this.state.text !== nextState.text
+      this.state.text !== nextState.text ||
+      this.state.isEditable !== nextState.isEditable
     )
   }
 
@@ -95,16 +98,12 @@ export default class Page extends Component {
     })
   }
 
-  onBlur = () => {
-    this.props.setFocusedBookId(null)
-  }
-
   onSelectionChange = (event) => {
     this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
   }
 
   render() {
-    const { title, isTouchMoving } = this.props
+    const { title } = this.props
 
     let { text } = this.state
     text = !text ? '' : text
@@ -153,10 +152,8 @@ export default class Page extends Component {
             }}
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}
             onSelectionChange={this.onSelectionChange}
-            editable={this.state.isEditable}
-            pointerEvents={isTouchMoving ? 'none' : 'auto'}
+            pointerEvents={this.state.isEditable ? 'auto':'none'}
             multiline
           >
             {textComponentChilds}

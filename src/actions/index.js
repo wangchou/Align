@@ -46,19 +46,19 @@ export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPage
 export const setSelection = (dataKey, selection) => ({
   type: SET_UI_SELECTION,
   dataKey,
-  selection
+  selection,
 })
 
 // insertCheckbox
-export const insertText = (text) => (dispatch, getState) => {
+export const insertText = text => (dispatch, getState) => {
   const {
-    ui:{
-      focusedPageId:dataKey,
-      selection
+    ui: {
+      focusedPageId: dataKey,
+      selection,
     },
-    pages
-  } = getState();
-  const {start, end} = selection[dataKey]
+    pages,
+  } = getState()
+  const { start, end } = selection[dataKey]
 
   const oldText = pages[dataKey]
   const newText = oldText ? oldText.slice(0, start) + text + oldText.slice(end) : text

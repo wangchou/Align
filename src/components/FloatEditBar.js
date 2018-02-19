@@ -27,14 +27,13 @@ const windowWidth = Dimensions.get('window').width
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
 }), {
-  insertText
+  insertText,
 })
 export default class FloatEditBar extends Component {
   render() {
     const {
       isKeyboardShow,
       keyboardHeight,
-      insertText,
     } = this.props
     if (!isKeyboardShow) return null
     const styles = {
@@ -67,12 +66,22 @@ export default class FloatEditBar extends Component {
 
     return (
       <View style={styles.bar}>
-        <TouchableOpacity onPress={()=>insertText(CHECKED_CHECKBOX)}>
-          <Text style={{...styles.text, fontFamily, color: checkedCheckboxColor}}>{CHECKED_CHECKBOX}</Text>
+        <TouchableOpacity onPress={() => this.props.insertText(CHECKED_CHECKBOX)}>
+          <Text
+            style={{ ...styles.text, fontFamily, color: checkedCheckboxColor }}
+          >
+            {CHECKED_CHECKBOX}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>insertText(EMPTY_CHECKBOX)}>
-          <Text style={{...styles.text, fontFamily, color: emptyCheckboxColor}}>{EMPTY_CHECKBOX}</Text>
+
+        <TouchableOpacity onPress={() => this.props.insertText(EMPTY_CHECKBOX)}>
+          <Text
+            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor }}
+          >
+            {EMPTY_CHECKBOX}
+          </Text>
         </TouchableOpacity>
+
         <TouchableOpacity onPress={Keyboard.dismiss}>
           <Text style={styles.text} >{I18n.t(DONE_BUTTON)}</Text>
         </TouchableOpacity>

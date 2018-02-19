@@ -26,8 +26,8 @@ export default (state = intitialState, action) => {
         ...state,
         selection: {
           ...state.selection,
-          [action.dataKey]:action.selection
-        }
+          [action.dataKey]: action.selection,
+        },
       }
   }
   return state

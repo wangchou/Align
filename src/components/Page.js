@@ -5,7 +5,6 @@ import {
   TextInput,
   Dimensions,
   Text,
-  PanResponder,
 } from 'react-native'
 import { connect } from 'react-redux'
 import {
@@ -22,7 +21,7 @@ import {
 } from '../constants'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || ``,
+  text: state.pages[props.dataKey] || '',
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -43,9 +42,9 @@ export default class Page extends Component {
   }
 
   // React Life-cycle methods
-  componentWillReceiveProps(props, state) {
+  componentWillReceiveProps(props) {
     this.setState({
-      text: props.text
+      text: props.text,
     })
   }
 
@@ -101,31 +100,27 @@ export default class Page extends Component {
 
     // workaround to fix cjk auto-suggestion failed when text is empty string
     // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
-    let text = this.state.text;
-    text = (text === '' | !text) ? '\ufffc' : text;
+    let { text } = this.state
+    text = (text === '' || !text) ? '\ufffc' : text
 
     const textChilds = text
-      .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`,'g'));
+      .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
 
     const textComponentChilds = textChilds && textChilds
       .map((subText, i) => {
-        let key = `${i}in${this.state.text}`
-        let style = {};
-        let onPress = null;
-        if(subText === EMPTY_CHECKBOX) {
-          style=styles.emptyCheckbox
+        const key = `${i}in${this.state.text}`
+        let style = {}
+        let onPress = null
+        if (subText === EMPTY_CHECKBOX) {
+          style = styles.emptyCheckbox
           onPress = () => {
-            this.onChangeText(
-              textChilds.map((t, j) =>(i===j ? CHECKED_CHECKBOX: t)).join('')
-            )
+            this.onChangeText(textChilds.map((t, j) => (i === j ? CHECKED_CHECKBOX : t)).join(''))
           }
         }
-        if(subText === CHECKED_CHECKBOX) {
-          style=styles.checkedCheckbox
+        if (subText === CHECKED_CHECKBOX) {
+          style = styles.checkedCheckbox
           onPress = () => {
-            this.onChangeText(
-              textChilds.map((t, j) =>(i===j ? EMPTY_CHECKBOX: t)).join('')
-            )
+            this.onChangeText(textChilds.map((t, j) => (i === j ? EMPTY_CHECKBOX : t)).join(''))
           }
         }
         return <Text key={key} style={style} onPress={onPress}>{subText}</Text>
@@ -173,7 +168,7 @@ const titleHeight = 25
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20
-const fontFamily= 'PingFang TC'
+const fontFamily = 'PingFang TC'
 const styles = StyleSheet.create({
   pageView: {
     width: windowWidth + pageSeparatorWidth,
@@ -199,12 +194,12 @@ const styles = StyleSheet.create({
     fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 0)',
-    backgroundColor: 'rgba(255, 0, 0, 0)'
+    backgroundColor: 'rgba(255, 0, 0, 0)',
   },
   topCustomText: {
     position: 'absolute',
     top: 0,
-    width: windowWidth -20,
+    width: windowWidth - 20,
     height: pageHeight - titleHeight - 15,
     textAlign: 'justify',
     paddingTop: 5,
@@ -214,18 +209,18 @@ const styles = StyleSheet.create({
     fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
-    backgroundColor: 'rgba(0, 255, 0, 0)'
+    backgroundColor: 'rgba(0, 255, 0, 0)',
   },
   checkbox: {
     backgroundColor: 'pink',
     width: 20,
     height: 20,
   },
-  emptyCheckbox :{
+  emptyCheckbox: {
     fontFamily: 'circle-checkbox',
     color: emptyCheckboxColor,
   },
-  checkedCheckbox :{
+  checkedCheckbox: {
     fontFamily: 'circle-checkbox',
     color: checkedCheckboxColor,
   },

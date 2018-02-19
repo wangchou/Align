@@ -5,7 +5,7 @@ import {
   setKeyboardHeight,
   setIsKeyboardShow,
 } from '../actions'
-import {floatEditBarHeight} from './FloatEditBar'
+import { floatEditBarHeight } from './FloatEditBar'
 
 @connect(null, {
   setKeyboardHeight,

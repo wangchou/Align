@@ -58,13 +58,16 @@ export const insertText = text => (dispatch, getState) => {
     },
     pages,
   } = getState()
-  const { start, end } = selection[dataKey]
-
+  let start = 0;
+  let end = 0;
+  if(selection[dataKey]) {
+    start = selection[dataKey].start
+    end = selection[dataKey].end
+  }
   const oldText = pages[dataKey]
   let appendBefore = ''
-  if (start >= 1 && oldText) {
-    const preChar = oldText[start - 1]
-    if (!'\ufffc \t\n'.includes(preChar)) {
+  if (oldText && start >= 1) {
+    if (!' \t\n'.includes(oldText[start - 1])) {
       appendBefore = ' '
     }
   }

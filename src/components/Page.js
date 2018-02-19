@@ -58,8 +58,18 @@ export default class Page extends Component {
 
   // Event Handlers
   onChangeText = (text) => {
-    this.props.setData(this.props.dataKey, text)
-    this.setState({ text })
+    const isCheckbox = (ch) => ch === EMPTY_CHECKBOX || ch === CHECKED_CHECKBOX
+    newText = ''
+    for(let i = 0; i < text.length; i++) {
+      // cjk bug workaround
+      // let using one backspace to delete two characters ('checkbox_character' + '\ufffc')
+      if(isCheckbox(text[i]) && (i === text.length || text[i+1] !== '\ufffc')) {
+        continue
+      }
+      newText += text[i]
+    }
+    this.props.setData(this.props.dataKey, newText)
+    this.setState({ text: newText })
   }
 
   onFocus = () => {
@@ -87,22 +97,26 @@ export default class Page extends Component {
 
   onBlur = () => {
     this.props.setFocusedBookId(null)
-    this.props.setFocusedPageId(null)
-    this.props.setSelection(null)
   }
 
-  onSelctionChange = (event) => {
+  onSelectionChange = (event) => {
     this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
   }
 
   render() {
     const { title, isTouchMoving } = this.props
 
-    // workaround to fix cjk auto-suggestion failed when text is empty string
-    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
     let { text } = this.state
-    text = (text === '' || !text) ? '\ufffc' : text
+    text = !text ? '' : text
 
+    // workaround start
+    // fix cjk auto-suggestion failed when text is empty string
+    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
+    text = text.replace(new RegExp('\ufffc', 'g'), '')
+    text = '\ufffc' + text
+    text = text.replace(new RegExp(EMPTY_CHECKBOX, 'g'), `${EMPTY_CHECKBOX}\ufffc`)
+               .replace(new RegExp(CHECKED_CHECKBOX, 'g'), `${CHECKED_CHECKBOX}\ufffc`)
+    // workaround end
     const textChilds = text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
 
@@ -116,7 +130,7 @@ export default class Page extends Component {
 
     const textComponentChilds = textChilds && textChilds
       .map((subText, i) => ({
-        key: `${i}in${this.state.text}`,
+        key: `${i}in${subText}`,
         style: (subText === EMPTY_CHECKBOX) ? styles.emptyCheckbox :
           (subText === CHECKED_CHECKBOX) ? styles.checkedCheckbox :
             null,
@@ -140,7 +154,7 @@ export default class Page extends Component {
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            onSelectionChange={this.onSelctionChange}
+            onSelectionChange={this.onSelectionChange}
             editable={this.state.isEditable}
             pointerEvents={isTouchMoving ? 'none' : 'auto'}
             multiline
@@ -162,9 +176,9 @@ export default class Page extends Component {
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const fontSize = Math.min(windowWidth, windowHeight) / 20
-const pageHeight = fontSize * 17
-const titleHeight = 25
+const fontSize = 24
+const pageHeight = fontSize * 15
+const titleHeight = 30
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20

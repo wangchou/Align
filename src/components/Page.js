@@ -21,7 +21,7 @@ import {
 } from '../constants'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
+  text: state.pages[props.dataKey],
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -106,25 +106,25 @@ export default class Page extends Component {
     const textChilds = text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
 
+    const toggledText = (texts, toggleIndex) => texts.map((t, i) => {
+      if (toggleIndex !== i) {
+        return t
+      }
+      return t === EMPTY_CHECKBOX ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+    }).join('')
+
+
     const textComponentChilds = textChilds && textChilds
-      .map((subText, i) => {
-        const key = `${i}in${this.state.text}`
-        let style = {}
-        let onPress = null
-        if (subText === EMPTY_CHECKBOX) {
-          style = styles.emptyCheckbox
-          onPress = () => {
-            this.onChangeText(textChilds.map((t, j) => (i === j ? CHECKED_CHECKBOX : t)).join(''))
-          }
-        }
-        if (subText === CHECKED_CHECKBOX) {
-          style = styles.checkedCheckbox
-          onPress = () => {
-            this.onChangeText(textChilds.map((t, j) => (i === j ? EMPTY_CHECKBOX : t)).join(''))
-          }
-        }
-        return <Text key={key} style={style} onPress={onPress}>{subText}</Text>
-      })
+      .map((subText, i) => ({
+        key: `${i}in${this.state.text}`,
+        style: (subText === EMPTY_CHECKBOX) ? styles.emptyCheckbox :
+          (subText === CHECKED_CHECKBOX) ? styles.checkedCheckbox :
+            null,
+        onPress: (subText === EMPTY_CHECKBOX || subText === CHECKED_CHECKBOX) ?
+          () => { this.onChangeText(toggledText(textChilds, i)) } : null,
+        subText,
+      })).map(props => <Text {...props}>{props.subText}</Text>)
+
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
@@ -210,11 +210,6 @@ const styles = StyleSheet.create({
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
     backgroundColor: 'rgba(0, 255, 0, 0)',
-  },
-  checkbox: {
-    backgroundColor: 'pink',
-    width: 20,
-    height: 20,
   },
   emptyCheckbox: {
     fontFamily: 'circle-checkbox',

@@ -67,9 +67,12 @@ export const insertText = text => (dispatch, getState) => {
   const oldText = pages[dataKey]
   let appendBefore = ''
   let insertAfter = ''
-  if (oldText && start >= 1) {
-    if (!' \t\n\ufffc'.includes(oldText[start - 1])) {
-      appendBefore = '  ' // big space
+  if (oldText && start >= 2) {
+    if (oldText[start - 1] != ' ') {
+      appendBefore += ' ' // big space
+    }
+    if (oldText[start - 2] != ' ') {
+      appendBefore += ' ' // big space
     }
   }
 

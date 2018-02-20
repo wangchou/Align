@@ -52,10 +52,8 @@ export default class OnigiriNote extends Component {
           style={{ backgroundColor: 'rgba(155, 155, 155, 0.1)' }}
           ref={(ref) => { this.scrollView = ref }}
           keyboardShouldPersistTaps="always"
-          keyboardDismissMode="interactive"
           scrollEventThrottle={16}
 
-          // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}

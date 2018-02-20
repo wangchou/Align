@@ -15,7 +15,7 @@ import array from './src/utils/arrayMiddleware'
 
 const config = {
   key: 'primary',
-  version: 0,
+  version: 1,
   storage,
   blacklist: ['ui'],
   stateReconciler: autoMergeLevel2,
@@ -33,7 +33,7 @@ export default class Root extends Component {
     this.state = { rehydrated: false }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     persistStore(store, null, () => {
       this.setState({ rehydrated: true })
     })

@@ -2,33 +2,47 @@ import React, { Component } from 'react'
 import {
   Keyboard,
   Dimensions,
-  TouchableHighlight,
+  TouchableOpacity,
   Text,
+  View,
 } from 'react-native'
 import { connect } from 'react-redux'
 
 import I18n from '../i18n'
 import {
   DONE_BUTTON,
+  EMPTY_CHECKBOX,
+  CHECKED_CHECKBOX,
+  checkedCheckboxColor,
+  emptyCheckboxColor,
 } from '../constants'
+import {
+  insertText,
+} from '../actions'
 
-export const floatEditBarHeight = 45
+export const floatEditBarHeight = 35
 const windowWidth = Dimensions.get('window').width
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
-}))
+}), {
+  insertText,
+})
 export default class FloatEditBar extends Component {
   render() {
-    if (!this.props.isKeyboardShow) return null
+    const {
+      isKeyboardShow,
+      keyboardHeight,
+    } = this.props
+    if (!isKeyboardShow) return null
     const styles = {
-      button: {
+      bar: {
         width: windowWidth,
         height: floatEditBarHeight,
 
         position: 'absolute',
-        bottom: this.props.keyboardHeight - floatEditBarHeight,
+        bottom: keyboardHeight - floatEditBarHeight,
         right: 0,
 
         flex: 1,
@@ -48,13 +62,30 @@ export default class FloatEditBar extends Component {
       },
     }
 
+    const fontFamily = 'circle-checkbox'
+
     return (
-    <TouchableHighlight
-      style={styles.button}
-      onPress={Keyboard.dismiss}
-    >
-      <Text style={styles.text}>{I18n.t(DONE_BUTTON)}</Text>
-    </TouchableHighlight>
+      <View style={styles.bar}>
+        <TouchableOpacity onPress={() => this.props.insertText(CHECKED_CHECKBOX)}>
+          <Text
+            style={{ ...styles.text, fontFamily, color: checkedCheckboxColor }}
+          >
+            {CHECKED_CHECKBOX}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.props.insertText(EMPTY_CHECKBOX)}>
+          <Text
+            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor }}
+          >
+            {EMPTY_CHECKBOX}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={Keyboard.dismiss}>
+          <Text style={styles.text} >{I18n.t(DONE_BUTTON)}</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }

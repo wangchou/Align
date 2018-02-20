@@ -10,10 +10,48 @@ import { connect } from 'react-redux'
 import {
   setData,
   setFocusedBookId,
+  setFocusedPageId,
+  setSelection,
 } from '../actions'
+import {
+  EMPTY_CHECKBOX,
+  CHECKED_CHECKBOX,
+  checkedCheckboxColor,
+  emptyCheckboxColor,
+} from '../constants'
+
+const isCheckbox = (ch) => ch === EMPTY_CHECKBOX || ch === CHECKED_CHECKBOX
+const toggleCheckbox = (ch) => ch === EMPTY_CHECKBOX ? CHECKED_CHECKBOX : EMPTY_CHECKBOX
+
+class Checkbox extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {text: props.text}
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.text !== nextState.text
+  }
+
+  toggleCheckbox = () => {
+    this.props.onCheckboxToggle(this.props.indexInParentText)
+  }
+
+  render() {
+    const { indexInParentText } = this.props
+    const { text } = this.state
+
+    let props = {
+      key: indexInParentText+text,
+      style: styles[text],
+      onPress: this.toggleCheckbox,
+    }
+    return (<Text {...props}>{text}</Text>)
+  }
+}
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
+  text: state.pages[props.dataKey],
   isTouchMoving: state.ui.isTouchMoving,
   isKeyboardShow: state.ui.isKeyboardShow,
   keyboardHeight: state.ui.keyboardHeight,
@@ -22,13 +60,16 @@ import {
 }), {
   setData,
   setFocusedBookId,
+  setFocusedPageId,
+  setSelection,
 })
 export default class Page extends Component {
   constructor(props) {
     super(props)
+    this.textInput = null
     this.state = {
       text: props.text,
-      isEditable: true,
+      isFocused: false,
     }
   }
 
@@ -36,27 +77,35 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isEditable: this.textInput.isFocused() || !props.isTouchMoving,
+      isFocused: this.textInput.isFocused()
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      this.state.isEditable !== nextState.isEditable ||
-      this.state.text !== nextState.text
+      this.state.text !== nextState.text ||
+      this.state.isEditable !== nextState.isEditable
     )
   }
 
-
   // Event Handlers
   onChangeText = (text) => {
-    this.props.setData(this.props.dataKey, text)
-    this.setState({ text })
+    newText = ''
+    for(let i = 0; i < text.length; i++) {
+      // using one backspace to delete two characters ('checkbox_character' + ' ')
+      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== ' ')) {
+        continue
+      }
+      newText += text[i]
+    }
+    this.props.setData(this.props.dataKey, newText)
+    this.setState({ text: newText })
   }
 
   onFocus = () => {
     this.props.setFocusedBookId(this.props.bookId)
+    this.props.setFocusedPageId(this.props.dataKey)
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
@@ -77,25 +126,81 @@ export default class Page extends Component {
     })
   }
 
+  onBlur = () => {
+    this.props.setFocusedBookId(null)
+    this.props.setFocusedPageId(null)
+  }
+
+  onSelectionChange = (event) => {
+    this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
+  }
+
+  assignTextInputRef = (textInput) => {
+    this.textInput = textInput
+    this.props.inputRef(textInput)
+  }
+
+  onCheckboxToggle = (toggleIndex) => {
+    const textChilds = this.getTextChilds(this.state.text)
+    const toggledText = textChilds.map(
+      (t, i) => (toggleIndex === i ? toggleCheckbox(t) : t)
+    ).join('')
+    this.onChangeText(toggledText)
+  }
+
+  getTextChilds = (text) => {
+    text = !text ? '' : text
+
+    // workaround start
+    // fix cjk auto-suggestion failed when text is empty string
+    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
+    text = text.replace(new RegExp('\ufffc', 'g'), '')
+    text = '\ufffc' + text
+    // workaround end
+
+    return text
+      .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
+  }
+
   render() {
-    const { title } = this.props
+    const { title, isTouchMoving } = this.props
+
+    const textChilds = this.getTextChilds(this.state.text)
+
+    const textComponentChilds = textChilds && textChilds.map((subText, i) => {
+      if(isCheckbox(subText)) {
+        return <Checkbox key={subText+i} text={subText} indexInParentText={i} onCheckboxToggle={this.onCheckboxToggle}/>
+      } else {
+        return <Text key={subText+i}>{subText}</Text>
+      }
+    })
+
     return (
       <View style={styles.pageView}>
         <Text style={styles.pageTitle}>
           {title}
         </Text>
-        <TextInput
-          style={styles.pageContent}
-          ref={(textInput) => {
-            this.textInput = textInput
-            this.props.inputRef(textInput)
-          }}
-          onChangeText={this.onChangeText}
-          onFocus={this.onFocus}
-          editable={this.state.isEditable}
-          multiline
-          value={this.state.text}
-        />
+        <View>
+          <TextInput
+            style={styles.underTextInput}
+            ref={this.assignTextInputRef}
+            onChangeText={this.onChangeText}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onSelectionChange={this.onSelectionChange}
+            pointerEvents={isTouchMoving ? 'none':'auto'}
+            multiline
+          >
+            {textComponentChilds}
+          </TextInput>
+          <Text
+            style={styles.topCustomText}
+            pointerEvents={this.state.isFocused ? "box-none" : "auto"}
+            onPress={()=>{this.textInput.focus()}}
+          >
+            {textComponentChilds}
+          </Text>
+        </View>
       </View>
     )
   }
@@ -104,12 +209,13 @@ export default class Page extends Component {
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const fontSize = Math.min(windowWidth, windowHeight) / 20
+const fontSize = 16
 const pageHeight = fontSize * 17
-const titleHeight = 25
+const titleHeight = 20
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20
+const fontFamily = 'PingFang TC'
 const styles = StyleSheet.create({
   pageView: {
     width: windowWidth + pageSeparatorWidth,
@@ -121,23 +227,43 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     height: titleHeight,
-    fontFamily: 'PingFang TC',
+    fontFamily,
     fontSize,
     fontWeight: semiBold,
   },
-  pageContent: {
+  underTextInput: {
+    width: windowWidth - 20,
     height: pageHeight - titleHeight - 15,
     textAlign: 'justify',
     marginTop: 5,
     borderColor: 'rgba(200, 200, 200, 1.0)',
-    fontFamily: 'PingFang TC',
+    fontFamily,
+    fontSize,
+    fontWeight: light,
+    color: 'rgba(32, 32, 32, 0)',
+    backgroundColor: 'rgba(255, 0, 0, 0)',
+  },
+  topCustomText: {
+    position: 'absolute',
+    top: 0,
+    width: windowWidth - 20,
+    height: pageHeight - titleHeight - 15,
+    textAlign: 'justify',
+    paddingTop: 5,
+    marginTop: 5,
+    borderColor: 'rgba(200, 200, 200, 1.0)',
+    fontFamily,
     fontSize,
     fontWeight: light,
     color: 'rgba(32, 32, 32, 1.0)',
+    backgroundColor: 'rgba(0, 255, 0, 0)',
   },
-  checkbox: {
-    backgroundColor: 'pink',
-    width: 20,
-    height: 20,
+  [EMPTY_CHECKBOX]: {
+    fontFamily: 'circle-checkbox',
+    color: emptyCheckboxColor,
+  },
+  [CHECKED_CHECKBOX]: {
+    fontFamily: 'circle-checkbox',
+    color: checkedCheckboxColor,
   },
 })

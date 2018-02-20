@@ -8,6 +8,7 @@ import {
 import Book from './components/Book'
 import KeyboardAvoidingView from './components/KeyboardAvoidingView'
 import TodayButton from './components/TodayButton'
+import FloatEditBar from './components/FloatEditBar'
 import KeyboardManager from './components/KeyboardManager'
 import {
   setIsTouchMoving,
@@ -51,10 +52,8 @@ export default class OnigiriNote extends Component {
           style={{ backgroundColor: 'rgba(155, 155, 155, 0.1)' }}
           ref={(ref) => { this.scrollView = ref }}
           keyboardShouldPersistTaps="always"
-          keyboardDismissMode="interactive"
           scrollEventThrottle={16}
 
-          // Event Handlers
           onScroll={this.onScroll}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -63,6 +62,7 @@ export default class OnigiriNote extends Component {
           <StatusBar hidden />
           <KeyboardAvoidingView />
         </ScrollView>
+        <FloatEditBar />
         <TodayButton />
         <KeyboardManager />
       </View>

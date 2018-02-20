@@ -5,6 +5,7 @@ import {
   setKeyboardHeight,
   setIsKeyboardShow,
 } from '../actions'
+import { floatEditBarHeight } from './FloatEditBar'
 
 @connect(null, {
   setKeyboardHeight,
@@ -15,7 +16,7 @@ export default class KeyboardManager extends Component {
     this.props.setIsKeyboardShow(false)
 
     this.keyboardWillShowListerner = Keyboard.addListener('keyboardWillShow', (event) => {
-      this.props.setKeyboardHeight(event.endCoordinates.height)
+      this.props.setKeyboardHeight(event.endCoordinates.height + floatEditBarHeight)
       this.props.setIsKeyboardShow(true)
     })
 

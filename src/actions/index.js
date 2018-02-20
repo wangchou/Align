@@ -11,6 +11,7 @@ import {
   GOTO_PAGE,
   SET_PAGE_DATA,
   SET_UI_STATE,
+  SET_UI_SELECTION,
 } from '../constants'
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
@@ -41,3 +42,44 @@ export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHe
 export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow'])
 export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
 export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
+export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
+export const setSelection = (dataKey, selection) => ({
+  type: SET_UI_SELECTION,
+  dataKey,
+  selection,
+})
+
+// insertCheckbox
+export const insertText = text => (dispatch, getState) => {
+  const {
+    ui: {
+      focusedPageId: dataKey,
+      selection,
+    },
+    pages,
+  } = getState()
+  let start = 0;
+  let end = 0;
+  if(selection[dataKey]) {
+    start = selection[dataKey].start
+    end = selection[dataKey].end
+  }
+  const oldText = pages[dataKey]
+  let appendBefore = ''
+  let insertAfter = ''
+  if (oldText && start >= 2 && oldText[start-1] !='\n') {
+    if (oldText[start - 1] != ' ') {
+      appendBefore += ' ' // big space
+    }
+    if (oldText[start - 2] != ' ') {
+      appendBefore += ' ' // big space
+    }
+  }
+
+  insertAfter = ' '
+
+  const newText = oldText ?
+    oldText.slice(0, start) + appendBefore + text + insertAfter + oldText.slice(end) :
+    text + insertAfter
+  dispatch(setData(dataKey, newText))
+}

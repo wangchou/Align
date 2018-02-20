@@ -40,7 +40,8 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.book.time !== props.book.time
+      this.props.book.time !== props.book.time ||
+      this.props.focusedBookId !== props.focusedBookId
   }
 
   componentDidUpdate() {
@@ -122,6 +123,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
-    borderRadius: 5,
   },
 })

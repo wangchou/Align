@@ -1,5 +1,6 @@
 import {
   SET_UI_STATE,
+  SET_UI_SELECTION,
 } from '../constants'
 
 const intitialState = {
@@ -9,6 +10,8 @@ const intitialState = {
   scrollY: 0,
   scrollTo: () => {},
   focusedBookId: null,
+  focusedPageId: null,
+  selection: {},
 }
 
 export default (state = intitialState, action) => {
@@ -17,6 +20,14 @@ export default (state = intitialState, action) => {
       return {
         ...state,
         ...action.payload,
+      }
+    case SET_UI_SELECTION:
+      return {
+        ...state,
+        selection: {
+          ...state.selection,
+          [action.dataKey]: action.selection,
+        },
       }
   }
   return state

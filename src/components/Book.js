@@ -40,7 +40,8 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.book.time !== props.book.time
+      this.props.book.time !== props.book.time ||
+      this.props.focusedBookId !== props.focusedBookId
   }
 
   componentDidUpdate() {

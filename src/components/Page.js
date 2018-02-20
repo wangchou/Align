@@ -94,7 +94,7 @@ export default class Page extends Component {
     newText = ''
     for(let i = 0; i < text.length; i++) {
       // using one backspace to delete two characters ('checkbox_character' + ' ')
-      if(isCheckbox(text[i]) && (i === text.length || text[i+1] !== ' ')) {
+      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== ' ')) {
         continue
       }
       newText += text[i]
@@ -124,6 +124,11 @@ export default class Page extends Component {
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
     })
+  }
+
+  onBlur = () => {
+    this.props.setFocusedBookId(null)
+    this.props.setFocusedPageId(null)
   }
 
   onSelectionChange = (event) => {
@@ -181,6 +186,7 @@ export default class Page extends Component {
             ref={this.assignTextInputRef}
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
+            onBlur={this.onBlur}
             onSelectionChange={this.onSelectionChange}
             pointerEvents={isTouchMoving ? 'none':'auto'}
             multiline

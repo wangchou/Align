@@ -66,7 +66,7 @@ export default class Page extends Component {
     for(let i = 0; i < text.length; i++) {
       // cjk bug workaround
       // let using one backspace to delete two characters ('checkbox_character' + '\ufffc')
-      if(isCheckbox(text[i]) && (i === text.length || text[i+1] !== '\ufffc')) {
+      if(isCheckbox(text[i]) && (i === text.length || text[i+1] !== ' ')) {
         continue
       }
       newText += text[i]
@@ -113,8 +113,6 @@ export default class Page extends Component {
     // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
     text = text.replace(new RegExp('\ufffc', 'g'), '')
     text = '\ufffc' + text
-    text = text.replace(new RegExp(EMPTY_CHECKBOX, 'g'), `${EMPTY_CHECKBOX}\ufffc`)
-               .replace(new RegExp(CHECKED_CHECKBOX, 'g'), `${CHECKED_CHECKBOX}\ufffc`)
     // workaround end
     const textChilds = text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))

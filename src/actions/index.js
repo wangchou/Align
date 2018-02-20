@@ -68,19 +68,15 @@ export const insertText = text => (dispatch, getState) => {
   let appendBefore = ''
   let insertAfter = ''
   if (oldText && start >= 1) {
-    if (!' \t\n'.includes(oldText[start - 1])) {
+    if (!' \t\n\ufffc'.includes(oldText[start - 1])) {
       appendBefore = ' '
     }
   }
 
-  if (oldText) {
-    if (end === oldText.length || !' \t\n'.includes(oldText[end])) {
-      insertAfter = ' '
-    }
-  }
+  insertAfter = ' '
 
   const newText = oldText ?
     oldText.slice(0, start) + appendBefore + text + insertAfter + oldText.slice(end) :
-    text
+    text + insertAfter
   dispatch(setData(dataKey, newText))
 }

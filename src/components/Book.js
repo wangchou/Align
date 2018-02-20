@@ -122,6 +122,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: 'rgba(155, 155, 155, 0.5)',
     marginBottom: 5,
-    borderRadius: 5,
   },
 })

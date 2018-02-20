@@ -20,7 +20,7 @@ import {
   insertText,
 } from '../actions'
 
-export const floatEditBarHeight = 45
+export const floatEditBarHeight = 35
 const windowWidth = Dimensions.get('window').width
 
 @connect(state => ({
@@ -57,7 +57,7 @@ export default class FloatEditBar extends Component {
         borderColor: 'rgba(155, 155, 155, 0.2)',
       },
       text: {
-        fontSize: 24,
+        fontSize: 20,
         color: 'rgba(125, 125, 125, 1)',
       },
     }

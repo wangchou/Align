@@ -173,9 +173,9 @@ export default class Page extends Component {
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const fontSize = 24
-const pageHeight = fontSize * 15
-const titleHeight = 30
+const fontSize = 16
+const pageHeight = fontSize * 17
+const titleHeight = 20
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20

@@ -69,7 +69,7 @@ export const insertText = text => (dispatch, getState) => {
   let insertAfter = ''
   if (oldText && start >= 1) {
     if (!' \t\n\ufffc'.includes(oldText[start - 1])) {
-      appendBefore = ' '
+      appendBefore = '  ' // big space
     }
   }
 

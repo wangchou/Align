@@ -16,6 +16,7 @@ import {
 import {
   EMPTY_CHECKBOX,
   CHECKED_CHECKBOX,
+  SMALL_SPACE,
   checkedCheckboxColor,
   emptyCheckboxColor,
 } from '../constants'
@@ -94,7 +95,7 @@ export default class Page extends Component {
     newText = ''
     for(let i = 0; i < text.length; i++) {
       // using one backspace to delete two characters ('checkbox_character' + ' ')
-      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== ' ')) {
+      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== SMALL_SPACE)) {
         continue
       }
       newText += text[i]
@@ -150,14 +151,6 @@ export default class Page extends Component {
 
   getTextChilds = (text) => {
     text = !text ? '' : text
-
-    // workaround start
-    // fix cjk auto-suggestion failed when text is empty string
-    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
-    text = text.replace(new RegExp('\ufffc', 'g'), '')
-    text = '\ufffc' + text
-    // workaround end
-
     return text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
   }
@@ -190,9 +183,8 @@ export default class Page extends Component {
             onSelectionChange={this.onSelectionChange}
             pointerEvents={isTouchMoving ? 'none':'auto'}
             multiline
-          >
-            {textComponentChilds}
-          </TextInput>
+            value = {this.state.text}
+          />
           <Text
             style={styles.topCustomText}
             pointerEvents={this.state.isFocused ? "box-none" : "auto"}

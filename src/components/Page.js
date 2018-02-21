@@ -70,7 +70,6 @@ export default class Page extends Component {
     this.textInput = null
     this.state = {
       text: props.text,
-      isFocused: false,
     }
   }
 
@@ -78,7 +77,6 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isFocused: this.textInput.isFocused()
     })
   }
 
@@ -86,7 +84,7 @@ export default class Page extends Component {
     return (
       this.props.dataKey !== nextProps.dataKey ||
       this.state.text !== nextState.text ||
-      this.state.isEditable !== nextState.isEditable
+      this.state.isTouchMoving !== nextState.isTouchMoving
     )
   }
 
@@ -125,11 +123,6 @@ export default class Page extends Component {
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
     })
-  }
-
-  onBlur = () => {
-    this.props.setFocusedBookId(null)
-    this.props.setFocusedPageId(null)
   }
 
   onSelectionChange = (event) => {
@@ -179,7 +172,6 @@ export default class Page extends Component {
             ref={this.assignTextInputRef}
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}
             onSelectionChange={this.onSelectionChange}
             pointerEvents={isTouchMoving ? 'none':'auto'}
             multiline
@@ -187,8 +179,7 @@ export default class Page extends Component {
           />
           <Text
             style={styles.topCustomText}
-            pointerEvents={this.state.isFocused ? "box-none" : "auto"}
-            onPress={()=>{this.textInput.focus()}}
+            pointerEvents="box-none"
           >
             {textComponentChilds}
           </Text>
@@ -207,7 +198,7 @@ const titleHeight = 20
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20
-const fontFamily = 'PingFang TC'
+const fontFamily = 'circle-checkbox'
 const styles = StyleSheet.create({
   pageView: {
     width: windowWidth + pageSeparatorWidth,
@@ -219,7 +210,7 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     height: titleHeight,
-    fontFamily,
+    fontFamily: 'PingFang TC',
     fontSize,
     fontWeight: semiBold,
   },
@@ -251,11 +242,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 255, 0, 0)',
   },
   [EMPTY_CHECKBOX]: {
-    fontFamily: 'circle-checkbox',
+    fontFamily,
     color: emptyCheckboxColor,
   },
   [CHECKED_CHECKBOX]: {
-    fontFamily: 'circle-checkbox',
+    fontFamily,
     color: checkedCheckboxColor,
   },
 })

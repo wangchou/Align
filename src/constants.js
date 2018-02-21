@@ -22,6 +22,7 @@ export const DONE_BUTTON = 'DONE BUTTON'
 // unicode checkbox
 export const EMPTY_CHECKBOX = '\uF1DB'
 export const CHECKED_CHECKBOX = '\uE800'
+export const SMALL_SPACE = '\u2006'
 
 // color
 export const emptyCheckboxColor = 'rgba(225, 0, 135, 0.5)'

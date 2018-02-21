@@ -16,6 +16,7 @@ import {
 import {
   EMPTY_CHECKBOX,
   CHECKED_CHECKBOX,
+  SMALL_SPACE,
   checkedCheckboxColor,
   emptyCheckboxColor,
 } from '../constants'
@@ -69,7 +70,6 @@ export default class Page extends Component {
     this.textInput = null
     this.state = {
       text: props.text,
-      isFocused: false,
     }
   }
 
@@ -77,7 +77,6 @@ export default class Page extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
-      isFocused: this.textInput.isFocused()
     })
   }
 
@@ -85,7 +84,7 @@ export default class Page extends Component {
     return (
       this.props.dataKey !== nextProps.dataKey ||
       this.state.text !== nextState.text ||
-      this.state.isEditable !== nextState.isEditable
+      this.state.isTouchMoving !== nextState.isTouchMoving
     )
   }
 
@@ -94,7 +93,7 @@ export default class Page extends Component {
     newText = ''
     for(let i = 0; i < text.length; i++) {
       // using one backspace to delete two characters ('checkbox_character' + ' ')
-      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== ' ')) {
+      if(isCheckbox(text[i]) && (i+1 === text.length || text[i+1] !== SMALL_SPACE)) {
         continue
       }
       newText += text[i]
@@ -126,11 +125,6 @@ export default class Page extends Component {
     })
   }
 
-  onBlur = () => {
-    this.props.setFocusedBookId(null)
-    this.props.setFocusedPageId(null)
-  }
-
   onSelectionChange = (event) => {
     this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
   }
@@ -150,14 +144,6 @@ export default class Page extends Component {
 
   getTextChilds = (text) => {
     text = !text ? '' : text
-
-    // workaround start
-    // fix cjk auto-suggestion failed when text is empty string
-    // '\ufffc' is 'OBJECT REPLACEMENT CHARACTER' in utf-8 so it will not render
-    text = text.replace(new RegExp('\ufffc', 'g'), '')
-    text = '\ufffc' + text
-    // workaround end
-
     return text
       .match(new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g'))
   }
@@ -186,17 +172,14 @@ export default class Page extends Component {
             ref={this.assignTextInputRef}
             onChangeText={this.onChangeText}
             onFocus={this.onFocus}
-            onBlur={this.onBlur}
             onSelectionChange={this.onSelectionChange}
             pointerEvents={isTouchMoving ? 'none':'auto'}
             multiline
-          >
-            {textComponentChilds}
-          </TextInput>
+            value = {this.state.text}
+          />
           <Text
             style={styles.topCustomText}
-            pointerEvents={this.state.isFocused ? "box-none" : "auto"}
-            onPress={()=>{this.textInput.focus()}}
+            pointerEvents="box-none"
           >
             {textComponentChilds}
           </Text>
@@ -215,7 +198,7 @@ const titleHeight = 20
 const semiBold = '600'
 const light = '300'
 const pageSeparatorWidth = 20
-const fontFamily = 'PingFang TC'
+const fontFamily = 'circle-checkbox'
 const styles = StyleSheet.create({
   pageView: {
     width: windowWidth + pageSeparatorWidth,
@@ -227,7 +210,7 @@ const styles = StyleSheet.create({
   },
   pageTitle: {
     height: titleHeight,
-    fontFamily,
+    fontFamily: 'PingFang TC',
     fontSize,
     fontWeight: semiBold,
   },
@@ -259,11 +242,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 255, 0, 0)',
   },
   [EMPTY_CHECKBOX]: {
-    fontFamily: 'circle-checkbox',
+    fontFamily,
     color: emptyCheckboxColor,
   },
   [CHECKED_CHECKBOX]: {
-    fontFamily: 'circle-checkbox',
+    fontFamily,
     color: checkedCheckboxColor,
   },
 })

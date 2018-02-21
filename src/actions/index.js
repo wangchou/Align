@@ -12,6 +12,7 @@ import {
   SET_PAGE_DATA,
   SET_UI_STATE,
   SET_UI_SELECTION,
+  SMALL_SPACE,
 } from '../constants'
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
@@ -66,17 +67,10 @@ export const insertText = text => (dispatch, getState) => {
   }
   const oldText = pages[dataKey]
   let appendBefore = ''
-  let insertAfter = ''
-  if (oldText && start >= 2 && oldText[start-1] !='\n') {
-    if (oldText[start - 1] != ' ') {
-      appendBefore += ' ' // big space
-    }
-    if (oldText[start - 2] != ' ') {
-      appendBefore += ' ' // big space
-    }
+  let insertAfter = SMALL_SPACE
+  if (oldText && start >= 1 && !'\t \n'.includes(oldText[start - 1])) {
+    appendBefore += ' ' // big space
   }
-
-  insertAfter = ' '
 
   const newText = oldText ?
     oldText.slice(0, start) + appendBefore + text + insertAfter + oldText.slice(end) :

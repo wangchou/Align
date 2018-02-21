@@ -58,6 +58,7 @@ export default class Book extends Component {
     }
   }
 
+  // faster focus the page before momentum ended
   onScroll = (event) => {
     const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (this.props.isKeyboardShow &&

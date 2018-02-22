@@ -23,6 +23,7 @@ DerivedData
 project.xcworkspace
 debug.log
 package-lock.json
+ios/Index
 
 # Android/IntelliJ
 #

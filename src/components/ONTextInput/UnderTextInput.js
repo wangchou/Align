@@ -15,6 +15,7 @@ import {
 } from '../../constants'
 import {
   isCheckbox,
+  getTextChilds,
 } from './TopTextOverlay'
 import { styles, windowHeight } from './styles'
 
@@ -35,7 +36,6 @@ export default class UnderTextInput extends Component {
     super(props)
     this.internalText = props.text
   }
-
 
   shouldComponentUpdate(nextProps) {
     return (
@@ -104,8 +104,14 @@ export default class UnderTextInput extends Component {
         pointerEvents={isTouchMoving ? 'none' : 'auto'}
         multiline
       >
-        <Text>
-          {text}
+        <Text style={styles.text}>
+        {
+          getTextChilds(text).map(subText => (
+            isCheckbox(subText) ?
+              <Text style={styles[subText]}>{subText}</Text> :
+              <Text style={styles.text}>{subText}</Text>
+          ))
+        }
         </Text>
       </TextInput>
     )

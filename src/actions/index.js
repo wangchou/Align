@@ -59,15 +59,13 @@ export const insertText = text => (dispatch, getState) => {
     },
     pages,
   } = getState()
-  let start = 0;
-  let end = 0;
-  if(selection[dataKey]) {
-    start = selection[dataKey].start
-    end = selection[dataKey].end
+  if (!selection[dataKey]) {
+    selection[dataKey] = { start: 0, end: 0 }
   }
+  const { start, end } = selection[dataKey]
   const oldText = pages[dataKey]
   let appendBefore = ''
-  let insertAfter = SMALL_SPACE
+  const insertAfter = SMALL_SPACE
   if (oldText && start >= 1 && !'\t \n'.includes(oldText[start - 1])) {
     appendBefore += ' ' // big space
   }

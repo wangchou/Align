@@ -118,8 +118,8 @@ export default class UnderTextInput extends Component {
         {
           getTextChilds(text).map((subText, i) => (
             isCheckbox(subText) ?
-              <Text key={subText+i} style={styles[subText]}>{subText}</Text> :
-              <Text key={subText+i} style={styles.text}>{subText}</Text>
+              <Text key={text+i} style={styles.transparentCheckbox}>{subText}</Text> :
+              <Text key={text+i} style={styles.transparentText}>{subText}</Text>
           ))
         }
         </Text>

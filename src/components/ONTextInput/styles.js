@@ -44,6 +44,15 @@ export const styles = StyleSheet.create({
   text: {
     ...baseText,
   },
+  transparentText: {
+    ...baseText,
+    color: 'rgba(0,0,0,0)'
+  },
+  transparentCheckbox: {
+    ...baseText,
+    fontFamily: 'circle-checkbox',
+    color: 'rgba(0,0,0,0)'
+  },
   [EMPTY_CHECKBOX]: {
     ...baseText,
     fontFamily: 'circle-checkbox',

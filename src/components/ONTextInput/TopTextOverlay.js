@@ -18,7 +18,7 @@ export const isCheckbox = ch => ch === EMPTY_CHECKBOX || ch === CHECKED_CHECKBOX
 const toggleCheckbox = ch => (ch === EMPTY_CHECKBOX ? CHECKED_CHECKBOX : EMPTY_CHECKBOX)
 
 const checkboxOrTextReg = new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g')
-export const getTextChilds = text => text.match(checkboxOrTextReg) || ['']
+export const getTextChilds = text => text.match(checkboxOrTextReg) || []
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
@@ -36,12 +36,12 @@ export default class TopTextOverlay extends Component {
     .map((subText, i) =>
       (isCheckbox(subText) ?
         <Checkbox
-          key={subText + i}
+          key={text + subText + i}
           text={subText}
           indexInParentText={i}
           onCheckboxToggle={this.onCheckboxToggle}
         /> :
-        <Text key={subText + i} style={styles.text} >{subText}</Text>))
+        <Text key={text + subText + i} style={styles.text} >{subText}</Text>))
 
   render() {
     return (

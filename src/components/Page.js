@@ -8,14 +8,14 @@ import {
 import ONTextInput from './ONTextInput'
 
 export default (props) => {
-  const { title, dataKey, inputRef } = props
+  const { title, dataKey, inputRef, bookId } = props
 
   return (
     <View style={styles.pageView}>
       <Text style={styles.pageTitle}>
         {title}
       </Text>
-      <ONTextInput dataKey={dataKey} inputRef={inputRef} />
+      <ONTextInput dataKey={dataKey} inputRef={inputRef} bookId={bookId}/>
     </View>
   )
 }
@@ -23,7 +23,7 @@ export default (props) => {
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const fontSize = 16
-const titleHeight = 20
+export const titleHeight = 20
 const semiBold = '600'
 const pageSeparatorWidth = 20
 const styles = StyleSheet.create({

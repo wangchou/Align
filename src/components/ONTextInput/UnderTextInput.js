@@ -18,6 +18,7 @@ import {
   getTextChilds,
 } from './TopTextOverlay'
 import { styles, windowHeight } from './styles'
+import { titleHeight } from '../Page'
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
@@ -35,13 +36,20 @@ export default class UnderTextInput extends Component {
   constructor(props) {
     super(props)
     this.internalText = props.text
+    this.state = { isReceivePointerEvents: true }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({
+      isReceivePointerEvents: !props.isTouchMoving || this.props.bookId === this.props.focusedBookId
+    })
   }
 
   shouldComponentUpdate(nextProps) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
       (this.internalText !== nextProps.text) ||
-      this.props.isTouchMoving !== nextProps.isTouchMoving
+      this.props.isReceivePointerEvents !== nextProps.isReceivePointerEvents
     )
   }
 
@@ -61,6 +69,8 @@ export default class UnderTextInput extends Component {
   onFocus = () => {
     this.props.setFocusedBookId(this.props.bookId)
     this.props.setFocusedPageId(this.props.dataKey)
+
+    // scroll input into view
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
@@ -74,7 +84,7 @@ export default class UnderTextInput extends Component {
       const isInputBottomNotInView =
         (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight
       if (isInputTopNotInView) {
-        this.props.scrollTo(inputY)
+        this.props.scrollTo(inputY - titleHeight)
       } else if (isInputBottomNotInView) {
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
@@ -101,15 +111,15 @@ export default class UnderTextInput extends Component {
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
         onSelectionChange={this.onSelectionChange}
-        pointerEvents={isTouchMoving ? 'none' : 'auto'}
+        pointerEvents={this.state.isReceivePointerEvents ? 'auto' : 'none'}
         multiline
       >
         <Text style={styles.text}>
         {
-          getTextChilds(text).map(subText => (
+          getTextChilds(text).map((subText, i) => (
             isCheckbox(subText) ?
-              <Text style={styles[subText]}>{subText}</Text> :
-              <Text style={styles.text}>{subText}</Text>
+              <Text key={subText+i} style={styles[subText]}>{subText}</Text> :
+              <Text key={subText+i} style={styles.text}>{subText}</Text>
           ))
         }
         </Text>

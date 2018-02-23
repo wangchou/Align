@@ -62,7 +62,7 @@ export default class Book extends Component {
   onScroll = (event) => {
     const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (this.props.isKeyboardShow &&
-       this.props.focusedBookId === this.props.book.id) {
+      this.props.focusedBookId === this.props.book.id) {
       this.focusPage(shift)
     }
   }

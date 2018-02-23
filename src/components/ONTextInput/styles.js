@@ -22,7 +22,7 @@ const baseText = {
 const baseStyle = {
   ...baseText,
   width: windowWidth - 20,
-  height: baseText.lineHeight * 15,
+  height: baseText.lineHeight * 12,
   borderColor: 'rgba(200, 200, 200, 1.0)',
   backgroundColor: 'rgba(0, 0, 0, 0)',
   textAlign: 'justify',

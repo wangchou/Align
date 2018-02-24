@@ -34,7 +34,7 @@ export const gotoTodayPage = () => ([
 ])
 
 // page
-export const setData = actionCreatorCreator(SET_PAGE_DATA, ['dataKey', 'data'])
+export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])
 
 // ui
 export const setIsTouchMoving = actionCreatorCreator(SET_UI_STATE, ['isTouchMoving'])
@@ -44,9 +44,9 @@ export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboard
 export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
 export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
 export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
-export const setSelection = (dataKey, selection) => ({
+export const setSelection = (pageId, selection) => ({
   type: SET_UI_SELECTION,
-  dataKey,
+  pageId,
   selection,
 })
 
@@ -54,16 +54,16 @@ export const setSelection = (dataKey, selection) => ({
 export const insertText = text => (dispatch, getState) => {
   const {
     ui: {
-      focusedPageId: dataKey,
+      focusedPageId: pageId,
       selection,
     },
     pages,
   } = getState()
-  if (!selection[dataKey]) {
-    selection[dataKey] = { start: 0, end: 0 }
+  if (!selection[pageId]) {
+    selection[pageId] = { start: 0, end: 0 }
   }
-  const { start, end } = selection[dataKey]
-  const oldText = pages[dataKey]
+  const { start, end } = selection[pageId]
+  const oldText = pages[pageId]
   let appendBefore = ''
   const insertAfter = SMALL_SPACE
   if (oldText && start >= 1 && !'\t \n'.includes(oldText[start - 1])) {
@@ -73,5 +73,5 @@ export const insertText = text => (dispatch, getState) => {
   const newText = oldText ?
     oldText.slice(0, start) + appendBefore + text + insertAfter + oldText.slice(end) :
     text + insertAfter
-  dispatch(setData(dataKey, newText))
+  dispatch(setData(pageId, newText))
 }

@@ -21,7 +21,7 @@ import { styles, windowHeight } from './styles'
 import { titleHeight } from '../Page'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
+  text: state.pages[props.pageId] || '',
   keyboardHeight: state.ui.keyboardHeight,
   focusedBookId: state.ui.focusedBookId,
   focusedPageId: state.ui.focusedPageId,
@@ -49,7 +49,7 @@ export default class UnderTextInput extends Component {
     this.setState({
       text: props.text,
       isFocused: (this.props.bookId === props.focusedBookId &&
-                  this.props.dataKey === props.focusedPageId)
+                  this.props.pageId === props.focusedPageId)
     })
   }
 
@@ -58,7 +58,7 @@ export default class UnderTextInput extends Component {
       this.textInput.focus()
     }
     return (
-      this.props.dataKey !== nextProps.dataKey ||
+      this.props.pageId !== nextProps.pageId ||
       (nextState.internalText !== nextState.text)
     )
   }
@@ -76,12 +76,12 @@ export default class UnderTextInput extends Component {
         newText += text[i]
       }
     }
-    this.props.setData(this.props.dataKey, newText)
+    this.props.setData(this.props.pageId, newText)
   }
 
   onFocus = () => {
     this.props.setFocusedBookId(this.props.bookId)
-    this.props.setFocusedPageId(this.props.dataKey)
+    this.props.setFocusedPageId(this.props.pageId)
 
     // scroll input into view
     this.textInput.measure((ox, oy, width, height, px, py) => {
@@ -110,7 +110,7 @@ export default class UnderTextInput extends Component {
   }
 
   onSelectionChange = (event) => {
-    this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
+    this.props.setSelection(this.props.pageId, event.nativeEvent.selection)
   }
 
   assignTextInputRef = (textInput) => {

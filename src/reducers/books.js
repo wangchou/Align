@@ -19,25 +19,25 @@ export const intitialState = {
       id: YEAR_BOOK_ID,
       time: now, // bookmark time string
       unit: 'year',
-      dataKeyFormat: 'YYYY',
+      pageIdFormat: 'YYYY',
     },
     [MONTH_BOOK_ID]: {
       id: MONTH_BOOK_ID,
       time: now,
       unit: 'month',
-      dataKeyFormat: 'YYYY MMM',
+      pageIdFormat: 'YYYY MMM',
     },
     [WEEK_BOOK_ID]: {
       id: WEEK_BOOK_ID,
       time: startOfWeek,
       unit: 'weeks',
-      dataKeyFormat: 'YYYY W',
+      pageIdFormat: 'YYYY W',
     },
     [DAY_BOOK_ID]: {
       id: DAY_BOOK_ID,
       time: now,
       unit: 'day',
-      dataKeyFormat: 'YYYY MMM DD',
+      pageIdFormat: 'YYYY MMM DD',
     },
   },
   ids: [

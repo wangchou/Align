@@ -6,11 +6,11 @@ import UnderTextInput from './UnderTextInput'
 import TopTextOverlay from './TopTextOverlay'
 
 export default (props) => {
-  const { dataKey, bookId } = props
+  const { pageId, bookId } = props
   return (
     <View>
-      <UnderTextInput dataKey={dataKey} bookId={bookId} />
-      <TopTextOverlay dataKey={dataKey} bookId={bookId} />
+      <UnderTextInput bookId={bookId} pageId={pageId}  />
+      <TopTextOverlay bookId={bookId} pageId={pageId}  />
     </View>
   )
 }

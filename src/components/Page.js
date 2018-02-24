@@ -8,14 +8,14 @@ import {
 import ONTextInput from './ONTextInput'
 
 export default (props) => {
-  const { title, dataKey, inputRef, bookId } = props
+  const { title, pageId, bookId } = props
 
   return (
     <View style={styles.pageView}>
       <Text style={styles.pageTitle}>
         {title}
       </Text>
-      <ONTextInput dataKey={dataKey} inputRef={inputRef} bookId={bookId}/>
+      <ONTextInput bookId={bookId} pageId={pageId} />
     </View>
   )
 }

@@ -13,7 +13,7 @@ import {
 } from '../actions'
 import {
   getTime,
-  getPageDataKey,
+  getPagePageId,
   getPageTitle,
 } from '../utils/books'
 
@@ -73,8 +73,8 @@ export default class Book extends Component {
   }
 
   focusPage = (shift = 0) => {
-    const dataKey = getPageDataKey(this.props.book, shift)
-    this.props.setFocusedPageId(dataKey)
+    const pageId = getPagePageId(this.props.book, shift)
+    this.props.setFocusedPageId(pageId)
   }
 
   render() {
@@ -82,13 +82,13 @@ export default class Book extends Component {
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
         const title = getPageTitle(book, shift)
-        const dataKey = getPageDataKey(book, shift)
+        const pageId = getPagePageId(book, shift)
         return (
           <Page
-            key={dataKey}
+            key={pageId}
             bookId={book.id}
             title={title}
-            dataKey={dataKey}
+            pageId={pageId}
           />
         )
       })

@@ -26,7 +26,7 @@ export default (state = intitialState, action) => {
         ...state,
         selection: {
           ...state.selection,
-          [action.dataKey]: action.selection,
+          [action.pageId]: action.selection,
         },
       }
   }

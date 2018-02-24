@@ -23,7 +23,7 @@ const checkboxOrTextReg = new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${
 export const getTextChilds = text => text.match(checkboxOrTextReg) || []
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
+  text: state.pages[props.pageId] || '',
   focusedBookId: state.ui.focusedBookId,
 }), {
   setData,
@@ -34,7 +34,7 @@ export default class TopTextOverlay extends Component {
   onCheckboxToggle = (toggleIndex) => {
     const textChilds = getTextChilds(this.props.text)
     const toggledText = textChilds.map((t, i) => (toggleIndex === i ? toggleCheckbox(t) : t)).join('')
-    this.props.setData(this.props.dataKey, toggledText)
+    this.props.setData(this.props.pageId, toggledText)
   }
 
   getTextComponentChilds = text => getTextChilds(text)
@@ -50,7 +50,7 @@ export default class TopTextOverlay extends Component {
 
   onPress = () => {
     this.props.setFocusedBookId(this.props.bookId)
-    this.props.setFocusedPageId(this.props.dataKey)
+    this.props.setFocusedPageId(this.props.pageId)
   }
 
   render() {

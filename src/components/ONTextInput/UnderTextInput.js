@@ -35,27 +35,33 @@ import { titleHeight } from '../Page'
 export default class UnderTextInput extends Component {
   constructor(props) {
     super(props)
-    this.internalText = props.text
-    this.state = { isReceivePointerEvents: true }
+    this.state = {
+      text: props.text,
+      // the real text state within RN TextInput after onChangeText
+      // used as a workaround for CJK bug on RNTextInput
+      internalText: props.text,
+    }
   }
 
   componentWillReceiveProps(props) {
     this.setState({
-      isReceivePointerEvents: !props.isTouchMoving || this.props.bookId === this.props.focusedBookId
+      text: props.text,
     })
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.dataKey !== nextProps.dataKey ||
-      (this.internalText !== nextProps.text) ||
-      this.props.isReceivePointerEvents !== nextProps.isReceivePointerEvents
+      (nextState.internalText !== nextState.text)
     )
   }
 
   // Event Handlers
   onChangeText = (text) => {
-    this.internalText = text
+    this.setState({
+      internalText: text,
+      text
+    })
     let newText = ''
     for (let i = 0; i < text.length; i += 1) {
       // using one backspace to delete two characters ('checkbox_character' + ' ')
@@ -101,8 +107,8 @@ export default class UnderTextInput extends Component {
   }
 
   render() {
-    const { isTouchMoving, text } = this.props
-    this.internalText = text
+    const { isTouchMoving } = this.props
+    const { text } = this.state
 
     return (
       <TextInput
@@ -111,7 +117,6 @@ export default class UnderTextInput extends Component {
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
         onSelectionChange={this.onSelectionChange}
-        pointerEvents={this.state.isReceivePointerEvents ? 'auto' : 'none'}
         multiline
       >
         <Text style={styles.text}>

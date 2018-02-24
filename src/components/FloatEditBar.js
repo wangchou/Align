@@ -20,7 +20,7 @@ import {
   insertText,
 } from '../actions'
 
-export const floatEditBarHeight = 35
+export const floatEditBarHeight = 40
 const windowWidth = Dimensions.get('window').width
 
 @connect(state => ({
@@ -56,9 +56,13 @@ export default class FloatEditBar extends Component {
         borderBottomWidth: 0.5,
         borderColor: 'rgba(155, 155, 155, 0.2)',
       },
+      touchable: {
+        flex: 1,
+      },
       text: {
         fontSize: 20,
         color: 'rgba(125, 125, 125, 1)',
+        textAlign: 'center',
       },
     }
 
@@ -66,7 +70,10 @@ export default class FloatEditBar extends Component {
 
     return (
       <View style={styles.bar}>
-        <TouchableOpacity onPress={() => this.props.insertText(CHECKED_CHECKBOX)}>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => this.props.insertText(CHECKED_CHECKBOX)}
+        >
           <Text
             style={{ ...styles.text, fontFamily, color: checkedCheckboxColor }}
           >
@@ -74,7 +81,10 @@ export default class FloatEditBar extends Component {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => this.props.insertText(EMPTY_CHECKBOX)}>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => this.props.insertText(EMPTY_CHECKBOX)}
+        >
           <Text
             style={{ ...styles.text, fontFamily, color: emptyCheckboxColor }}
           >
@@ -82,7 +92,10 @@ export default class FloatEditBar extends Component {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={Keyboard.dismiss}>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={Keyboard.dismiss}
+        >
           <Text
             style={{ ...styles.text, fontFamily: 'PingFang TC' }}
           >{I18n.t(DONE_BUTTON)}</Text>

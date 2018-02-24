@@ -17,7 +17,7 @@ export const isCheckbox = ch => ch === EMPTY_CHECKBOX || ch === CHECKED_CHECKBOX
 const toggleCheckbox = ch => (ch === EMPTY_CHECKBOX ? CHECKED_CHECKBOX : EMPTY_CHECKBOX)
 
 const checkboxOrTextReg = new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g')
-export const getTextChilds = text => text.match(checkboxOrTextReg) || []
+export const getTextChilds = text => text.match(checkboxOrTextReg) || ["\ufffc"]
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',

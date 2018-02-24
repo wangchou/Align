@@ -117,15 +117,13 @@ export default class UnderTextInput extends Component {
         onSelectionChange={this.onSelectionChange}
         multiline
       >
-        <Text style={styles.text}>
-          {
-            getTextChilds(text).map((subText, i) => (
-              isCheckbox(subText) ?
-                <Text key={text + i} style={styles.transparentCheckbox}>{subText}</Text> :
-                <Text key={text + i} style={styles.transparentText}>{subText}</Text>
-            ))
-          }
-        </Text>
+        {
+          getTextChilds(text).map((subText, i) => (
+            isCheckbox(subText) ?
+              <Text key={text + i} style={styles.transparentCheckbox}>{subText}</Text> :
+              <Text key={text + i} style={styles.transparentText}>{subText}</Text>
+          ))
+        }
       </TextInput>
     )
   }

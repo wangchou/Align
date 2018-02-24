@@ -77,7 +77,11 @@ export default class UnderTextInput extends Component {
 
   onFocus = () => {
     // update the redux
-    this.props.focus()
+    if(this.props.bookId === this.props.focusedBookId &&
+       this.props.pageId === this.props.focusedPageId) {
+      this.props.focus()
+    }
+
     this.scrollTextInputIntoView()
   }
 

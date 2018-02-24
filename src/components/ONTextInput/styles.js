@@ -8,6 +8,9 @@ import {
   CHECKED_CHECKBOX,
   checkedCheckboxColor,
   emptyCheckboxColor,
+  transparentColor,
+  checkboxFont,
+  textFont,
 } from '../../constants'
 
 // Component Styles
@@ -17,16 +20,18 @@ const baseText = {
   fontSize: 16,
   lineHeight: 24,
   fontWeight: '300',
-  fontFamily: 'PingFang TC',
+  fontFamily: textFont,
 }
+
 const baseStyle = {
   ...baseText,
   width: windowWidth - 20,
-  height: baseText.lineHeight * 12,
+  height: baseText.lineHeight * 10,
   borderColor: 'rgba(200, 200, 200, 1.0)',
   backgroundColor: 'rgba(0, 0, 0, 0)',
   textAlign: 'justify',
 }
+
 export const styles = StyleSheet.create({
   underTextInput: {
     ...baseStyle,
@@ -46,21 +51,21 @@ export const styles = StyleSheet.create({
   },
   transparentText: {
     ...baseText,
-    color: 'rgba(0,0,0,0)'
+    color: transparentColor,
   },
   transparentCheckbox: {
     ...baseText,
-    fontFamily: 'circle-checkbox',
-    color: 'rgba(0,0,0,0)'
+    fontFamily: checkboxFont,
+    color: transparentColor,
   },
   [EMPTY_CHECKBOX]: {
     ...baseText,
-    fontFamily: 'circle-checkbox',
+    fontFamily: checkboxFont,
     color: emptyCheckboxColor,
   },
   [CHECKED_CHECKBOX]: {
     ...baseText,
-    fontFamily: 'circle-checkbox',
+    fontFamily: checkboxFont,
     color: checkedCheckboxColor,
   },
 })

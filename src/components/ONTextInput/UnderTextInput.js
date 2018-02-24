@@ -6,8 +6,6 @@ import {
 import { connect } from 'react-redux'
 import {
   setData,
-  setFocusedBookId,
-  setFocusedPageId,
   setSelection,
 } from '../../actions'
 import {
@@ -29,8 +27,6 @@ import { titleHeight } from '../Page'
   scrollTo: state.ui.scrollTo,
 }), {
   setData,
-  setFocusedBookId,
-  setFocusedPageId,
   setSelection,
 })
 export default class UnderTextInput extends Component {
@@ -49,12 +45,12 @@ export default class UnderTextInput extends Component {
     this.setState({
       text: props.text,
       isFocused: (this.props.bookId === props.focusedBookId &&
-                  this.props.pageId === props.focusedPageId)
+                  this.props.pageId === props.focusedPageId),
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if(nextState.isFocused && !this.state.isFocused) {
+    if (nextState.isFocused && !this.state.isFocused) {
       this.textInput.focus()
     }
     return (
@@ -67,7 +63,7 @@ export default class UnderTextInput extends Component {
   onChangeText = (text) => {
     this.setState({
       internalText: text,
-      text
+      text,
     })
     let newText = ''
     for (let i = 0; i < text.length; i += 1) {
@@ -80,10 +76,16 @@ export default class UnderTextInput extends Component {
   }
 
   onFocus = () => {
-    this.props.setFocusedBookId(this.props.bookId)
-    this.props.setFocusedPageId(this.props.pageId)
+    // update the redux
+    this.props.focus()
+    this.scrollTextInputIntoView()
+  }
 
-    // scroll input into view
+  onSelectionChange = (event) => {
+    this.props.setSelection(this.props.pageId, event.nativeEvent.selection)
+  }
+
+  scrollTextInputIntoView = () => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
@@ -104,40 +106,25 @@ export default class UnderTextInput extends Component {
     })
   }
 
-  onBlur = () => {
-    this.props.setFocusedBookId(null)
-    this.props.setFocusedPageId(null)
-  }
-
-  onSelectionChange = (event) => {
-    this.props.setSelection(this.props.pageId, event.nativeEvent.selection)
-  }
-
-  assignTextInputRef = (textInput) => {
-    this.textInput = textInput
-  }
-
   render() {
     const { text } = this.state
-
     return (
       <TextInput
         style={styles.underTextInput}
-        ref={this.assignTextInputRef}
+        ref={(textInput) => { this.textInput = textInput }}
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
-        onBlur={this.onBlur}
         onSelectionChange={this.onSelectionChange}
         multiline
       >
         <Text style={styles.text}>
-        {
-          getTextChilds(text).map((subText, i) => (
-            isCheckbox(subText) ?
-              <Text key={text+i} style={styles.transparentCheckbox}>{subText}</Text> :
-              <Text key={text+i} style={styles.transparentText}>{subText}</Text>
-          ))
-        }
+          {
+            getTextChilds(text).map((subText, i) => (
+              isCheckbox(subText) ?
+                <Text key={text + i} style={styles.transparentCheckbox}>{subText}</Text> :
+                <Text key={text + i} style={styles.transparentText}>{subText}</Text>
+            ))
+          }
         </Text>
       </TextInput>
     )

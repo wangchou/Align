@@ -1,23 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
   Dimensions,
   Text,
 } from 'react-native'
+import { connect } from 'react-redux'
 import ONTextInput from './ONTextInput'
 
-export default (props) => {
-  const { title, pageId, bookId } = props
+import {
+  setFocusedBookId,
+  setFocusedPageId,
+} from '../actions'
 
-  return (
-    <View style={styles.pageView}>
-      <Text style={styles.pageTitle}>
-        {title}
-      </Text>
-      <ONTextInput bookId={bookId} pageId={pageId} />
-    </View>
-  )
+@connect(null, {
+  setFocusedBookId,
+  setFocusedPageId,
+})
+export default class Page extends Component {
+  focus = () => {
+    this.props.setFocusedBookId(this.props.bookId)
+    this.props.setFocusedPageId(this.props.pageId)
+  }
+
+  render() {
+    const { title, pageId, bookId } = this.props
+
+    return (
+      <View style={styles.pageView}>
+        <Text style={styles.pageTitle} onPress={this.focus}>
+          {title}
+        </Text>
+        <ONTextInput bookId={bookId} pageId={pageId} focus={this.focus}/>
+      </View>
+    )
+  }
 }
 
 // Component Styles

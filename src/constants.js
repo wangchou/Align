@@ -27,7 +27,7 @@ export const SMALL_SPACE = ' ' // '\u2006'
 // color
 export const emptyCheckboxColor = 'rgba(225, 0, 135, 0.5)'
 export const checkedCheckboxColor = 'rgba(95, 205, 0, 0.8)'
-export const transparentColor = "rgba(0, 0, 0, 0)"
+export const transparentColor = 'rgba(0, 0, 0, 0)'
 
 // font
 export const checkboxFont = 'circle-checkbox'

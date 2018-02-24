@@ -84,7 +84,7 @@ export default class FloatEditBar extends Component {
 
         <TouchableOpacity onPress={Keyboard.dismiss}>
           <Text
-            style={{ ...styles.text, fontFamily: 'PingFang TC'}}
+            style={{ ...styles.text, fontFamily: 'PingFang TC' }}
           >{I18n.t(DONE_BUTTON)}</Text>
         </TouchableOpacity>
       </View>

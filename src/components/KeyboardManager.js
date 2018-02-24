@@ -4,12 +4,16 @@ import { connect } from 'react-redux'
 import {
   setKeyboardHeight,
   setIsKeyboardShow,
+  setFocusedBookId,
+  setFocusedPageId,
 } from '../actions'
 import { floatEditBarHeight } from './FloatEditBar'
 
 @connect(null, {
   setKeyboardHeight,
   setIsKeyboardShow,
+  setFocusedBookId,
+  setFocusedPageId,
 })
 export default class KeyboardManager extends Component {
   componentDidMount() {
@@ -22,6 +26,8 @@ export default class KeyboardManager extends Component {
 
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', () => {
       this.props.setIsKeyboardShow(false)
+      this.props.setFocusedBookId(null)
+      this.props.setFocusedPageId(null)
     })
   }
 

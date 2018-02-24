@@ -8,6 +8,8 @@ import {
 import Page from './Page'
 import {
   gotoPage,
+  setFocusedBookId,
+  setFocusedPageId,
 } from '../actions'
 import {
   getTime,
@@ -26,13 +28,10 @@ const pageCenterIndex = 2
   focusedBookId: state.ui.focusedBookId,
 }), {
   gotoPage,
+  setFocusedBookId,
+  setFocusedPageId,
 })
 export default class Book extends Component {
-  constructor(props) {
-    super(props)
-    this.inputs = {}
-  }
-
   // section: React Life-cycle methods
   componentDidMount() {
     this.scrollToCenterPage()
@@ -40,8 +39,7 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-      this.props.book.time !== props.book.time ||
-      this.props.focusedBookId !== props.focusedBookId
+           this.props.book.time !== props.book.time
   }
 
   componentDidUpdate() {
@@ -76,7 +74,7 @@ export default class Book extends Component {
 
   focusPage = (shift = 0) => {
     const dataKey = getPageDataKey(this.props.book, shift)
-    this.inputs[dataKey].focus()
+    this.props.setFocusedPageId(dataKey)
   }
 
   render() {
@@ -91,7 +89,6 @@ export default class Book extends Component {
             bookId={book.id}
             title={title}
             dataKey={dataKey}
-            inputRef={(r) => { this.inputs[dataKey] = r }}
           />
         )
       })

@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     ...baseStyle,
     marginTop: 5,
     color: 'rgba(32, 32, 32, 0)',
+    zIndex: -1,
   },
   topCustomText: {
     ...baseStyle,
@@ -45,6 +46,7 @@ export const styles = StyleSheet.create({
     paddingTop: 5,
     marginTop: 5,
     color: 'rgba(32, 32, 32, 1.0)',
+    zIndex: 1,
   },
   text: {
     ...baseText,

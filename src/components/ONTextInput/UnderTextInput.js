@@ -22,8 +22,9 @@ import { titleHeight } from '../Page'
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
-  isTouchMoving: state.ui.isTouchMoving,
   keyboardHeight: state.ui.keyboardHeight,
+  focusedBookId: state.ui.focusedBookId,
+  focusedPageId: state.ui.focusedPageId,
   scrollY: state.ui.scrollY,
   scrollTo: state.ui.scrollTo,
 }), {
@@ -40,16 +41,22 @@ export default class UnderTextInput extends Component {
       // the real text state within RN TextInput after onChangeText
       // used as a workaround for CJK bug on RNTextInput
       internalText: props.text,
+      isFocused: false,
     }
   }
 
   componentWillReceiveProps(props) {
     this.setState({
       text: props.text,
+      isFocused: (this.props.bookId === props.focusedBookId &&
+                  this.props.dataKey === props.focusedPageId)
     })
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    if(nextState.isFocused && !this.state.isFocused) {
+      this.textInput.focus()
+    }
     return (
       this.props.dataKey !== nextProps.dataKey ||
       (nextState.internalText !== nextState.text)
@@ -97,17 +104,20 @@ export default class UnderTextInput extends Component {
     })
   }
 
+  onBlur = () => {
+    this.props.setFocusedBookId(null)
+    this.props.setFocusedPageId(null)
+  }
+
   onSelectionChange = (event) => {
     this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
   }
 
   assignTextInputRef = (textInput) => {
     this.textInput = textInput
-    this.props.inputRef(textInput)
   }
 
   render() {
-    const { isTouchMoving } = this.props
     const { text } = this.state
 
     return (
@@ -116,6 +126,7 @@ export default class UnderTextInput extends Component {
         ref={this.assignTextInputRef}
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
+        onBlur={this.onBlur}
         onSelectionChange={this.onSelectionChange}
         multiline
       >

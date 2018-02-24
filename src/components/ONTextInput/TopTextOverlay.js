@@ -7,6 +7,8 @@ import { styles } from './styles'
 import Checkbox from './Checkbox'
 import {
   setData,
+  setFocusedBookId,
+  setFocusedPageId,
 } from '../../actions'
 
 import {
@@ -22,8 +24,11 @@ export const getTextChilds = text => text.match(checkboxOrTextReg) || []
 
 @connect((state, props) => ({
   text: state.pages[props.dataKey] || '',
+  focusedBookId: state.ui.focusedBookId,
 }), {
   setData,
+  setFocusedBookId,
+  setFocusedPageId,
 })
 export default class TopTextOverlay extends Component {
   onCheckboxToggle = (toggleIndex) => {
@@ -43,11 +48,18 @@ export default class TopTextOverlay extends Component {
         /> :
         <Text key={text + subText + i} style={styles.text} >{subText}</Text>))
 
+  onPress = () => {
+    this.props.setFocusedBookId(this.props.bookId)
+    this.props.setFocusedPageId(this.props.dataKey)
+  }
+
   render() {
+    const { bookId, focusedBookId } = this.props
     return (
       <Text
         style={styles.topCustomText}
-        pointerEvents="box-none"
+        pointerEvents={ bookId === focusedBookId? "box-none" : "auto" }
+        onPress={this.onPress}
       >
         {this.getTextComponentChilds(this.props.text)}
       </Text>

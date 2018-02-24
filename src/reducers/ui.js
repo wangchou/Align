@@ -4,7 +4,6 @@ import {
 } from '../constants'
 
 const intitialState = {
-  isTouchMoving: false,
   isKeyboardShow: false,
   keyboardHeight: 0,
   scrollY: 0,

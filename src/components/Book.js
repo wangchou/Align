@@ -102,11 +102,10 @@ export default class Book extends Component {
         decelerationRate="fast"
         keyboardShouldPersistTaps="always"
         snapToInterval={snapToInterval}
-        onScroll={this.onScroll}
         scrollEventThrottle={16}
 
-        // Event Handler
         onMomentumScrollEnd={this.onMomentumScrollEnd}
+        onScroll={this.onScroll}
       >
         {pageViews}
       </ScrollView>

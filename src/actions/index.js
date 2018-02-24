@@ -37,7 +37,6 @@ export const gotoTodayPage = () => ([
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])
 
 // ui
-export const setIsTouchMoving = actionCreatorCreator(SET_UI_STATE, ['isTouchMoving'])
 export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY'])
 export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHeight'])
 export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow'])

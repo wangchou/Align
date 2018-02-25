@@ -5,12 +5,9 @@ import {
 import UnderTextInput from './UnderTextInput'
 import TopTextOverlay from './TopTextOverlay'
 
-export default (props) => {
-  const { dataKey, inputRef } = props
-  return (
-    <View>
-      <UnderTextInput dataKey={dataKey} inputRef={inputRef}/>
-      <TopTextOverlay dataKey={dataKey} />
-    </View>
-  )
-}
+export default ONTextInput = props => (
+  <View>
+    <UnderTextInput {...props} />
+    <TopTextOverlay {...props} />
+  </View>
+)

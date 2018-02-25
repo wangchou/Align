@@ -6,8 +6,6 @@ import {
 import { connect } from 'react-redux'
 import {
   setData,
-  setFocusedBookId,
-  setFocusedPageId,
   setSelection,
 } from '../../actions'
 import {
@@ -18,36 +16,55 @@ import {
   getTextChilds,
 } from './TopTextOverlay'
 import { styles, windowHeight } from './styles'
+import { titleHeight } from '../Page'
 
 @connect((state, props) => ({
-  text: state.pages[props.dataKey] || '',
-  isTouchMoving: state.ui.isTouchMoving,
+  text: state.pages[props.pageId] || '',
   keyboardHeight: state.ui.keyboardHeight,
+  focusedBookId: state.ui.focusedBookId,
+  focusedPageId: state.ui.focusedPageId,
   scrollY: state.ui.scrollY,
   scrollTo: state.ui.scrollTo,
 }), {
   setData,
-  setFocusedBookId,
-  setFocusedPageId,
   setSelection,
 })
 export default class UnderTextInput extends Component {
   constructor(props) {
     super(props)
-    this.internalText = props.text
+    this.state = {
+      text: props.text,
+      // the real text state within RN TextInput after onChangeText
+      // used as a workaround for CJK bug on RNTextInput
+      internalText: props.text,
+      isFocused: false,
+    }
   }
 
-  shouldComponentUpdate(nextProps) {
+  componentWillReceiveProps(props) {
+    this.setState({
+      text: props.text,
+      isFocused: (this.props.bookId === props.focusedBookId &&
+                  this.props.pageId === props.focusedPageId),
+    })
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.isFocused && !this.state.isFocused) {
+      this.textInput.focus()
+    }
     return (
-      this.props.dataKey !== nextProps.dataKey ||
-      (this.internalText !== nextProps.text) ||
-      this.props.isTouchMoving !== nextProps.isTouchMoving
+      this.props.pageId !== nextProps.pageId ||
+      (nextState.internalText !== nextState.text)
     )
   }
 
   // Event Handlers
   onChangeText = (text) => {
-    this.internalText = text
+    this.setState({
+      internalText: text,
+      text,
+    })
     let newText = ''
     for (let i = 0; i < text.length; i += 1) {
       // using one backspace to delete two characters ('checkbox_character' + ' ')
@@ -55,12 +72,24 @@ export default class UnderTextInput extends Component {
         newText += text[i]
       }
     }
-    this.props.setData(this.props.dataKey, newText)
+    this.props.setData(this.props.pageId, newText)
   }
 
   onFocus = () => {
-    this.props.setFocusedBookId(this.props.bookId)
-    this.props.setFocusedPageId(this.props.dataKey)
+    // update the redux
+    if(this.props.bookId === this.props.focusedBookId &&
+       this.props.pageId === this.props.focusedPageId) {
+      this.props.focus()
+    }
+
+    this.scrollTextInputIntoView()
+  }
+
+  onSelectionChange = (event) => {
+    this.props.setSelection(this.props.pageId, event.nativeEvent.selection)
+  }
+
+  scrollTextInputIntoView = () => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
@@ -74,45 +103,31 @@ export default class UnderTextInput extends Component {
       const isInputBottomNotInView =
         (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight
       if (isInputTopNotInView) {
-        this.props.scrollTo(inputY)
+        this.props.scrollTo(inputY - titleHeight)
       } else if (isInputBottomNotInView) {
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
     })
   }
 
-  onSelectionChange = (event) => {
-    this.props.setSelection(this.props.dataKey, event.nativeEvent.selection)
-  }
-
-  assignTextInputRef = (textInput) => {
-    this.textInput = textInput
-    this.props.inputRef(textInput)
-  }
-
   render() {
-    const { isTouchMoving, text } = this.props
-    this.internalText = text
-
+    const { text } = this.state
     return (
       <TextInput
         style={styles.underTextInput}
-        ref={this.assignTextInputRef}
+        ref={(textInput) => { this.textInput = textInput }}
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
         onSelectionChange={this.onSelectionChange}
-        pointerEvents={isTouchMoving ? 'none' : 'auto'}
         multiline
       >
-        <Text style={styles.text}>
         {
-          getTextChilds(text).map(subText => (
+          getTextChilds(text).map((subText, i) => (
             isCheckbox(subText) ?
-              <Text style={styles[subText]}>{subText}</Text> :
-              <Text style={styles.text}>{subText}</Text>
+              <Text key={text + i} style={styles.transparentCheckbox}>{subText}</Text> :
+              <Text key={text + i} style={styles.transparentText}>{subText}</Text>
           ))
         }
-        </Text>
       </TextInput>
     )
   }

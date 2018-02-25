@@ -4,7 +4,6 @@ import {
 } from '../constants'
 
 const intitialState = {
-  isTouchMoving: false,
   isKeyboardShow: false,
   keyboardHeight: 0,
   scrollY: 0,
@@ -26,7 +25,7 @@ export default (state = intitialState, action) => {
         ...state,
         selection: {
           ...state.selection,
-          [action.dataKey]: action.selection,
+          [action.pageId]: action.selection,
         },
       }
   }

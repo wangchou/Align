@@ -11,7 +11,6 @@ import TodayButton from './components/TodayButton'
 import FloatEditBar from './components/FloatEditBar'
 import KeyboardManager from './components/KeyboardManager'
 import {
-  setIsTouchMoving,
   setScrollY,
   setScrollTo,
 } from './actions'
@@ -19,8 +18,6 @@ import {
 @connect(state => ({
   bookIds: state.books.ids,
 }), {
-  onTouchMove: () => setIsTouchMoving(true),
-  onTouchEnd: () => setIsTouchMoving(false),
   setScrollY,
   setScrollTo,
 })
@@ -36,8 +33,6 @@ export default class OnigiriNote extends Component {
   render() {
     const {
       bookIds,
-      onTouchMove,
-      onTouchEnd,
     } = this.props
 
     const bookViews = bookIds.map(bookId =>
@@ -53,10 +48,7 @@ export default class OnigiriNote extends Component {
           ref={(ref) => { this.scrollView = ref }}
           keyboardShouldPersistTaps="always"
           scrollEventThrottle={16}
-
           onScroll={this.onScroll}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
         >
           {bookViews}
           <StatusBar hidden />

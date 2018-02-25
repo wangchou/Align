@@ -3,12 +3,12 @@ import pagesReducer, { intitialState } from '../../reducers/pages'
 
 describe('pages reducer', () => {
   it('setData success', () => {
-    const dataKey = '1983'
+    const pageId = '1983'
     const lastData = 'blah'
     const pagesState = [
-      setData(dataKey, '...'),
-      setData(dataKey, lastData),
+      setData(pageId, '...'),
+      setData(pageId, lastData),
     ].reduce(pagesReducer, intitialState)
-    expect(pagesState[dataKey]).toEqual(lastData)
+    expect(pagesState[pageId]).toEqual(lastData)
   })
 })

@@ -14,7 +14,7 @@ import reducers from './src/reducers'
 import array from './src/utils/arrayMiddleware'
 
 const config = {
-  key: 'primary',
+  key: 'primary1',
   version: 1,
   storage,
   blacklist: ['ui'],

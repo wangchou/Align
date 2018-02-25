@@ -8,10 +8,12 @@ import {
 import Page from './Page'
 import {
   gotoPage,
+  setFocusedBookId,
+  setFocusedPageId,
 } from '../actions'
 import {
   getTime,
-  getPageDataKey,
+  getPagePageId,
   getPageTitle,
 } from '../utils/books'
 
@@ -26,13 +28,10 @@ const pageCenterIndex = 2
   focusedBookId: state.ui.focusedBookId,
 }), {
   gotoPage,
+  setFocusedBookId,
+  setFocusedPageId,
 })
 export default class Book extends Component {
-  constructor(props) {
-    super(props)
-    this.inputs = {}
-  }
-
   // section: React Life-cycle methods
   componentDidMount() {
     this.scrollToCenterPage()
@@ -40,8 +39,7 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-      this.props.book.time !== props.book.time ||
-      this.props.focusedBookId !== props.focusedBookId
+           this.props.book.time !== props.book.time
   }
 
   componentDidUpdate() {
@@ -62,7 +60,7 @@ export default class Book extends Component {
   onScroll = (event) => {
     const shift = Math.round(event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (this.props.isKeyboardShow &&
-       this.props.focusedBookId === this.props.book.id) {
+      this.props.focusedBookId === this.props.book.id) {
       this.focusPage(shift)
     }
   }
@@ -75,8 +73,8 @@ export default class Book extends Component {
   }
 
   focusPage = (shift = 0) => {
-    const dataKey = getPageDataKey(this.props.book, shift)
-    this.inputs[dataKey].focus()
+    const pageId = getPagePageId(this.props.book, shift)
+    this.props.setFocusedPageId(pageId)
   }
 
   render() {
@@ -84,14 +82,13 @@ export default class Book extends Component {
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
         const title = getPageTitle(book, shift)
-        const dataKey = getPageDataKey(book, shift)
+        const pageId = getPagePageId(book, shift)
         return (
           <Page
-            key={dataKey}
+            key={pageId}
             bookId={book.id}
             title={title}
-            dataKey={dataKey}
-            inputRef={(r) => { this.inputs[dataKey] = r }}
+            pageId={pageId}
           />
         )
       })
@@ -105,11 +102,10 @@ export default class Book extends Component {
         decelerationRate="fast"
         keyboardShouldPersistTaps="always"
         snapToInterval={snapToInterval}
-        onScroll={this.onScroll}
         scrollEventThrottle={16}
 
-        // Event Handler
         onMomentumScrollEnd={this.onMomentumScrollEnd}
+        onScroll={this.onScroll}
       >
         {pageViews}
       </ScrollView>

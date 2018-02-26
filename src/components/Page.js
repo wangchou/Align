@@ -3,10 +3,10 @@ import {
   StyleSheet,
   View,
   Dimensions,
-  Text,
 } from 'react-native'
 import { connect } from 'react-redux'
 import ONTextInput from './ONTextInput'
+import PageTitle from './PageTitle'
 
 import {
   setFocusedBookId,
@@ -28,10 +28,8 @@ export default class Page extends Component {
 
     return (
       <View style={styles.pageView}>
-        <Text style={styles.pageTitle} onPress={this.focus}>
-          {title}
-        </Text>
-        <ONTextInput bookId={bookId} pageId={pageId} focus={this.focus}/>
+        <PageTitle bookId={bookId} pageId={pageId} title={title} focus={this.focus} />
+        <ONTextInput bookId={bookId} pageId={pageId} focus={this.focus} />
       </View>
     )
   }
@@ -39,9 +37,6 @@ export default class Page extends Component {
 
 // Component Styles
 const windowWidth = Dimensions.get('window').width
-const fontSize = 16
-export const titleHeight = 20
-const semiBold = '600'
 const pageSeparatorWidth = 20
 const styles = StyleSheet.create({
   pageView: {
@@ -51,11 +46,5 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     borderColor: 'rgba(155, 155, 155, 0.3)',
     borderRightWidth: 20,
-  },
-  pageTitle: {
-    height: titleHeight,
-    fontFamily: 'PingFang TC',
-    fontSize,
-    fontWeight: semiBold,
   },
 })

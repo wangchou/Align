@@ -16,7 +16,7 @@
     "moment": "^2.18.1",
     "object-path-immutable": "^0.5.2",
     "react": "^16.2.0",
-    "react-native": "https://github.com/wangchou/react-native#59a2aa7029728005d3965367cccdc56efdc3c5f7",
+    "react-native": "https://github.com/wangchou/react-native#56106fd89828bbae9f03fd10ff85b9fac0079991",
     "react-native-i18n": "^2.0.10",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",

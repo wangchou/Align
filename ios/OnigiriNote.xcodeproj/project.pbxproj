@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -24,7 +25,7 @@
 		1993113304AE4F55816A4EFA /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 552F9C815292490987925A37 /* libRNI18n.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		90DD072D0E2F44A3B7BBFE45 /* circle-checkbox.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E40D9FD379F48AA86F66F9D /* circle-checkbox.ttf */; };
+		A193FB5C71C24746836A7974 /* checkbox.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A40FFFD57C4DA89AF39D2B /* checkbox.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -322,7 +323,7 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		A5B025123A0940988530696D /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		BE2595451FFCDC6D0057F518 /* OnigiriNote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = OnigiriNote.entitlements; path = OnigiriNote/OnigiriNote.entitlements; sourceTree = "<group>"; };
-		6E40D9FD379F48AA86F66F9D /* circle-checkbox.ttf */ = {isa = PBXFileReference; name = "circle-checkbox.ttf"; path = "../assets/fonts/circle-checkbox.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E1A40FFFD57C4DA89AF39D2B /* checkbox.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = checkbox.ttf; path = ../assets/fonts/checkbox.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,7 +419,7 @@
 		0255D84494BC4621AA876A91 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6E40D9FD379F48AA86F66F9D /* circle-checkbox.ttf */,
+				E1A40FFFD57C4DA89AF39D2B /* checkbox.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -975,7 +976,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				90DD072D0E2F44A3B7BBFE45 /* circle-checkbox.ttf in Resources */,
+				A193FB5C71C24746836A7974 /* checkbox.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

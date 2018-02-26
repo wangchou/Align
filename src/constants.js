@@ -20,15 +20,28 @@ export const SET_UI_SELECTION = 'SET UI SELECTION'
 export const DONE_BUTTON = 'DONE BUTTON'
 
 // unicode checkbox
-export const EMPTY_CHECKBOX = '\uF1DB'
-export const CHECKED_CHECKBOX = '\uE800'
-export const SMALL_SPACE = '\u2006'
+export const EMPTY_CHECKBOX1 = '\uF1DB'
+export const CHECKED_CHECKBOX1 = '\uE800'
+export const EMPTY_CHECKBOX2 = '\uE801'
+export const CHECKED_CHECKBOX2 = '\uE802'
+export const FLAG = '\uE803'
+export const STAR = '\uE804'
+export const HALF_STAR = '\uE805'
+export const SMALL_SPACE = ' '
 
 // color
-export const emptyCheckboxColor = 'rgba(225, 0, 135, 0.5)'
-export const checkedCheckboxColor = 'rgba(95, 205, 0, 0.8)'
+export const emptyCheckboxColor1 = 'rgba(225, 0, 135, 0.5)'
+export const checkedCheckboxColor1 = 'rgba(95, 205, 0, 0.8)'
+export const emptyCheckboxColor2 = 'rgba(32, 32, 32, 0.3)'
+export const checkedCheckboxColor2 = 'rgba(32, 32, 32, 0.3)'
 export const transparentColor = 'rgba(0, 0, 0, 0)'
+export const starColor = 'orange'
+export const flagColor = 'rgba(32, 32, 32, 0.8)'
 
 // font
-export const checkboxFont = 'circle-checkbox'
+export const checkboxFont = 'checkbox'
 export const textFont = 'PingFang TC'
+
+export const titleHeight = 20
+export const fontSize = 16
+

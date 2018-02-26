@@ -10,7 +10,7 @@ import Keys from '../keys'
 export default {
   [Keys[YEAR_BOOK_ID].titleFormat]: 'YYYY',
   [Keys[MONTH_BOOK_ID].titleFormat]: 'MMM YYYY',
-  [Keys[WEEK_BOOK_ID].titleFormat]: 'MMM Do YYYY ～ ([week] W)',
-  [Keys[DAY_BOOK_ID].titleFormat]: 'MMM Do YYYY (ddd)',
+  [Keys[WEEK_BOOK_ID].titleFormat]: 'MMM Do ～ ([week] W)',
+  [Keys[DAY_BOOK_ID].titleFormat]: 'MMM Do (ddd)',
   [DONE_BUTTON]: 'Done',
 }

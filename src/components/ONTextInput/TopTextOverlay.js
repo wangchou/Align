@@ -9,15 +9,10 @@ import {
   setData,
 } from '../../actions'
 import {
-  EMPTY_CHECKBOX,
-  CHECKED_CHECKBOX,
-} from '../../constants'
-
-export const isCheckbox = ch => ch === EMPTY_CHECKBOX || ch === CHECKED_CHECKBOX
-const toggleCheckbox = ch => (ch === EMPTY_CHECKBOX ? CHECKED_CHECKBOX : EMPTY_CHECKBOX)
-
-const checkboxOrTextReg = new RegExp(`${EMPTY_CHECKBOX}|${CHECKED_CHECKBOX}|[^${EMPTY_CHECKBOX}${CHECKED_CHECKBOX}]+`, 'g')
-export const getTextChilds = text => text.match(checkboxOrTextReg) || ["\ufffc"]
+  isCheckbox,
+  getTextChilds,
+  toggleCheckbox,
+} from './utilities'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',

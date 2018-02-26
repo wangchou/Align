@@ -36,3 +36,7 @@ export const transparentColor = 'rgba(0, 0, 0, 0)'
 // font
 export const checkboxFont = 'checkbox'
 export const textFont = 'PingFang TC'
+
+export const titleHeight = 20
+export const fontSize = 16
+

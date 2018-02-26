@@ -10,13 +10,13 @@ import {
 } from '../../actions'
 import {
   SMALL_SPACE,
+  titleHeight,
 } from '../../constants'
 import {
   isCheckbox,
   getTextChilds,
 } from './utilities'
 import { styles, windowHeight } from './styles'
-import { titleHeight } from '../Page'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
@@ -79,7 +79,7 @@ export default class UnderTextInput extends Component {
 
   onFocus = () => {
     // update the redux
-    if(this.props.bookId === this.props.focusedBookId &&
+    if (this.props.bookId === this.props.focusedBookId &&
        this.props.pageId === this.props.focusedPageId) {
       this.props.focus()
     }

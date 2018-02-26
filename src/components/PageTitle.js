@@ -5,14 +5,21 @@ import {
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
+import {getNowPageTitle} from '../utils/books'
 import {
   titleHeight,
   textFont,
+  checkboxFont,
   fontSize,
   checkedCheckboxColor1,
   emptyCheckboxColor1,
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
+  FLAG,
+  STAR,
+  HALF_STAR,
+  starColor,
+  flagColor,
 } from '../constants'
 
 @connect((state, props) => ({
@@ -35,9 +42,9 @@ export default class PageTitle extends Component {
   }
 
   render() {
-    const { title, text, focus } = this.props
+    const { title, text, focus, bookId } = this.props
     const { checkedCheckboxCount, emptyCheckboxCount } = this.getCheckboxCount(text)
-    const checkboxCounter = checkedCheckboxCount + emptyCheckboxCount === 0 ? null : (
+    const checkboxCounter = (checkedCheckboxCount + emptyCheckboxCount === 0) ? null : (
       <Text>
         <Text style={styles.checkboxCount}>
           {`  ${checkedCheckboxCount}`}
@@ -48,11 +55,25 @@ export default class PageTitle extends Component {
       </Text>
     )
 
+    let progressStar = null;
+    if(emptyCheckboxCount + checkedCheckboxCount > 0) {
+      if(emptyCheckboxCount === 0) {
+          progressStar = <Text style={styles.star}>{` ${STAR}`}</Text>
+      } else if(checkedCheckboxCount >= emptyCheckboxCount) {
+          progressStar = <Text style={styles.star}>{` ${HALF_STAR}`}</Text>
+      }
+    }
+
+    const thisLabel = getNowPageTitle(bookId) === title ?
+      <Text style={styles.thisLabel}>{`${FLAG} `}</Text> : null
+
     return (
       <Text onPress={focus}>
+        {thisLabel}
         <Text style={styles.pageTitle}>
           {title}
         </Text>
+        {progressStar}
         {checkboxCounter}
       </Text>
     )
@@ -70,6 +91,11 @@ const styles = StyleSheet.create({
   pageTitle: {
     ...base,
   },
+  thisLabel: {
+    ...base,
+    fontFamily: checkboxFont,
+    color: flagColor,
+  },
   checkboxCount: {
     ...base,
     color: checkedCheckboxColor1,
@@ -77,5 +103,10 @@ const styles = StyleSheet.create({
   emptyCheckboxCount: {
     ...base,
     color: emptyCheckboxColor1,
+  },
+  star: {
+    ...base,
+    fontFamily: checkboxFont,
+    color: starColor,
   },
 })

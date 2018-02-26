@@ -24,7 +24,7 @@ export const EMPTY_CHECKBOX1 = '\uF1DB'
 export const CHECKED_CHECKBOX1 = '\uE800'
 export const EMPTY_CHECKBOX2 = '\uE801'
 export const CHECKED_CHECKBOX2 = '\uE802'
-export const SMALL_SPACE = '\u2006'
+export const SMALL_SPACE = ' '
 
 // color
 export const emptyCheckboxColor1 = 'rgba(225, 0, 135, 0.5)'

@@ -61,6 +61,8 @@ export default class UnderTextInput extends Component {
 
   // Event Handlers
   onChangeText = (text) => {
+    text = text.replace(/\u2006/g, ' ') // migrate from older version
+
     this.setState({
       internalText: text,
       text,

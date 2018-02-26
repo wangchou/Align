@@ -11,10 +11,10 @@ import { connect } from 'react-redux'
 import I18n from '../i18n'
 import {
   DONE_BUTTON,
-  EMPTY_CHECKBOX,
-  CHECKED_CHECKBOX,
-  checkedCheckboxColor,
-  emptyCheckboxColor,
+  EMPTY_CHECKBOX1,
+  EMPTY_CHECKBOX2,
+  emptyCheckboxColor1,
+  emptyCheckboxColor2,
 } from '../constants'
 import {
   insertText,
@@ -66,29 +66,29 @@ export default class FloatEditBar extends Component {
       },
     }
 
-    const fontFamily = 'circle-checkbox'
+    const fontFamily = 'checkbox'
 
     return (
       <View style={styles.bar}>
         <TouchableOpacity
           style={styles.touchable}
-          onPress={() => this.props.insertText(CHECKED_CHECKBOX)}
+          onPress={() => this.props.insertText(EMPTY_CHECKBOX1)}
         >
           <Text
-            style={{ ...styles.text, fontFamily, color: checkedCheckboxColor }}
+            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor1 }}
           >
-            {CHECKED_CHECKBOX}
+            {EMPTY_CHECKBOX1}
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.touchable}
-          onPress={() => this.props.insertText(EMPTY_CHECKBOX)}
+          onPress={() => this.props.insertText(EMPTY_CHECKBOX2)}
         >
           <Text
-            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor }}
+            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor2 }}
           >
-            {EMPTY_CHECKBOX}
+            {EMPTY_CHECKBOX2}
           </Text>
         </TouchableOpacity>
 

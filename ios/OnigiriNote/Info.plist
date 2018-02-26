@@ -51,7 +51,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>circle-checkbox.ttf</string>
+		<string>checkbox.ttf</string>
 	</array>
 </dict>
 </plist>

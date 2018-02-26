@@ -4347,9 +4347,9 @@ react-native-i18n@^2.0.10:
   dependencies:
     i18n-js "^3.0.2"
 
-"react-native@https://github.com/wangchou/react-native#59a2aa7029728005d3965367cccdc56efdc3c5f7":
+"react-native@https://github.com/wangchou/react-native#56106fd89828bbae9f03fd10ff85b9fac0079991":
   version "0.53.1"
-  resolved "https://github.com/wangchou/react-native#59a2aa7029728005d3965367cccdc56efdc3c5f7"
+  resolved "https://github.com/wangchou/react-native#56106fd89828bbae9f03fd10ff85b9fac0079991"
   dependencies:
     absolute-path "^0.0.0"
     art "^0.10.0"

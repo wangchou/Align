@@ -4,10 +4,14 @@ import {
 } from 'react-native'
 
 import {
-  EMPTY_CHECKBOX,
-  CHECKED_CHECKBOX,
-  checkedCheckboxColor,
-  emptyCheckboxColor,
+  EMPTY_CHECKBOX1,
+  EMPTY_CHECKBOX2,
+  emptyCheckboxColor1,
+  emptyCheckboxColor2,
+  CHECKED_CHECKBOX1,
+  CHECKED_CHECKBOX2,
+  checkedCheckboxColor1,
+  checkedCheckboxColor2,
   transparentColor,
   checkboxFont,
   textFont,
@@ -60,14 +64,24 @@ export const styles = StyleSheet.create({
     fontFamily: checkboxFont,
     color: transparentColor,
   },
-  [EMPTY_CHECKBOX]: {
+  [EMPTY_CHECKBOX1]: {
     ...baseText,
     fontFamily: checkboxFont,
-    color: emptyCheckboxColor,
+    color: emptyCheckboxColor1,
   },
-  [CHECKED_CHECKBOX]: {
+  [CHECKED_CHECKBOX1]: {
     ...baseText,
     fontFamily: checkboxFont,
-    color: checkedCheckboxColor,
+    color: checkedCheckboxColor1,
+  },
+  [EMPTY_CHECKBOX2]: {
+    ...baseText,
+    fontFamily: checkboxFont,
+    color: emptyCheckboxColor2,
+  },
+  [CHECKED_CHECKBOX2]: {
+    ...baseText,
+    fontFamily: checkboxFont,
+    color: checkedCheckboxColor2,
   },
 })

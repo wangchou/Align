@@ -14,7 +14,7 @@ import {
 import {
   isCheckbox,
   getTextChilds,
-} from './TopTextOverlay'
+} from './utilities'
 import { styles, windowHeight } from './styles'
 import { titleHeight } from '../Page'
 

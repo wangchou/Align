@@ -43,6 +43,7 @@ export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboard
 export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
 export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
 export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
+export const setIsStatusMode = actionCreatorCreator(SET_UI_STATE, ['isStatusMode'])
 export const setSelection = (pageId, selection) => ({
   type: SET_UI_SELECTION,
   pageId,
@@ -73,4 +74,13 @@ export const insertText = text => (dispatch, getState) => {
     oldText.slice(0, start) + appendBefore + text + insertAfter + oldText.slice(end) :
     text + insertAfter
   dispatch(setData(pageId, newText))
+}
+
+export const toggleIsStatusMode = () => (dispatch, getState) => {
+  const {
+    ui: {
+      isStatusMode
+    }
+  } = getState()
+  dispatch(setIsStatusMode(!isStatusMode))
 }

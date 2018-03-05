@@ -8,6 +8,8 @@ import {
 import Book from './components/Book'
 import KeyboardAvoidingView from './components/KeyboardAvoidingView'
 import TodayButton from './components/TodayButton'
+import StatusButton from './components/StatusButton'
+import StatusPage from './components/StatusPage'
 import FloatEditBar from './components/FloatEditBar'
 import KeyboardManager from './components/KeyboardManager'
 import {
@@ -56,6 +58,8 @@ export default class OnigiriNote extends Component {
         </ScrollView>
         <FloatEditBar />
         <TodayButton />
+        <StatusPage />
+        <StatusButton />
         <KeyboardManager />
       </View>
     )

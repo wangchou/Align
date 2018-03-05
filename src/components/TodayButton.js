@@ -18,6 +18,7 @@ export default class TodayButton extends Component {
         underColor="darkorange"
         onPress={this.props.gotoTodayPage}
         bottom={10}
+        right={10}
       />
     )
   }

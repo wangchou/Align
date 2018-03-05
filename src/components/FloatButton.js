@@ -7,21 +7,22 @@ import {
 
 export default (props) => {
   const {
-    color, underColor, bottom, onPress, text,
+    color, underColor, bottom, onPress, text, right, left
   } = props
   const styles = {
     button: {
       backgroundColor: color,
       borderColor: color,
       borderWidth: 1,
-      height: 40,
-      width: 40,
-      borderRadius: 20,
+      height: 60,
+      width: 60,
+      borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
       position: 'absolute',
       bottom,
-      right: 10,
+      right,
+      left,
       shadowColor: '#000000',
       shadowOpacity: 0.8,
       shadowRadius: 2,
@@ -31,7 +32,7 @@ export default (props) => {
       },
     },
     text: {
-      fontSize: 20,
+      fontSize: 30,
       color: 'white',
     },
   }

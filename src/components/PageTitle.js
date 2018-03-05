@@ -5,7 +5,10 @@ import {
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
-import {getNowPageTitle} from '../utils/books'
+import {
+  getNowPageTitle,
+  getCheckboxCount
+} from '../utils/books'
 import {
   titleHeight,
   textFont,
@@ -26,24 +29,10 @@ import {
   text: state.pages[props.pageId] || '',
 }))
 export default class PageTitle extends Component {
-  getCheckboxCount = (text) => {
-    let checkedCheckboxCount = 0
-    let emptyCheckboxCount = 0
-    for (let i = 0; i < text.length; i += 1) {
-      const ch = text.charAt(i)
-      if (ch === CHECKED_CHECKBOX1) {
-        checkedCheckboxCount++
-      }
-      if (ch === EMPTY_CHECKBOX1) {
-        emptyCheckboxCount++
-      }
-    }
-    return { checkedCheckboxCount, emptyCheckboxCount }
-  }
 
   render() {
     const { title, text, focus, bookId } = this.props
-    const { checkedCheckboxCount, emptyCheckboxCount } = this.getCheckboxCount(text)
+    const { checkedCheckboxCount, emptyCheckboxCount } = getCheckboxCount(text)
     const checkboxCounter = (checkedCheckboxCount + emptyCheckboxCount === 0) ? null : (
       <Text>
         <Text style={styles.checkboxCount}>

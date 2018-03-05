@@ -45,3 +45,32 @@ export const textFont = 'PingFang TC'
 export const titleHeight = 20
 export const fontSize = 16
 
+
+// MOMENT.js related
+// format
+export const YEAR_PAGE_ID_FORMAT = 'YYYY'
+export const MONTH_PAGE_ID_FORMAT = 'YYYY MMM'
+export const WEEK_PAGE_ID_FORMAT = 'YYYY W'
+export const DAY_PAGE_ID_FORMAT = 'YYYY MMM DD'
+
+// unit
+export const YEAR_UNIT = 'year'
+export const MONTH_UNIT = 'month'
+export const WEEK_UNIT = 'weeks'
+export const DAY_UNIT = 'day'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import {
+  getNowPageId,
+  getMonthChildPageIds,
+} from '../utils/books'
+import {
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
@@ -13,22 +17,23 @@ import {
   yearBook: state.books.byId[YEAR_BOOK_ID],
   monthBook: state.books.byId[MONTH_BOOK_ID],
   weekBook: state.books.byId[WEEK_BOOK_ID],
-  dayBook: state.books.byId[DAY_BOOK_ID],
+  pages: state.pages,
 }))
 export default class StatusPage extends Component {
   render() {
-    const { isStatusMode } = this.props;
+    const { isStatusMode, yearBook, monthBook, weekBook } = this.props;
     if(!isStatusMode) { return null; }
     return (
       <View style={styles.container}>
         <View style={styles.yearSection}>
-          <Text> YEAR </Text>
+          <Text> {getNowPageId(yearBook)} </Text>
+          <Text> {console.log(getMonthChildPageIds(getNowPageId(yearBook)))} </Text>
         </View>
         <View style={styles.monthSection}>
-          <Text> MONTH </Text>
+          <Text> {getNowPageId(monthBook)} </Text>
         </View>
         <View style={styles.weekSection}>
-          <Text> WEEK </Text>
+          <Text> {getNowPageId(weekBook)} </Text>
         </View>
       </View>
     )

@@ -27,6 +27,7 @@ export const CHECKED_CHECKBOX2 = '\uE802'
 export const FLAG = '\uE803'
 export const STAR = '\uE804'
 export const HALF_STAR = '\uE805'
+export const CHART = '\uE806'
 export const SMALL_SPACE = ' '
 
 // color

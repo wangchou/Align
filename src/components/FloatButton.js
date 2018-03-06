@@ -7,7 +7,7 @@ import {
 
 export default (props) => {
   const {
-    color, underColor, bottom, onPress, text, right, left
+    color, underColor, bottom, onPress, onLongPress, text, right, left, style,
   } = props
   const styles = {
     button: {
@@ -32,6 +32,7 @@ export default (props) => {
       },
     },
     text: {
+      ...style,
       fontSize: 30,
       color: 'white',
     },
@@ -44,6 +45,7 @@ export default (props) => {
 
     // Event Handler
     onPress={onPress}
+    onLongPress={onLongPress}
     >
     <Text style={styles.text}>{text}</Text>
     </TouchableHighlight>

@@ -146,21 +146,21 @@ const styles = StyleSheet.create({
     height: windowHeight,
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'rgba(0, 0, 0, 1)',
+    backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   yearSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(255, 100, 100, 0.5)',
+    backgroundColor: 'rgba(155, 155, 155, 1)',
   },
   monthSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(255, 255, 100, 0.5)',
+    backgroundColor: 'rgba(120, 120, 120, 1)',
   },
   weekSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(0, 0, 255, 0.5)',
+    backgroundColor: 'rgba(155, 155, 155, 1)',
   },
 })

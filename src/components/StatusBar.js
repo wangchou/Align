@@ -1,6 +1,38 @@
 import React, { Component } from 'react'
 import { Text, View, Dimensions, StyleSheet } from 'react-native'
 
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
+const grid = windowWidth / 25
+const hgrid = windowHeight / 50
+const statusBarBorderness = 1.5
+const fontSize = grid*1.5
+const barHeight = hgrid
+const textBaseStyle = {
+  fontFamily: 'PingFang TC',
+  position: 'absolute',
+  top: hgrid*0.6,
+  fontSize,
+  zIndex: 1,
+}
+const barBaseStyle = {
+  position: 'absolute',
+  top: hgrid*2.8,
+  left: grid,
+  width: windowWidth - (grid * 2),
+  height: barHeight,
+  backgroundColor: 'rgba(0, 0, 0, 1)',
+  borderRadius: hgrid/2,
+  zIndex: -3,
+}
+const innerBarStyle = {
+  position: barBaseStyle.position,
+  top: barBaseStyle.top + statusBarBorderness,
+  left: barBaseStyle.left+ statusBarBorderness,
+  width: barBaseStyle.width - 2 * statusBarBorderness,
+  height: barBaseStyle.height - 2 * statusBarBorderness,
+  borderRadius: barBaseStyle.borderRadius - statusBarBorderness,
+}
 export default class StatusBar extends Component {
   render() {
     const { leftText, rightText, percentage } = this.props;
@@ -8,55 +40,28 @@ export default class StatusBar extends Component {
       container: {
         width: windowWidth,
         height: windowHeight/9,
-        backgroundColor: 'rgba(100, 100, 100, 0.5)',
       },
       leftText: {
-        fontFamily: 'PingFang TC',
-        color: 'rgba(255, 255, 255, 1)',
-        position: 'absolute',
-        top: hgrid,
-        left: grid + hgrid/2,
-        fontSize,
-        zIndex: 1,
+        ...textBaseStyle,
+        left: grid ,
       },
       rightText: {
-        fontFamily: 'PingFang TC',
-        color: 'rgba(255, 255, 255, 1)',
-        position: 'absolute',
-        top: hgrid,
-        right: grid + hgrid/2,
-        fontSize,
-        zIndex: 1,
+        ...textBaseStyle,
+        right: grid,
       },
       bar: {
-        position: 'absolute',
-        top: hgrid*3,
-        left: grid,
-        width: windowWidth - (grid * 2),
-        height: hgrid,
-        backgroundColor: 'rgba(0, 0, 0, 1)',
-        borderRadius: hgrid/2,
-        zIndex: -3,
+        ...barBaseStyle
       },
       innerBackgroundBar: {
-        position: 'absolute',
-        top: hgrid*3 + statusBarBorderness,
-        left: grid + statusBarBorderness,
-        width: windowWidth - (grid * 2) - 2 *statusBarBorderness,
-        height: hgrid - 2 * statusBarBorderness,
-        backgroundColor: 'rgba(100, 100, 100, 1)',
-        borderRadius: hgrid/2 - statusBarBorderness,
-        zIndex: -2,
+        ...innerBarStyle,
+        backgroundColor: 'rgba(60, 150, 60, 0.4)',
+        zIndex: barBaseStyle.zIndex + 1,
       },
       innerProgressBar: {
-        position: 'absolute',
-        top: hgrid*3 + statusBarBorderness,
-        left: grid + statusBarBorderness,
-        width: (windowWidth - (grid * 2) - 2 *statusBarBorderness) * percentage,
-        height: hgrid - 2 * statusBarBorderness,
+        ...innerBarStyle,
+        width: innerBarStyle.width * percentage,
         backgroundColor: 'rgba(60, 150, 60, 1)',
-        borderRadius: hgrid/2 - statusBarBorderness,
-        zIndex: -1,
+        zIndex: barBaseStyle.zIndex + 2,
       }
     }
     return (
@@ -71,9 +76,3 @@ export default class StatusBar extends Component {
   }
 }
 
-const windowWidth = Dimensions.get('window').width
-const windowHeight = Dimensions.get('window').height
-const grid = windowWidth / 25
-const hgrid = windowHeight / 50
-const statusBarBorderness = 1.5
-const fontSize = grid*1.5

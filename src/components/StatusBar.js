@@ -35,7 +35,13 @@ const innerBarStyle = {
 }
 export default class StatusBar extends Component {
   render() {
-    const { leftText, rightText, percentage } = this.props;
+    const {
+      leftText,
+      rightText,
+      percentage,
+      barColor,
+      barBackgroundColor,
+    } = this.props;
     const styles = {
       container: {
         width: windowWidth,
@@ -54,13 +60,13 @@ export default class StatusBar extends Component {
       },
       innerBackgroundBar: {
         ...innerBarStyle,
-        backgroundColor: 'rgba(60, 150, 60, 0.4)',
+        backgroundColor: barBackgroundColor ? barBackgroundColor : 'rgba(240, 240, 240, 0.4)',
         zIndex: barBaseStyle.zIndex + 1,
       },
       innerProgressBar: {
         ...innerBarStyle,
         width: innerBarStyle.width * percentage,
-        backgroundColor: 'rgba(60, 150, 60, 1)',
+        backgroundColor: barColor ? barColor : 'rgba(240, 240, 240, 1)',
         zIndex: barBaseStyle.zIndex + 2,
       }
     }

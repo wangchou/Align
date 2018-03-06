@@ -34,7 +34,6 @@ export default class Page extends Component {
     )
   }
 }
-
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const pageSeparatorWidth = 20

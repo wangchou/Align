@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { Text, View, StyleSheet, Dimensions } from 'react-native'
+import { TouchableWithoutFeedback, Text, View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import {
   getNowPageId,
@@ -14,6 +14,8 @@ import {
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
 } from '../constants'
+import StatusBar from './StatusBar'
+import { toggleIsStatusMode } from '../actions'
 
 const getStatus = (book, pages) => {
   const parentPageId = getNowPageId(book)
@@ -60,7 +62,9 @@ const getStatus = (book, pages) => {
   monthBook: state.books.byId[MONTH_BOOK_ID],
   weekBook: state.books.byId[WEEK_BOOK_ID],
   pages: state.pages,
-}))
+}), {
+  toggleIsStatusMode,
+})
 export default class StatusPage extends Component {
   render() {
     const { isStatusMode, yearBook, monthBook, weekBook, pages } = this.props;
@@ -70,23 +74,65 @@ export default class StatusPage extends Component {
 
     if(!isStatusMode) { return null }
     return (
-      <View style={styles.container}>
-        <View style={styles.yearSection}>
-          <Text> {`${yearStatus.title} | ${yearStatus.days} days left | ${yearStatus.leftDays/yearStatus.days}`} </Text>
-          <Text> {`年目標 | ${yearStatus.parent.checkedCount} | ${yearStatus.parent.percentage}`} </Text>
-          <Text> {`月目標 | ${yearStatus.child.checkedCount} | ${yearStatus.child.percentage}`} </Text>
+      <TouchableWithoutFeedback
+        onPress={this.props.toggleIsStatusMode}
+      >
+        <View
+          style={styles.container}
+        >
+          <View style={styles.yearSection}>
+            <StatusBar
+              leftText={yearStatus.title}
+              rightText={`剩${yearStatus.leftDays}天`}
+              percentage={yearStatus.leftDays/yearStatus.days}
+            />
+            <StatusBar
+              leftText={"年目標"}
+              rightText={yearStatus.parent.checkedCount}
+              percentage={yearStatus.parent.percentage}
+            />
+            <StatusBar
+              leftText={"月目標"}
+              rightText={yearStatus.child.checkedCount}
+              percentage={yearStatus.child.percentage}
+            />
+          </View>
+          <View style={styles.monthSection}>
+            <StatusBar
+              leftText={monthStatus.title}
+              rightText={`剩${monthStatus.leftDays}天`}
+              percentage={monthStatus.leftDays/monthStatus.days}
+            />
+            <StatusBar
+              leftText={"月目標"}
+              rightText={monthStatus.parent.checkedCount}
+              percentage={monthStatus.parent.percentage}
+            />
+            <StatusBar
+              leftText={"週目標"}
+              rightText={monthStatus.child.checkedCount}
+              percentage={monthStatus.child.percentage}
+            />
+          </View>
+          <View style={styles.weekSection}>
+            <StatusBar
+              leftText={weekStatus.title}
+              rightText={`剩${weekStatus.leftDays}天`}
+              percentage={weekStatus.leftDays/weekStatus.days}
+            />
+            <StatusBar
+              leftText={"週目標"}
+              rightText={weekStatus.parent.checkedCount}
+              percentage={weekStatus.parent.percentage}
+            />
+            <StatusBar
+              leftText={"日目標"}
+              rightText={weekStatus.child.checkedCount}
+              percentage={weekStatus.child.percentage}
+            />
+          </View>
         </View>
-        <View style={styles.monthSection}>
-          <Text> {`${monthStatus.title} | ${monthStatus.days} days left | ${monthStatus.leftDays/monthStatus.days}`} </Text>
-          <Text> {`月目標 | ${monthStatus.parent.checkedCount} | ${monthStatus.parent.percentage}`} </Text>
-          <Text> {`週目標 | ${monthStatus.child.checkedCount} | ${monthStatus.child.percentage}`} </Text>
-        </View>
-        <View style={styles.weekSection}>
-          <Text> {`${weekStatus.title} | ${weekStatus.days} days left | ${weekStatus.leftDays/weekStatus.days}`} </Text>
-          <Text> {`週目標 | ${weekStatus.parent.checkedCount} | ${weekStatus.parent.percentage}`} </Text>
-          <Text> {`日目標 | ${weekStatus.child.checkedCount} | ${weekStatus.child.percentage}`} </Text>
-        </View>
-      </View>
+      </TouchableWithoutFeedback>
     )
   }
 }
@@ -100,20 +146,21 @@ const styles = StyleSheet.create({
     height: windowHeight,
     flex: 1,
     flexDirection: 'column',
+    backgroundColor: 'rgba(0, 0, 0, 1)',
   },
   yearSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(255, 255, 100, 1)',
+    backgroundColor: 'rgba(255, 100, 100, 0.5)',
   },
   monthSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(255, 100, 100, 1)',
+    backgroundColor: 'rgba(255, 255, 100, 0.5)',
   },
   weekSection: {
     flex: 1,
     height: windowHeight/3,
-    backgroundColor: 'rgba(100, 100, 255, 1)',
+    backgroundColor: 'rgba(0, 0, 255, 0.5)',
   },
 })

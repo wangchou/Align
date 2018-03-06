@@ -12,10 +12,10 @@ import { toggleIsStatusMode } from '../actions'
 export default class StatusButton extends Component {
   render() {
     const { isStatusMode, isKeyboardShow } = this.props;
-    if (this.props.isKeyboardShow) return null
+    if (isKeyboardShow || isStatusMode) return null
     return (
       <FloatButton
-        text={isStatusMode ? "G" : "S"}
+        text={"S"}
         color="rgba(200, 200, 200, 1)"
         underColor="rgba(100, 100, 100, 1)"
         onPress={this.props.toggleIsStatusMode}

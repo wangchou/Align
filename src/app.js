@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 import Book from './components/Book'
 import KeyboardAvoidingView from './components/KeyboardAvoidingView'
+import StatusAvoidingView from './components/StatusAvoidingView'
 import TodayButton from './components/TodayButton'
 import StatusPage from './components/StatusPage'
 import FloatEditBar from './components/FloatEditBar'
@@ -51,6 +52,7 @@ export default class OnigiriNote extends Component {
           scrollEventThrottle={16}
           onScroll={this.onScroll}
         >
+          <StatusAvoidingView />
           {bookViews}
           <StatusBar hidden />
           <KeyboardAvoidingView />

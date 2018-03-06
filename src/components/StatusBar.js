@@ -6,20 +6,20 @@ const windowHeight = Dimensions.get('window').height
 const grid = windowWidth / 25
 const hgrid = windowHeight / 50
 const statusBarBorderness = 1.5
-const fontSize = grid*1.5
+const fontSize = grid*1.2
 const barHeight = hgrid
 const textBaseStyle = {
   fontFamily: 'PingFang TC',
   position: 'absolute',
-  top: hgrid*0.6,
+  top: hgrid*0.3,
   fontSize,
   zIndex: 1,
 }
 const barBaseStyle = {
   position: 'absolute',
-  top: hgrid*2.8,
-  left: grid,
-  width: windowWidth - (grid * 2),
+  top: hgrid*2,
+  left: grid/2,
+  width: grid * 7,
   height: barHeight,
   backgroundColor: 'rgba(0, 0, 0, 1)',
   borderRadius: hgrid/2,
@@ -44,16 +44,15 @@ export default class StatusBar extends Component {
     } = this.props;
     const styles = {
       container: {
-        width: windowWidth,
-        height: windowHeight/9,
+        height: windowHeight/16,
       },
       leftText: {
         ...textBaseStyle,
-        left: grid ,
+        left: grid/2,
       },
       rightText: {
         ...textBaseStyle,
-        right: grid,
+        right: grid/2,
       },
       bar: {
         ...barBaseStyle

@@ -92,7 +92,7 @@ export default class StatusPage extends Component {
         >
           <View style={styles.yearSection}>
             <StatusBar
-              leftText={yearStatus.title}
+              leftText={'今年'}
               rightText={`剩${yearStatus.leftDays}天`}
               percentage={1 - yearStatus.leftDays/yearStatus.days}
             />
@@ -113,7 +113,7 @@ export default class StatusPage extends Component {
           </View>
           <View style={styles.monthSection}>
             <StatusBar
-              leftText={monthStatus.title}
+              leftText={'本月'}
               rightText={`剩${monthStatus.leftDays}天`}
               percentage={1 - monthStatus.leftDays/monthStatus.days}
             />
@@ -134,7 +134,7 @@ export default class StatusPage extends Component {
           </View>
           <View style={styles.weekSection}>
             <StatusBar
-              leftText={weekStatus.title}
+              leftText={'本週'}
               rightText={`剩${weekStatus.leftDays}天`}
               percentage={1 - weekStatus.leftDays/weekStatus.days}
             />
@@ -162,27 +162,32 @@ export default class StatusPage extends Component {
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
+const gray = 'rgba(216, 216, 216, 1)'
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: windowWidth,
-    height: windowHeight,
+    height: windowHeight/5,
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
   },
   yearSection: {
     flex: 1,
-    height: windowHeight/3,
-    backgroundColor: 'rgba(185, 185, 185, 1)',
+    height: windowHeight/5,
+    backgroundColor: gray,
+    borderRightWidth: 0.5,
   },
   monthSection: {
     flex: 1,
-    height: windowHeight/3,
-    backgroundColor: 'rgba(150, 150, 150, 1)',
+    height: windowHeight/5,
+    backgroundColor: gray,
+    borderLeftWidth: 0.5,
+    borderRightWidth: 0.5,
   },
   weekSection: {
     flex: 1,
-    height: windowHeight/3,
-    backgroundColor: 'rgba(185, 185, 185, 1)',
+    height: windowHeight/5,
+    backgroundColor: gray,
+    borderLeftWidth: 0.5,
   },
 })

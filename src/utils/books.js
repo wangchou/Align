@@ -4,6 +4,8 @@ import {
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
   MONTH_UNIT,
+  WEEK_UNIT,
+  DAY_UNIT,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
@@ -18,10 +20,12 @@ export const getTime = (book, shift = 0) => moment(book.time)
   .add(shift, book.unit)
   .format()
 
+export const getPageTitle = (bookId, time) => moment(time).format(getTitleFormatI18n(bookId))
 
-export const getPageTitle = (book, shift = 0) => moment(book.time)
-  .add(shift, book.unit)
-  .format(getTitleFormatI18n(book.id))
+export const getBookPageTitle = (book, shift = 0) => getPageTitle(
+  book.id,
+  moment(book.time).add(shift, book.unit)
+)
 
 export const getPageId = (bookId, time, pageIdFormat) => `${bookId}-${time.format(pageIdFormat)}`
 
@@ -63,17 +67,54 @@ export const getMonthChildPageIds = (yearPageId) => {
   })
 }
 
+export const getWeekChildPageIds = (monthPageId) => {
+  const monthTime = getTimeFromPageId(monthPageId)
+  const monthStr = monthTime.format('M')
+  const weekPageIds = []
+  weekTime = monthTime.startOf('isoweek')
+  if(weekTime.format('M') !== monthStr) { weekTime.add(1, WEEK_UNIT) }
+
+  while(weekTime.format('M') === monthStr) {
+    weekPageIds.push(getPageId(WEEK_BOOK_ID, weekTime, WEEK_PAGE_ID_FORMAT))
+    weekTime.add(1, WEEK_UNIT)
+  }
+
+  return weekPageIds
+}
+
+export const getDayChildPageIds = (weekPageId) => {
+  const weekTime = getTimeFromPageId(weekPageId)
+  const shifts = [...Array(7).keys()]
+  return shifts.map( shift => {
+    let dayTime = moment(weekTime).add(shift, DAY_UNIT)
+    return getPageId(DAY_BOOK_ID, dayTime, DAY_PAGE_ID_FORMAT)
+  })
+}
+
+export const getChildPageIds = (parentPageId) => {
+  const array = parentPageId.split('-')
+  const bookId = array[0]
+  const timeString = array[1]
+  if(bookId === YEAR_BOOK_ID) return getMonthChildPageIds(parentPageId)
+  if(bookId === MONTH_BOOK_ID) return getWeekChildPageIds(parentPageId)
+  if(bookId === WEEK_BOOK_ID) return getDayChildPageIds(parentPageId)
+  return []
+}
+
 export const getCheckboxCount = (text) => {
-  let checkedCheckboxCount = 0
-  let emptyCheckboxCount = 0
-  for (let i = 0; i < text.length; i += 1) {
-    const ch = text.charAt(i)
-    if (ch === CHECKED_CHECKBOX1) {
-      checkedCheckboxCount++
-    }
-    if (ch === EMPTY_CHECKBOX1) {
-      emptyCheckboxCount++
+
+  let checkedCount = 0
+  let emptyCount = 0
+  if(text) {
+    for (let i = 0; i < text.length; i += 1) {
+      const ch = text.charAt(i)
+      if (ch === CHECKED_CHECKBOX1) {
+        checkedCount++
+      }
+      if (ch === EMPTY_CHECKBOX1) {
+        emptyCount++
+      }
     }
   }
-  return { checkedCheckboxCount, emptyCheckboxCount }
+  return { checkedCount, emptyCount }
 }

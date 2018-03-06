@@ -14,7 +14,7 @@ import {
 import {
   getTime,
   getBookPageId,
-  getPageTitle,
+  getBookPageTitle,
 } from '../utils/books'
 
 const windowWidth = Dimensions.get('window').width
@@ -81,7 +81,7 @@ export default class Book extends Component {
     const { book } = this.props
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
-        const title = getPageTitle(book, shift)
+        const title = getBookPageTitle(book, shift)
         const pageId = getBookPageId(book, shift)
         return (
           <Page

@@ -32,23 +32,23 @@ export default class PageTitle extends Component {
 
   render() {
     const { title, text, focus, bookId } = this.props
-    const { checkedCheckboxCount, emptyCheckboxCount } = getCheckboxCount(text)
-    const checkboxCounter = (checkedCheckboxCount + emptyCheckboxCount === 0) ? null : (
+    const { checkedCount, emptyCount } = getCheckboxCount(text)
+    const checkedCounter = (checkedCount + emptyCount === 0) ? null : (
       <Text>
-        <Text style={styles.checkboxCount}>
-          {`  ${checkedCheckboxCount}`}
+        <Text style={styles.checkedCount}>
+          {`  ${checkedCount}`}
         </Text>
-        <Text style={styles.emptyCheckboxCount}>
-          {` ${emptyCheckboxCount}`}
+        <Text style={styles.emptyCount}>
+          {` ${emptyCount}`}
         </Text>
       </Text>
     )
 
     let progressStar = null;
-    if(emptyCheckboxCount + checkedCheckboxCount > 0) {
-      if(emptyCheckboxCount === 0) {
+    if(emptyCount + checkedCount > 0) {
+      if(emptyCount === 0) {
           progressStar = <Text style={styles.star}>{` ${STAR}`}</Text>
-      } else if(checkedCheckboxCount >= emptyCheckboxCount) {
+      } else if(checkedCount >= emptyCount) {
           progressStar = <Text style={styles.star}>{` ${HALF_STAR}`}</Text>
       }
     }
@@ -63,7 +63,7 @@ export default class PageTitle extends Component {
           {title}
         </Text>
         {progressStar}
-        {checkboxCounter}
+        {checkedCounter}
       </Text>
     )
   }
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
     fontFamily: checkboxFont,
     color: flagColor,
   },
-  checkboxCount: {
+  checkedCount: {
     ...base,
     color: checkedCheckboxColor1,
   },
-  emptyCheckboxCount: {
+  emptyCount: {
     ...base,
     color: emptyCheckboxColor1,
   },

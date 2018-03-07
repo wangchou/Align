@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react'
+import moment from 'moment'
 import {
   Text,
   StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
 import {
-  getNowPageTitle,
-  getCheckboxCount
+  getCheckboxCount,
 } from '../utils/books'
 import {
   titleHeight,
@@ -53,12 +53,8 @@ export default class PageTitle extends Component {
       }
     }
 
-    const thisLabel = getNowPageTitle(bookId) === title ?
-      <Text style={styles.thisLabel}>{`${FLAG} `}</Text> : null
-
     return (
       <Text onPress={focus}>
-        {thisLabel}
         <Text style={styles.pageTitle}>
           {title}
         </Text>

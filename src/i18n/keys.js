@@ -15,5 +15,6 @@ export default [
   [bookId]: {
     titleFormat: `${bookId}_pageTitleFormat`,
     statusTitleFormat: `${bookId}_statusTitleFormat`,
+    thisTitleFormat: `${bookId}_thisTitleFormat`,
   },
 }), {})

@@ -13,6 +13,10 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
+  YEAR_KEY,
+  MONTH_KEY,
+  WEEK_KEY,
+  DAY_KEY,
 } from '../constants'
 import StatusBar from './StatusBar'
 import { toggleIsStatusMode } from '../actions'
@@ -26,6 +30,7 @@ import {
   dayBarColor,
   dayBarBackgroundColor,
 } from '../constants'
+import I18n from '../i18n'
 
 const getStatus = (book, pages) => {
   const parentPageId = getNowPageId(book)
@@ -51,8 +56,7 @@ const getStatus = (book, pages) => {
 
   return ({
     title: getNowStatusTitle(book.id),
-    leftDays,
-    days,
+    timePercentage: 1 - leftDays/days,
     parent: {
       text: `${parentGoalStatus.checkedCount}/${parentGoalStatus.checkedCount + parentGoalStatus.emptyCount}`,
       percentage: parentGoalStatus.checkedCount /
@@ -94,17 +98,17 @@ export default class StatusPage extends Component {
           <View style={styles.section}>
             <StatusBar
               leftText={yearStatus.title}
-              percentage={1 - yearStatus.leftDays/yearStatus.days}
+              percentage={yearStatus.timePercentage}
             />
             <StatusBar
-              leftText={"年"}
+              leftText={I18n.t(YEAR_KEY)}
               barColor={yearBarColor}
               barBackgroundColor={yearBarBackgroundColor}
               rightText={yearStatus.parent.text}
               percentage={yearStatus.parent.percentage}
             />
             <StatusBar
-              leftText={"月"}
+              leftText={I18n.t(MONTH_KEY)}
               rightText={yearStatus.child.text}
               barColor={monthBarColor}
               barBackgroundColor={monthBarBackgroundColor}
@@ -114,17 +118,17 @@ export default class StatusPage extends Component {
           <View style={styles.section}>
             <StatusBar
               leftText={monthStatus.title}
-              percentage={1 - monthStatus.leftDays/monthStatus.days}
+              percentage={monthStatus.timePercentage}
             />
             <StatusBar
-              leftText={"月"}
+              leftText={I18n.t(MONTH_KEY)}
               rightText={monthStatus.parent.text}
               barColor={monthBarColor}
               barBackgroundColor={monthBarBackgroundColor}
               percentage={monthStatus.parent.percentage}
             />
             <StatusBar
-              leftText={"週"}
+              leftText={I18n.t(WEEK_KEY)}
               rightText={monthStatus.child.text}
               barColor={weekBarColor}
               barBackgroundColor={weekBarBackgroundColor}
@@ -134,17 +138,17 @@ export default class StatusPage extends Component {
           <View style={styles.section}>
             <StatusBar
               leftText={weekStatus.title}
-              percentage={1 - weekStatus.leftDays/weekStatus.days}
+              percentage={weekStatus.timePercentage}
             />
             <StatusBar
-              leftText={"週"}
+              leftText={I18n.t(WEEK_KEY)}
               rightText={weekStatus.parent.text}
               barColor={weekBarColor}
               barBackgroundColor={weekBarBackgroundColor}
               percentage={weekStatus.parent.percentage}
             />
             <StatusBar
-              leftText={"日"}
+              leftText={I18n.t(DAY_KEY)}
               rightText={weekStatus.child.text}
               barColor={dayBarColor}
               barBackgroundColor={dayBarBackgroundColor}
@@ -170,6 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    backgroundColor: darkGray,
     borderColor: darkGray,
     borderBottomWidth: 0.5,
   },

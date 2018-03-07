@@ -69,9 +69,11 @@ export const MONTH_UNIT = 'month'
 export const WEEK_UNIT = 'weeks'
 export const DAY_UNIT = 'day'
 
-
-
-
+// key
+export const YEAR_KEY = 'year'
+export const MONTH_KEY = 'month'
+export const WEEK_KEY = 'week'
+export const DAY_KEY = 'day'
 
 
 

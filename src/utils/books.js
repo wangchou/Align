@@ -1,6 +1,7 @@
 import moment from 'moment'
 import {
   getTitleFormatI18n,
+  getThisTitleFormatI18n,
   getStatusTitleFormatI18n,
 } from '../i18n'
 import {
@@ -23,7 +24,15 @@ export const getTime = (book, shift = 0) => moment(book.time)
   .add(shift, book.unit)
   .format()
 
-export const getPageTitle = (bookId, time) => moment(time).format(getTitleFormatI18n(bookId))
+export const getPageTitle = (bookId, time) => {
+  const generalTitle = moment(time).format(getTitleFormatI18n(bookId))
+  const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
+  const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
+  if(nowTitle === generalTitle) {
+    return moment().format(getThisTitleFormatI18n(bookId))
+  }
+  return generalTitle
+}
 
 export const getBookPageTitle = (book, shift = 0) => getPageTitle(
   book.id,
@@ -41,9 +50,6 @@ export const getBookPageId = (book, shift = 0) => getPageId(
 export const getStartOfWeekTime = () => moment().startOf('isoweek').format()
 
 export const getNow = () => moment().format()
-
-export const getNowPageTitle = (bookId) => moment(bookId === WEEK_BOOK_ID ? getStartOfWeekTime() : getNow())
-  .format(getTitleFormatI18n(bookId))
 
 export const getNowStatusTitle = (bookId) => moment(bookId === WEEK_BOOK_ID ? getStartOfWeekTime() : getNow())
   .format(getStatusTitleFormatI18n(bookId))

@@ -19,7 +19,7 @@ export default class KeyboardManager extends Component {
   componentDidMount() {
     this.props.setIsKeyboardShow(false)
 
-    this.keyboardDidShowListerner = Keyboard.addListener('keyboardDidShow', (event) => {
+    this.keyboardWillShowListerner = Keyboard.addListener('keyboardWillShow', (event) => {
       this.props.setKeyboardHeight(event.endCoordinates.height + floatEditBarHeight)
       this.props.setIsKeyboardShow(true)
     })
@@ -33,7 +33,7 @@ export default class KeyboardManager extends Component {
 
   componentWillUnmount() {
     this.keyboardWillHideListener.remove()
-    this.keyboardDidShowListener.remove()
+    this.keyboardWillShowListener.remove()
   }
 
   render() {

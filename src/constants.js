@@ -45,8 +45,8 @@ export const monthBarColor = 'rgba(233, 155, 18, 1)'
 export const monthBarBackgroundColor = 'rgba(233, 155, 18, 0.4)'
 export const weekBarColor = 'rgba(20, 184, 87, 1)'
 export const weekBarBackgroundColor = 'rgba(20, 184, 87, 0.4)'
-export const dayBarColor = 'rgba(36, 82, 221, 1)'
-export const dayBarBackgroundColor = 'rgba(36, 82, 221, 0.4)'
+export const dayBarColor = 'rgba(36, 102, 241, 1)'
+export const dayBarBackgroundColor = 'rgba(36, 102, 241, 0.4)'
 
 // font
 export const checkboxFont = 'checkbox'

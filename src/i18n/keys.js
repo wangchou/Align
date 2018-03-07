@@ -13,6 +13,7 @@ export default [
 ].reduce((Keys, bookId) => ({
   ...Keys,
   [bookId]: {
-    titleFormat: `${bookId}_titleFormat`,
+    titleFormat: `${bookId}_pageTitleFormat`,
+    statusTitleFormat: `${bookId}_statusTitleFormat`,
   },
 }), {})

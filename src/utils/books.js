@@ -1,5 +1,8 @@
 import moment from 'moment'
-import { getTitleFormatI18n } from '../i18n'
+import {
+  getTitleFormatI18n,
+  getStatusTitleFormatI18n,
+} from '../i18n'
 import {
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
@@ -41,6 +44,9 @@ export const getNow = () => moment().format()
 
 export const getNowPageTitle = (bookId) => moment(bookId === WEEK_BOOK_ID ? getStartOfWeekTime() : getNow())
   .format(getTitleFormatI18n(bookId))
+
+export const getNowStatusTitle = (bookId) => moment(bookId === WEEK_BOOK_ID ? getStartOfWeekTime() : getNow())
+  .format(getStatusTitleFormatI18n(bookId))
 
 export const getNowPageId = (book) => {
   const time = (book.id === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()

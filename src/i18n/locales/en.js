@@ -12,5 +12,8 @@ export default {
   [Keys[MONTH_BOOK_ID].titleFormat]: 'MMM YYYY',
   [Keys[WEEK_BOOK_ID].titleFormat]: 'MMM Do ～ ([week] W)',
   [Keys[DAY_BOOK_ID].titleFormat]: 'MMM Do (ddd)',
+  [Keys[YEAR_BOOK_ID].statusTitleFormat]: 'YYYY',
+  [Keys[MONTH_BOOK_ID].statusTitleFormat]: 'MMM',
+  [Keys[WEEK_BOOK_ID].statusTitleFormat]: 'MMM Do ～',
   [DONE_BUTTON]: 'Done',
 }

@@ -11,7 +11,7 @@ const intitialState = {
   focusedBookId: null,
   focusedPageId: null,
   selection: {},
-  isStatusMode: false,
+  isStatusMode: true,
 }
 
 export default (state = intitialState, action) => {

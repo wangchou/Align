@@ -19,7 +19,7 @@ const barBaseStyle = {
   position: 'absolute',
   top: hgrid*2,
   left: grid/2,
-  width: grid * 7,
+  width: grid * 7.1,
   height: barHeight,
   backgroundColor: 'rgba(0, 0, 0, 1)',
   borderRadius: hgrid/2,

@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   TouchableWithoutFeedback,
+  TouchableOpacity,
   Text,
   View,
   StyleSheet,
+  Button,
 } from 'react-native'
 import {
   YEAR_BOOK_ID,
@@ -20,6 +22,7 @@ import {
   setBookNumOfLines,
   resetSettings,
 } from '../actions'
+import SettingBar from './SettingBar'
 
 @connect(state => ({
   fontScale: state.setting.fontScale,
@@ -45,48 +48,31 @@ export default class SettingPage extends Component {
       WEEK_BOOK_ID,
       DAY_BOOK_ID
     ].map(bookId => (
-      <View key={bookId}>
-        <Text style={styles.text}>
-          Number of Lines:
-          <Text
-            onPress={() => setBookNumOfLines(bookId, numberOfLines[bookId] - 1)}
-          >
-            -
-          </Text>
-          <Text
-            onPress={() => setBookNumOfLines(bookId, numberOfLines[bookId] + 1)}
-          >
-            +
-          </Text>
-        </Text>
-      </View>
+      <SettingBar
+        key={bookId}
+        text="numberOfLines"
+        onMinusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] - 1)}
+        onPlusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] + 1)}
+      />
     ))
 
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.text}>
-            Font Size:
-            <Text
-              onPress={() => setFontScale(fontScale/1.1)}
-            >
-              -
-            </Text>
-            <Text
-              onPress={() => setFontScale(fontScale*1.1)}
-            >
-              +
-            </Text>
-          </Text>
-        </View>
+        <SettingBar
+          text="Font Size"
+          onMinusClick={() => setFontScale(fontScale/1.1)}
+          onPlusClick={() => setFontScale(fontScale*1.1)}
+        />
         {numberOfLinesSetting}
-        <View>
-            <Text style={styles.text}
-              onPress={resetSettings}
-            >
-              Reset Settings
-            </Text>
-        </View>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={resetSettings}
+        >
+          <Text style={styles.text}
+          >
+            Reset All
+          </Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -94,12 +80,22 @@ export default class SettingPage extends Component {
 const styles = StyleSheet.create({
   container: {
     width: windowWidth,
-    height: 200,
     backgroundColor: 'rgba(155, 155, 155, 0.3)',
-    padding: 10,
+    padding: 20,
   },
   text: {
     fontSize: 20,
     fontFamily: textFont,
+  },
+  resetButton: {
+    width: windowWidth - 40,
+    height: 43,
+    marginTop: 5,
+    backgroundColor: 'rgba(180, 180, 180, 1)',
+    borderColor: 'rgba(192, 192, 192, 1)',
+    borderWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })

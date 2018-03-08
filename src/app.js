@@ -54,8 +54,8 @@ export default class OnigiriNote extends Component {
           onScroll={this.onScroll}
         >
           <StatusAvoidingView />
-          {bookViews}
           <SettingPage />
+          {bookViews}
           <StatusBar hidden />
           <KeyboardAvoidingView />
         </ScrollView>

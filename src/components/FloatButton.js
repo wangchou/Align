@@ -7,22 +7,26 @@ import {
 
 export default (props) => {
   const {
-    color, underColor, bottom, onPress, onLongPress, text, right, left, style,
+    color, underColor, bottom, onPress, onLongPress, text, right, left, style, size, position,
   } = props
   const styles = {
+    view: {
+      height: size ? size*2 : 60,
+      width: size ? size*2 : 60,
+      position: position ? position : 'absolute',
+      bottom,
+      right,
+      left,
+    },
     button: {
       backgroundColor: color,
       borderColor: color,
       borderWidth: 1,
-      height: 60,
-      width: 60,
-      borderRadius: 30,
+      height: size ? size*2 : 60,
+      width: size ? size*2 : 60,
+      borderRadius: size ? size : 30,
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'absolute',
-      bottom,
-      right,
-      left,
       shadowColor: '#000000',
       shadowOpacity: 0.8,
       shadowRadius: 2,
@@ -33,22 +37,20 @@ export default (props) => {
     },
     text: {
       ...style,
-      fontSize: 30,
+      fontSize: size ? size : 30,
       color: 'white',
     },
   }
   return (
-    <View>
-    <TouchableHighlight
-    style={styles.button}
-    underlayColor={underColor}
-
-    // Event Handler
-    onPress={onPress}
-    onLongPress={onLongPress}
-    >
-    <Text style={styles.text}>{text}</Text>
-    </TouchableHighlight>
+    <View style={styles.view}>
+      <TouchableHighlight
+        style={styles.button}
+        underlayColor={underColor}
+        onPress={onPress}
+        onLongPress={onLongPress}
+      >
+        <Text style={styles.text}>{text}</Text>
+      </TouchableHighlight>
     </View>
   )
 }

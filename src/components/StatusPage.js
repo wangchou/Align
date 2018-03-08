@@ -164,8 +164,8 @@ export default class StatusPage extends Component {
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
-const gray = 'rgba(240, 240, 240, 1)'
-const darkGray = 'rgba(180, 180, 180, 1)'
+const gray = 'rgba(192, 192, 192, 1)'
+const darkGray = 'rgba(120, 120, 120, 1)'
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',

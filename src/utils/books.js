@@ -29,7 +29,7 @@ export const getPageTitle = (bookId, time) => {
   const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
   const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
   if(nowTitle === generalTitle) {
-    return moment().format(getThisTitleFormatI18n(bookId))
+    return moment(now).format(getThisTitleFormatI18n(bookId))
   }
   return generalTitle
 }

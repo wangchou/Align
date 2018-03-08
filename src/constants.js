@@ -75,6 +75,8 @@ export const MONTH_KEY = 'month'
 export const WEEK_KEY = 'week'
 export const DAY_KEY = 'day'
 
+export const EMPTY_STATE_KEY = 'empty state key'
+
 
 
 

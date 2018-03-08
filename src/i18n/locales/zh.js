@@ -8,8 +8,10 @@ import {
   MONTH_KEY,
   WEEK_KEY,
   DAY_KEY,
+  EMPTY_STATE_KEY,
 } from '../../constants'
 import Keys from '../keys'
+import emptyState from './emptyState'
 
 export default {
   [Keys[YEAR_BOOK_ID].titleFormat]: 'YYYY年',
@@ -28,4 +30,5 @@ export default {
   [Keys[MONTH_BOOK_ID].thisTitleFormat]: '本月',
   [Keys[WEEK_BOOK_ID].thisTitleFormat]: '這週 (M月 D日～)',
   [Keys[DAY_BOOK_ID].thisTitleFormat]: '今天 (dddd)',
+  [EMPTY_STATE_KEY]: emptyState.zh,
 }

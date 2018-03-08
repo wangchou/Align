@@ -31,5 +31,6 @@ I18n.translations = {
 export const getTitleFormatI18n = bookId => I18n.t(Keys[bookId].titleFormat)
 export const getStatusTitleFormatI18n = bookId => I18n.t(Keys[bookId].statusTitleFormat)
 export const getThisTitleFormatI18n = bookId => I18n.t(Keys[bookId].thisTitleFormat)
+export const getNumberOfLineDescriptonI18n = bookId => I18n.t(Keys[bookId].numOfLines)
 
 export default I18n

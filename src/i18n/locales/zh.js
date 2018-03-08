@@ -9,6 +9,8 @@ import {
   WEEK_KEY,
   DAY_KEY,
   EMPTY_STATE_KEY,
+  FONT_SIZE,
+  RESET_ALL,
 } from '../../constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -31,4 +33,10 @@ export default {
   [Keys[WEEK_BOOK_ID].thisTitleFormat]: '這週 (M月 D日～)',
   [Keys[DAY_BOOK_ID].thisTitleFormat]: '今天 (dddd)',
   [EMPTY_STATE_KEY]: emptyState.zh,
+  [FONT_SIZE]: '字體大小：',
+  [Keys[YEAR_BOOK_ID].numOfLines]: '年頁面的列數：',
+  [Keys[MONTH_BOOK_ID].numOfLines]: '月頁面的列數：',
+  [Keys[WEEK_BOOK_ID].numOfLines]: '週頁面的列數：',
+  [Keys[DAY_BOOK_ID].numOfLines]: '日頁面的列數：',
+  [RESET_ALL]: '重設',
 }

@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   bar: {
     justifyContent: 'space-between',
     flexDirection: 'row',
-    paddingTop: 6,
-    paddingBottom: 2,
+    paddingTop: 5,
+    paddingBottom: 1,
     borderBottomWidth: 0.5,
     borderColor: 'rgba(192, 192, 192, 1)',
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontFamily: textFont,
   },
   description: {
-    width: 150,
+    width: 170,
     height: 35,
   },
   buttonsContainer: {

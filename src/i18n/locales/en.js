@@ -9,6 +9,8 @@ import {
   WEEK_KEY,
   DAY_KEY,
   EMPTY_STATE_KEY,
+  FONT_SIZE,
+  RESET_ALL,
 } from '../../constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -31,4 +33,10 @@ export default {
   [Keys[WEEK_BOOK_ID].thisTitleFormat]: 'This Week',
   [Keys[DAY_BOOK_ID].thisTitleFormat]: 'Today',
   [EMPTY_STATE_KEY]:emptyState.en,
+  [FONT_SIZE]: 'Font Size:',
+  [Keys[YEAR_BOOK_ID].numOfLines]: 'Number of Lines in Year Page:',
+  [Keys[MONTH_BOOK_ID].numOfLines]: 'Number of Lines in Month Page:',
+  [Keys[WEEK_BOOK_ID].numOfLines]: 'Number of Lines in Week Page:',
+  [Keys[DAY_BOOK_ID].numOfLines]: 'Number of Lines in Day Page:',
+  [RESET_ALL]: 'Reset All',
 }

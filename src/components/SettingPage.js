@@ -14,8 +14,10 @@ import {
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
   textFont,
+  RESET_ALL,
+  FONT_SIZE,
 } from '../constants'
-import I18n from '../i18n'
+import I18n, {getNumberOfLineDescriptonI18n} from '../i18n'
 import { windowWidth } from '../utils/misc'
 import {
   setFontScale,
@@ -50,7 +52,7 @@ export default class SettingPage extends Component {
     ].map(bookId => (
       <SettingBar
         key={bookId}
-        text="numberOfLines"
+        text={getNumberOfLineDescriptonI18n(bookId)}
         onMinusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] - 1)}
         onPlusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] + 1)}
       />
@@ -59,7 +61,7 @@ export default class SettingPage extends Component {
     return (
       <View style={styles.container}>
         <SettingBar
-          text="Font Size"
+          text={I18n.t(FONT_SIZE)}
           onMinusClick={() => setFontScale(fontScale/1.1)}
           onPlusClick={() => setFontScale(fontScale*1.1)}
         />
@@ -70,7 +72,7 @@ export default class SettingPage extends Component {
         >
           <Text style={styles.text}
           >
-            Reset All
+            {I18n.t(RESET_ALL)}
           </Text>
         </TouchableOpacity>
       </View>
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
   },
   resetButton: {
     width: windowWidth - 40,
-    height: 43,
+    height: 40,
     marginTop: 5,
     backgroundColor: 'rgba(180, 180, 180, 1)',
     borderColor: 'rgba(192, 192, 192, 1)',

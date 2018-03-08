@@ -71,13 +71,15 @@ export const MONTH_UNIT = 'month'
 export const WEEK_UNIT = 'weeks'
 export const DAY_UNIT = 'day'
 
-// key
+// key / i18n
 export const YEAR_KEY = 'year'
 export const MONTH_KEY = 'month'
 export const WEEK_KEY = 'week'
 export const DAY_KEY = 'day'
 
 export const EMPTY_STATE_KEY = 'empty state key'
+export const FONT_SIZE = 'font size'
+export const RESET_ALL = 'reset all'
 
 
 

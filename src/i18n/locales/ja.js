@@ -9,6 +9,8 @@ import {
   WEEK_KEY,
   DAY_KEY,
   EMPTY_STATE_KEY,
+  FONT_SIZE,
+  RESET_ALL,
 } from '../../constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -31,4 +33,11 @@ export default {
   [Keys[WEEK_BOOK_ID].thisTitleFormat]: '今週 (M月 D日～)',
   [Keys[DAY_BOOK_ID].thisTitleFormat]: '今天 (dddd)',
   [EMPTY_STATE_KEY]: emptyState.jp,
+  [FONT_SIZE]: '文字サイズ：',
+  [Keys[YEAR_BOOK_ID].numOfLines]: '年ページの列数：',
+  [Keys[MONTH_BOOK_ID].numOfLines]: '月ページの列数：',
+  [Keys[WEEK_BOOK_ID].numOfLines]: '週ページの列数：',
+  [Keys[DAY_BOOK_ID].numOfLines]: '日ページの列数：',
+  [RESET_ALL]: 'リセット',
 }
+

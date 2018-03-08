@@ -11,10 +11,10 @@ import {
 const intitialState = {
   fontScale: 1.0,
   numberOfLines: {
-    [YEAR_BOOK_ID]: 0,
-    [MONTH_BOOK_ID]: 0,
-    [WEEK_BOOK_ID]: 0,
-    [DAY_BOOK_ID]: 0,
+    [YEAR_BOOK_ID]: 10,
+    [MONTH_BOOK_ID]: 10,
+    [WEEK_BOOK_ID]: 10,
+    [DAY_BOOK_ID]: 10,
   }
 }
 

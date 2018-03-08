@@ -3,7 +3,7 @@ import {
   Text,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { styles } from './styles'
+import { getStyles } from './styles'
 import Checkbox from './Checkbox'
 import {
   setData,
@@ -17,6 +17,8 @@ import {
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
   focusedBookId: state.ui.focusedBookId,
+  fontScale: state.setting.fontScale,
+  numberOfLines: state.setting.numberOfLines[props.bookId],
 }), {
   setData,
 })
@@ -27,12 +29,13 @@ export default class TopTextOverlay extends Component {
     this.props.setData(this.props.pageId, toggledText)
   }
 
-  getTextComponentChilds = text => getTextChilds(text)
+  getTextComponentChilds = (text, styles) => getTextChilds(text)
     .map((subText, i) =>
       (isCheckbox(subText) ?
         <Checkbox
           key={text + subText + i}
           text={subText}
+          styles={styles}
           indexInParentText={i}
           onCheckboxToggle={this.onCheckboxToggle}
         /> :
@@ -40,15 +43,16 @@ export default class TopTextOverlay extends Component {
 
   render() {
     const {
-      bookId, focusedBookId, focus, text,
+      bookId, focusedBookId, focus, text, fontScale, numberOfLines
     } = this.props
+    const styles = getStyles( fontScale, numberOfLines )
     return (
       <Text
         style={styles.topCustomText}
         pointerEvents={ bookId === focusedBookId ? 'box-none' : 'auto' }
         onPress={focus}
       >
-        {this.getTextComponentChilds(text)}
+        {this.getTextComponentChilds(text, styles)}
       </Text>
     )
   }

@@ -13,7 +13,6 @@ import {
   titleHeight,
   textFont,
   checkboxFont,
-  fontSize,
   checkedCheckboxColor1,
   emptyCheckboxColor1,
   CHECKED_CHECKBOX1,
@@ -23,16 +22,56 @@ import {
   HALF_STAR,
   starColor,
   flagColor,
+  semiBold,
 } from '../constants'
+import {
+  getFontSize,
+} from '../utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
+  fontScale: state.setting.fontScale,
 }))
 export default class PageTitle extends Component {
 
+  getStyles = (fontScale) => {
+    const fontSize = getFontSize(fontScale)
+    const base = {
+      height: fontSize * 5/4,
+      fontFamily: textFont,
+      fontSize: fontSize,
+      fontWeight: semiBold,
+    }
+
+    return ({
+      pageTitle: {
+        ...base,
+      },
+      thisLabel: {
+        ...base,
+        fontFamily: checkboxFont,
+        color: flagColor,
+      },
+      checkedCount: {
+        ...base,
+        color: checkedCheckboxColor1,
+      },
+      emptyCount: {
+        ...base,
+        color: emptyCheckboxColor1,
+      },
+      star: {
+        ...base,
+        fontFamily: checkboxFont,
+        color: starColor,
+      },
+    })
+  }
+
   render() {
-    const { title, text, focus, bookId } = this.props
+    const { title, text, focus, bookId, fontScale } = this.props
     const { checkedCount, emptyCount } = getCheckboxCount(text)
+    const styles = this.getStyles(fontScale)
     const checkedCounter = (checkedCount + emptyCount === 0) ? null : (
       <Text>
         <Text style={styles.checkedCount}>
@@ -65,33 +104,3 @@ export default class PageTitle extends Component {
   }
 }
 
-const semiBold = '600'
-const base = {
-  height: titleHeight,
-  fontFamily: textFont,
-  fontSize,
-  fontWeight: semiBold,
-}
-const styles = StyleSheet.create({
-  pageTitle: {
-    ...base,
-  },
-  thisLabel: {
-    ...base,
-    fontFamily: checkboxFont,
-    color: flagColor,
-  },
-  checkedCount: {
-    ...base,
-    color: checkedCheckboxColor1,
-  },
-  emptyCount: {
-    ...base,
-    color: emptyCheckboxColor1,
-  },
-  star: {
-    ...base,
-    fontFamily: checkboxFont,
-    color: starColor,
-  },
-})

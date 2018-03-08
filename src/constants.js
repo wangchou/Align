@@ -55,10 +55,7 @@ export const dayBarBackgroundColor = 'rgba(36, 102, 241, 0.4)'
 // font
 export const checkboxFont = 'checkbox'
 export const textFont = 'PingFang TC'
-
-export const titleHeight = 20
-export const fontSize = 16
-
+export const semiBold = '600'
 
 // MOMENT.js related
 // format

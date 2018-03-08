@@ -16,7 +16,8 @@ import {
   isCheckbox,
   getTextChilds,
 } from './utilities'
-import { styles, windowHeight } from './styles'
+import { getStyles } from './styles'
+import { windowHeight } from '../../utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
@@ -25,6 +26,8 @@ import { styles, windowHeight } from './styles'
   focusedPageId: state.ui.focusedPageId,
   scrollY: state.ui.scrollY,
   scrollTo: state.ui.scrollTo,
+  fontScale: state.setting.fontScale,
+  numberOfLines: state.setting.numberOfLines[props.bookId],
 }), {
   setData,
   setSelection,
@@ -55,7 +58,9 @@ export default class UnderTextInput extends Component {
     }
     return (
       this.props.pageId !== nextProps.pageId ||
-      (nextState.internalText !== nextState.text)
+      (nextState.internalText !== nextState.text) ||
+      this.props.fontScale !== nextProps.fontScale ||
+      this.props.numberOfLines !== nextProps.numberOfLines
     )
   }
 
@@ -114,6 +119,8 @@ export default class UnderTextInput extends Component {
 
   render() {
     const { text } = this.state
+    const { fontScale, numberOfLines } = this.props
+    const styles = getStyles( fontScale, numberOfLines )
     return (
       <TextInput
         style={styles.underTextInput}

@@ -46,6 +46,7 @@ export default class TopTextOverlay extends Component {
       bookId, focusedBookId, focus, text, fontScale, numberOfLines
     } = this.props
     const styles = getStyles( fontScale, numberOfLines )
+
     return (
       <Text
         style={styles.topCustomText}

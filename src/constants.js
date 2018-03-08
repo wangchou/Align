@@ -19,6 +19,7 @@ export const SET_UI_SELECTION = 'SET UI SELECTION'
 // setting
 export const SET_FONT_SCALE = 'SET FONT SCALE'
 export const SET_BOOK_NUM_OF_LINES = 'SET BOOK NUM OF LINES'
+export const RESET_SETTINGS = 'RESET SETTINGS'
 
 // i18n keys
 export const DONE_BUTTON = 'DONE BUTTON'

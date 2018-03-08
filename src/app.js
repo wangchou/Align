@@ -10,6 +10,7 @@ import KeyboardAvoidingView from './components/KeyboardAvoidingView'
 import StatusAvoidingView from './components/StatusAvoidingView'
 import TodayButton from './components/TodayButton'
 import StatusPage from './components/StatusPage'
+import SettingPage from './components/SettingPage'
 import FloatEditBar from './components/FloatEditBar'
 import KeyboardManager from './components/KeyboardManager'
 import {
@@ -53,6 +54,7 @@ export default class OnigiriNote extends Component {
           onScroll={this.onScroll}
         >
           <StatusAvoidingView />
+          <SettingPage />
           {bookViews}
           <StatusBar hidden />
           <KeyboardAvoidingView />

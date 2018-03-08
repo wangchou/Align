@@ -35,7 +35,7 @@ export const getStyles = (fontScale, numberOfLines) => {
   const baseStyle = {
     ...baseText,
     width: windowWidth - 20,
-    height: baseText.lineHeight * numberOfLines,
+    height: baseText.lineHeight * (numberOfLines + 0.2),
     borderColor: 'rgba(200, 200, 200, 1.0)',
     backgroundColor: 'rgba(0, 0, 0, 0)',
     textAlign: 'justify',

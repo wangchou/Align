@@ -13,6 +13,8 @@ import {
   SET_UI_STATE,
   SET_UI_SELECTION,
   SMALL_SPACE,
+  SET_FONT_SCALE,
+  SET_BOOK_NUM_OF_LINES,
 } from '../constants'
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
@@ -35,6 +37,10 @@ export const gotoTodayPage = () => ([
 
 // page
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])
+
+// setting
+export const setFontScale = actionCreatorCreator(SET_FONT_SCALE, ['data'])
+export const setBookNumOfLines = actionCreatorCreator(SET_BOOK_NUM_OF_LINES, ['bookId', 'data'])
 
 // ui
 export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY'])

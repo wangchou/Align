@@ -16,6 +16,10 @@ export const INSERT_TEXT = 'INSERT TEXT THUNK ACTION'
 export const SET_UI_STATE = 'SET UI STATE'
 export const SET_UI_SELECTION = 'SET UI SELECTION'
 
+// setting
+export const SET_FONT_SCALE = 'SET FONT SCALE'
+export const SET_BOOK_NUM_OF_LINES = 'SET BOOK NUM OF LINES'
+
 // i18n keys
 export const DONE_BUTTON = 'DONE BUTTON'
 

@@ -52,6 +52,7 @@ export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
 export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
 export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
 export const setIsStatusMode = actionCreatorCreator(SET_UI_STATE, ['isStatusMode'])
+export const setIsSettingPageFolded = actionCreatorCreator(SET_UI_STATE, ['isSettingPageFolded'])
 export const setSelection = (pageId, selection) => ({
   type: SET_UI_SELECTION,
   pageId,
@@ -91,4 +92,13 @@ export const toggleIsStatusMode = () => (dispatch, getState) => {
     }
   } = getState()
   dispatch(setIsStatusMode(!isStatusMode))
+}
+
+export const toggleIsSettingPageFolded = () => (dispatch, getState) => {
+  const {
+    ui: {
+      isSettingPageFolded
+    }
+  } = getState()
+  dispatch(setIsSettingPageFolded(!isSettingPageFolded))
 }

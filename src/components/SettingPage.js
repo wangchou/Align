@@ -16,6 +16,7 @@ import {
   textFont,
   RESET_ALL,
   FONT_SIZE,
+  SETTING_PAGE,
 } from '../constants'
 import I18n, {getNumberOfLineDescriptonI18n} from '../i18n'
 import { windowWidth } from '../utils/misc'
@@ -23,16 +24,19 @@ import {
   setFontScale,
   setBookNumOfLines,
   resetSettings,
+  toggleIsSettingPageFolded,
 } from '../actions'
 import SettingBar from './SettingBar'
 
 @connect(state => ({
   fontScale: state.setting.fontScale,
   numberOfLines: state.setting.numberOfLines,
+  isSettingPageFolded: state.ui.isSettingPageFolded,
 }), {
   setFontScale,
   setBookNumOfLines,
   resetSettings,
+  toggleIsSettingPageFolded,
 })
 export default class SettingPage extends Component {
   render() {
@@ -42,6 +46,8 @@ export default class SettingPage extends Component {
       setFontScale,
       setBookNumOfLines,
       resetSettings,
+      toggleIsSettingPageFolded,
+      isSettingPageFolded,
     } = this.props
 
     const numberOfLinesSetting = [
@@ -59,22 +65,36 @@ export default class SettingPage extends Component {
     ))
 
     return (
-      <View style={styles.container}>
-        <SettingBar
-          text={I18n.t(FONT_SIZE)}
-          onMinusClick={() => setFontScale(fontScale/1.1)}
-          onPlusClick={() => setFontScale(fontScale*1.1)}
-        />
-        {numberOfLinesSetting}
+      <View>
         <TouchableOpacity
-          style={styles.resetButton}
-          onPress={resetSettings}
+          style={styles.foldButton}
+          onPress={toggleIsSettingPageFolded}
         >
           <Text style={styles.text}
           >
-            {I18n.t(RESET_ALL)}
+            {`${I18n.t(SETTING_PAGE)} ${isSettingPageFolded ? '+' : '-'}`}
           </Text>
         </TouchableOpacity>
+        {isSettingPageFolded ? null :
+          <View style={styles.container}>
+
+            <SettingBar
+              text={I18n.t(FONT_SIZE)}
+              onMinusClick={() => setFontScale(fontScale/1.1)}
+              onPlusClick={() => setFontScale(fontScale*1.1)}
+            />
+            {numberOfLinesSetting}
+            <TouchableOpacity
+              style={styles.resetButton}
+              onPress={resetSettings}
+            >
+              <Text style={styles.text}
+              >
+                {I18n.t(RESET_ALL)}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
       </View>
     )
   }
@@ -83,7 +103,20 @@ const styles = StyleSheet.create({
   container: {
     width: windowWidth,
     backgroundColor: 'rgba(155, 155, 155, 0.3)',
-    padding: 20,
+    paddingRight: 20,
+    paddingLeft: 20,
+    paddingBottom: 20,
+  },
+  foldButton: {
+    width: windowWidth,
+    height: 30,
+    backgroundColor: 'rgba(180, 180, 180, 1)',
+    borderColor: 'rgba(120, 120, 120, 120)',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontSize: 20,

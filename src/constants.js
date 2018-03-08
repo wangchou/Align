@@ -80,6 +80,7 @@ export const DAY_KEY = 'day'
 export const EMPTY_STATE_KEY = 'empty state key'
 export const FONT_SIZE = 'font size'
 export const RESET_ALL = 'reset all'
+export const SETTING_PAGE = 'setting page'
 
 
 

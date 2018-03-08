@@ -11,6 +11,7 @@ import {
   EMPTY_STATE_KEY,
   FONT_SIZE,
   RESET_ALL,
+  SETTING_PAGE,
 } from '../../constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -39,4 +40,5 @@ export default {
   [Keys[WEEK_BOOK_ID].numOfLines]: 'Number of Lines in Week Page:',
   [Keys[DAY_BOOK_ID].numOfLines]: 'Number of Lines in Day Page:',
   [RESET_ALL]: 'Reset All',
+  [SETTING_PAGE]: 'Setting Page',
 }

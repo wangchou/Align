@@ -11,6 +11,7 @@ import {
   EMPTY_STATE_KEY,
   FONT_SIZE,
   RESET_ALL,
+  SETTING_PAGE,
 } from '../../constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -39,5 +40,6 @@ export default {
   [Keys[WEEK_BOOK_ID].numOfLines]: '週ページの列数：',
   [Keys[DAY_BOOK_ID].numOfLines]: '日ページの列数：',
   [RESET_ALL]: 'リセット',
+  [SETTING_PAGE]: '設定ページ',
 }
 

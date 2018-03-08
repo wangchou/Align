@@ -12,6 +12,7 @@ const intitialState = {
   focusedPageId: null,
   selection: {},
   isStatusMode: false,
+  isSettingPageFolded: true,
 }
 
 export default (state = intitialState, action) => {

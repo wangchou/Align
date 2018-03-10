@@ -8,6 +8,9 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
+  ACTION,
+} from 'src/constants'
+const {
   GOTO_PAGE,
   SET_PAGE_DATA,
   SET_UI_STATE,
@@ -16,7 +19,7 @@ import {
   SET_FONT_SCALE,
   SET_BOOK_NUM_OF_LINES,
   RESET_SETTINGS,
-} from 'src/constants'
+} = ACTION
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
   type: actionType,

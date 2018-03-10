@@ -1,6 +1,6 @@
 import immutable from 'object-path-immutable'
 import {
-  GOTO_PAGE,
+  ACTION,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
@@ -55,7 +55,7 @@ export const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case GOTO_PAGE:
+    case ACTION.GOTO_PAGE:
       return immutable.set(state, ['byId', action.payload.bookId, 'time'], action.payload.time)
   }
   return state

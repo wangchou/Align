@@ -9,14 +9,7 @@ import {
   getNowStatusTitle,
 } from 'utils/books'
 import {
-  yearBarColor,
-  yearBarBackgroundColor,
-  monthBarColor,
-  monthBarBackgroundColor,
-  weekBarColor,
-  weekBarBackgroundColor,
-  dayBarColor,
-  dayBarBackgroundColor,
+  COLOR,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
@@ -100,16 +93,16 @@ export default class StatusPage extends Component {
             />
             <StatusBar
               leftText={I18n.t(YEAR_KEY)}
-              barColor={yearBarColor}
-              barBackgroundColor={yearBarBackgroundColor}
+              barColor={COLOR.yearBarColor}
+              barBackgroundColor={COLOR.yearBarBackgroundColor}
               rightText={yearStatus.parent.text}
               percentage={yearStatus.parent.percentage}
             />
             <StatusBar
               leftText={I18n.t(MONTH_KEY)}
               rightText={yearStatus.child.text}
-              barColor={monthBarColor}
-              barBackgroundColor={monthBarBackgroundColor}
+              barColor={COLOR.monthBarColor}
+              barBackgroundColor={COLOR.monthBarBackgroundColor}
               percentage={yearStatus.child.percentage}
             />
           </View>
@@ -121,15 +114,15 @@ export default class StatusPage extends Component {
             <StatusBar
               leftText={I18n.t(MONTH_KEY)}
               rightText={monthStatus.parent.text}
-              barColor={monthBarColor}
-              barBackgroundColor={monthBarBackgroundColor}
+              barColor={COLOR.monthBarColor}
+              barBackgroundColor={COLOR.monthBarBackgroundColor}
               percentage={monthStatus.parent.percentage}
             />
             <StatusBar
               leftText={I18n.t(WEEK_KEY)}
               rightText={monthStatus.child.text}
-              barColor={weekBarColor}
-              barBackgroundColor={weekBarBackgroundColor}
+              barColor={COLOR.weekBarColor}
+              barBackgroundColor={COLOR.weekBarBackgroundColor}
               percentage={monthStatus.child.percentage}
             />
           </View>
@@ -141,15 +134,15 @@ export default class StatusPage extends Component {
             <StatusBar
               leftText={I18n.t(WEEK_KEY)}
               rightText={weekStatus.parent.text}
-              barColor={weekBarColor}
-              barBackgroundColor={weekBarBackgroundColor}
+              barColor={COLOR.weekBarColor}
+              barBackgroundColor={COLOR.weekBarBackgroundColor}
               percentage={weekStatus.parent.percentage}
             />
             <StatusBar
               leftText={I18n.t(DAY_KEY)}
               rightText={weekStatus.child.text}
-              barColor={dayBarColor}
-              barBackgroundColor={dayBarBackgroundColor}
+              barColor={COLOR.dayBarColor}
+              barBackgroundColor={COLOR.dayBarBackgroundColor}
               percentage={weekStatus.child.percentage}
             />
           </View>

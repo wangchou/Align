@@ -5,15 +5,11 @@ import {
 import {
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
-  emptyCheckboxColor1,
-  emptyCheckboxColor2,
   CHECKED_CHECKBOX1,
   CHECKED_CHECKBOX2,
-  checkedCheckboxColor1,
-  checkedCheckboxColor2,
-  transparentColor,
   checkboxFont,
   textFont,
+  COLOR,
 } from 'src/constants'
 
 import {
@@ -62,32 +58,32 @@ export const getStyles = (fontScale, numberOfLines) => {
     },
     transparentText: {
       ...baseText,
-      color: transparentColor,
+      color: COLOR.transparentColor,
     },
     transparentCheckbox: {
       ...baseText,
       fontFamily: checkboxFont,
-      color: transparentColor,
+      color: COLOR.transparentColor,
     },
     [EMPTY_CHECKBOX1]: {
       ...baseText,
       fontFamily: checkboxFont,
-      color: emptyCheckboxColor1,
+      color: COLOR.emptyCheckboxColor1,
     },
     [CHECKED_CHECKBOX1]: {
       ...baseText,
       fontFamily: checkboxFont,
-      color: checkedCheckboxColor1,
+      color: COLOR.checkedCheckboxColor1,
     },
     [EMPTY_CHECKBOX2]: {
       ...baseText,
       fontFamily: checkboxFont,
-      color: emptyCheckboxColor2,
+      color: COLOR.emptyCheckboxColor2,
     },
     [CHECKED_CHECKBOX2]: {
       ...baseText,
       fontFamily: checkboxFont,
-      color: checkedCheckboxColor2,
+      color: COLOR.checkedCheckboxColor2,
     },
   })
 }

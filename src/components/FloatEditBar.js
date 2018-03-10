@@ -13,8 +13,7 @@ import {
   DONE_BUTTON,
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
-  emptyCheckboxColor1,
-  emptyCheckboxColor2,
+  COLOR,
 } from 'src/constants'
 import {
   insertText,
@@ -75,7 +74,7 @@ export default class FloatEditBar extends Component {
           onPress={() => this.props.insertText(EMPTY_CHECKBOX1)}
         >
           <Text
-            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor1 }}
+            style={{ ...styles.text, fontFamily, color: COLOR.emptyCheckboxColor1 }}
           >
             {EMPTY_CHECKBOX1}
           </Text>
@@ -86,7 +85,7 @@ export default class FloatEditBar extends Component {
           onPress={() => this.props.insertText(EMPTY_CHECKBOX2)}
         >
           <Text
-            style={{ ...styles.text, fontFamily, color: emptyCheckboxColor2 }}
+            style={{ ...styles.text, fontFamily, color: COLOR.emptyCheckboxColor2 }}
           >
             {EMPTY_CHECKBOX2}
           </Text>

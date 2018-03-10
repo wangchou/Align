@@ -13,15 +13,12 @@ import {
   titleHeight,
   textFont,
   checkboxFont,
-  checkedCheckboxColor1,
-  emptyCheckboxColor1,
+  COLOR,
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
   FLAG,
   STAR,
   HALF_STAR,
-  starColor,
-  flagColor,
   semiBold,
 } from 'src/constants'
 import {
@@ -50,20 +47,20 @@ export default class PageTitle extends Component {
       thisLabel: {
         ...base,
         fontFamily: checkboxFont,
-        color: flagColor,
+        color: COLOR.flagColor,
       },
       checkedCount: {
         ...base,
-        color: checkedCheckboxColor1,
+        color: COLOR.checkedCheckboxColor1,
       },
       emptyCount: {
         ...base,
-        color: emptyCheckboxColor1,
+        color: COLOR.emptyCheckboxColor1,
       },
       star: {
         ...base,
         fontFamily: checkboxFont,
-        color: starColor,
+        color: COLOR.starColor,
       },
     })
   }

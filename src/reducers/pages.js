@@ -9,7 +9,7 @@ import {
   WEEK_BOOK_ID,
   WEEK_PAGE_ID_FORMAT,
   EMPTY_STATE_KEY,
-  SET_PAGE_DATA,
+  ACTION,
 } from 'src/constants'
 
 // empty state
@@ -21,7 +21,7 @@ const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case SET_PAGE_DATA:
+    case ACTION.SET_PAGE_DATA:
       return immutable.set(state, [action.payload.pageId], action.payload.data)
   }
   return state

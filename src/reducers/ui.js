@@ -1,6 +1,5 @@
 import {
-  SET_UI_STATE,
-  SET_UI_SELECTION,
+  ACTION
 } from 'src/constants'
 
 const intitialState = {
@@ -18,12 +17,12 @@ const intitialState = {
 
 export default (state = intitialState, action) => {
   switch (action.type) {
-    case SET_UI_STATE:
+    case ACTION.SET_UI_STATE:
       return {
         ...state,
         ...action.payload,
       }
-    case SET_UI_SELECTION:
+    case ACTION.SET_UI_SELECTION:
       return {
         ...state,
         selection: {

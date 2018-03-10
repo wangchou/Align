@@ -1,6 +1,6 @@
 import {
   EMPTY_CHECKBOX1, EMPTY_CHECKBOX2,
-} from 'src/constants'
+} from 'constants'
 
 const b1 = EMPTY_CHECKBOX1
 const b2 = EMPTY_CHECKBOX2

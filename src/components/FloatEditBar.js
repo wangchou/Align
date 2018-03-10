@@ -14,7 +14,7 @@ import {
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
   COLOR,
-} from 'src/constants'
+} from 'constants'
 import {
   insertText,
 } from 'actions'

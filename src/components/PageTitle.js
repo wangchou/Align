@@ -20,7 +20,7 @@ import {
   STAR,
   HALF_STAR,
   semiBold,
-} from 'src/constants'
+} from 'constants'
 import {
   getFontSize,
 } from 'utils/misc'

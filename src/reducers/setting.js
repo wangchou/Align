@@ -5,7 +5,7 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-} from 'src/constants'
+} from 'constants'
 
 const intitialState = {
   fontScale: 1.0,

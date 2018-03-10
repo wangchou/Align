@@ -10,7 +10,7 @@ import {
   checkboxFont,
   textFont,
   COLOR,
-} from 'src/constants'
+} from 'constants'
 
 import {
   windowWidth,

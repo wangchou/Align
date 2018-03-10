@@ -17,7 +17,7 @@ import {
   RESET_ALL,
   FONT_SIZE,
   SETTING_PAGE,
-} from 'src/constants'
+} from 'constants'
 import I18n, {getNumberOfLineDescriptonI18n} from 'i18n'
 import { windowWidth } from 'utils/misc'
 import {

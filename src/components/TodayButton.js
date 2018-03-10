@@ -8,7 +8,7 @@ import {
 import {
   CHART,
   checkboxFont,
-} from 'src/constants'
+} from 'constants'
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,

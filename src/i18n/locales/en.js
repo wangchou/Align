@@ -12,7 +12,7 @@ import {
   FONT_SIZE,
   RESET_ALL,
   SETTING_PAGE,
-} from 'src/constants'
+} from 'constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
 

@@ -3,7 +3,7 @@ import {
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX2,
   CHECKED_CHECKBOX2,
-} from 'src/constants'
+} from 'constants'
 
 export const isCheckbox = ch => (ch === EMPTY_CHECKBOX1 || ch === CHECKED_CHECKBOX1 ||
                                  ch === EMPTY_CHECKBOX2 || ch === CHECKED_CHECKBOX2)

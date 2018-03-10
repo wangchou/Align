@@ -9,7 +9,7 @@ import {
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
   ACTION,
-} from 'src/constants'
+} from 'constants'
 const {
   GOTO_PAGE,
   SET_PAGE_DATA,

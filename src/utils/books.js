@@ -18,7 +18,7 @@ import {
   MONTH_PAGE_ID_FORMAT,
   WEEK_PAGE_ID_FORMAT,
   DAY_PAGE_ID_FORMAT,
-} from 'src/constants'
+} from 'constants'
 
 export const getTime = (book, shift = 0) => moment(book.time)
   .add(shift, book.unit)

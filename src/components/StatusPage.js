@@ -18,7 +18,7 @@ import {
   MONTH_KEY,
   WEEK_KEY,
   DAY_KEY,
-} from 'src/constants'
+} from 'constants'
 import StatusBar from 'components/StatusBar'
 import { toggleIsStatusMode } from 'actions'
 import I18n from 'i18n'

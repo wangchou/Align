@@ -11,7 +11,7 @@ import {
 import {
   SMALL_SPACE,
   titleHeight,
-} from 'src/constants'
+} from 'constants'
 import {
   isCheckbox,
   getTextChilds,

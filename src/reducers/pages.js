@@ -10,7 +10,7 @@ import {
   WEEK_PAGE_ID_FORMAT,
   EMPTY_STATE_KEY,
   ACTION,
-} from 'src/constants'
+} from 'constants'
 
 // empty state
 // this week page id

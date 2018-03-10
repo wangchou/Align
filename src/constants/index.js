@@ -3,16 +3,13 @@ import * as COLOR from './color'
 
 export { ACTION, COLOR }
 
-// CONSTANTS
+// bookId
 export const YEAR_BOOK_ID = 'year_book'
 export const MONTH_BOOK_ID = 'month_book'
 export const WEEK_BOOK_ID = 'week_book'
 export const DAY_BOOK_ID = 'day_book'
 
-// i18n keys
-export const DONE_BUTTON = 'DONE BUTTON'
-
-// unicode checkbox
+// Special Character
 export const EMPTY_CHECKBOX1 = '\uF1DB'
 export const CHECKED_CHECKBOX1 = '\uE800'
 export const EMPTY_CHECKBOX2 = '\uE801'
@@ -23,7 +20,9 @@ export const HALF_STAR = '\uE805'
 export const CHART = '\uE806'
 export const SMALL_SPACE = ' '
 
-// font
+
+// Style
+// Font
 export const checkboxFont = 'checkbox'
 export const textFont = 'PingFang TC'
 export const semiBold = '600'
@@ -51,6 +50,7 @@ export const EMPTY_STATE_KEY = 'empty state key'
 export const FONT_SIZE = 'font size'
 export const RESET_ALL = 'reset all'
 export const SETTING_PAGE = 'setting page'
+export const DONE_BUTTON = 'DONE BUTTON'
 
 
 

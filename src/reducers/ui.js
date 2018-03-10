@@ -1,6 +1,6 @@
 import {
   ACTION
-} from 'src/constants'
+} from 'constants'
 
 const intitialState = {
   isKeyboardShow: false,

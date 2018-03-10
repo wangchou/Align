@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import {
   textFont,
-} from 'src/constants'
+} from 'constants'
 import FloatButton from 'components/FloatButton'
 
 export default class SettingBar extends Component {

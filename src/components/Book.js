@@ -5,17 +5,17 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native'
-import Page from './Page'
+import Page from 'components/Page'
 import {
   gotoPage,
   setFocusedBookId,
   setFocusedPageId,
-} from '../actions'
+} from 'actions'
 import {
   getTime,
   getBookPageId,
   getBookPageTitle,
-} from '../utils/books'
+} from 'utils/books'
 
 const windowWidth = Dimensions.get('window').width
 const pageSeparatorWidth = 20

@@ -7,17 +7,17 @@ import { connect } from 'react-redux'
 import {
   setData,
   setSelection,
-} from '../../actions'
+} from 'actions'
 import {
   SMALL_SPACE,
   titleHeight,
-} from '../../constants'
+} from 'src/constants'
 import {
   isCheckbox,
   getTextChilds,
 } from './utilities'
 import { getStyles } from './styles'
-import { windowHeight } from '../../utils/misc'
+import { windowHeight } from 'utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',

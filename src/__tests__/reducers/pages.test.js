@@ -1,5 +1,5 @@
-import { setData } from '../../actions'
-import pagesReducer, { intitialState } from '../../reducers/pages'
+import { setData } from 'actions'
+import pagesReducer, { intitialState } from 'reducers/pages'
 
 describe('pages reducer', () => {
   it('setData success', () => {

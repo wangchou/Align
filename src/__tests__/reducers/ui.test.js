@@ -1,5 +1,5 @@
-import { setScrollY } from '../../actions'
-import uiReducer from '../../reducers/ui'
+import { setScrollY } from 'actions'
+import uiReducer from 'reducers/ui'
 
 describe('ui reducer', () => {
   it('SET ScrollY success', () => {

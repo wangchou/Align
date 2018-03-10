@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import FloatButton from './FloatButton'
+import FloatButton from 'components/FloatButton'
 import {
   gotoTodayPage,
   toggleIsStatusMode,
-} from '../actions'
+} from 'actions'
 import {
   CHART,
   checkboxFont,
-} from '../constants'
+} from 'src/constants'
 
 @connect(state => ({
   isKeyboardShow: state.ui.isKeyboardShow,

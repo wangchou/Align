@@ -14,13 +14,13 @@ import {
   transparentColor,
   checkboxFont,
   textFont,
-} from '../../constants'
+} from 'src/constants'
 
 import {
   windowWidth,
   windowHeight,
   getFontSize,
-} from '../../utils/misc'
+} from 'utils/misc'
 
 export const getStyles = (fontScale, numberOfLines) => {
   const fontSize = getFontSize(fontScale)

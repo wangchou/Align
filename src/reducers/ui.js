@@ -1,7 +1,7 @@
 import {
   SET_UI_STATE,
   SET_UI_SELECTION,
-} from '../constants'
+} from 'src/constants'
 
 const intitialState = {
   isKeyboardShow: false,
@@ -13,6 +13,7 @@ const intitialState = {
   selection: {},
   isStatusMode: false,
   isSettingPageFolded: true,
+  isRecentTodoShow: false,
 }
 
 export default (state = intitialState, action) => {

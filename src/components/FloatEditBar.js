@@ -8,17 +8,17 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 
-import I18n from '../i18n'
+import I18n from 'i18n'
 import {
   DONE_BUTTON,
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
   emptyCheckboxColor1,
   emptyCheckboxColor2,
-} from '../constants'
+} from 'src/constants'
 import {
   insertText,
-} from '../actions'
+} from 'actions'
 
 export const floatEditBarHeight = 40
 const windowWidth = Dimensions.get('window').width

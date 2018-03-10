@@ -1,7 +1,7 @@
 import {
   getNow,
   getStartOfWeekTime,
-} from '../utils/books'
+} from 'utils/books'
 
 import {
   YEAR_BOOK_ID,
@@ -16,7 +16,7 @@ import {
   SET_FONT_SCALE,
   SET_BOOK_NUM_OF_LINES,
   RESET_SETTINGS,
-} from '../constants'
+} from 'src/constants'
 
 const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
   type: actionType,

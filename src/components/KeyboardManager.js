@@ -6,8 +6,8 @@ import {
   setIsKeyboardShow,
   setFocusedBookId,
   setFocusedPageId,
-} from '../actions'
-import { floatEditBarHeight } from './FloatEditBar'
+} from 'actions'
+import { floatEditBarHeight } from 'components/FloatEditBar'
 
 @connect(null, {
   setKeyboardHeight,

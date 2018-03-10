@@ -1,5 +1,5 @@
-import { gotoPage } from '../../actions'
-import booksReducer, { intitialState } from '../../reducers/books'
+import { gotoPage } from 'actions'
+import booksReducer, { intitialState } from 'reducers/books'
 
 describe('books reducer', () => {
   it('gotoPage success', () => {

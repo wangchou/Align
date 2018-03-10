@@ -7,19 +7,7 @@ import {
   getChildPageIds,
   getCheckboxCount,
   getNowStatusTitle,
-} from '../utils/books'
-import {
-  YEAR_BOOK_ID,
-  MONTH_BOOK_ID,
-  WEEK_BOOK_ID,
-  DAY_BOOK_ID,
-  YEAR_KEY,
-  MONTH_KEY,
-  WEEK_KEY,
-  DAY_KEY,
-} from '../constants'
-import StatusBar from './StatusBar'
-import { toggleIsStatusMode } from '../actions'
+} from 'utils/books'
 import {
   yearBarColor,
   yearBarBackgroundColor,
@@ -29,8 +17,18 @@ import {
   weekBarBackgroundColor,
   dayBarColor,
   dayBarBackgroundColor,
-} from '../constants'
-import I18n from '../i18n'
+  YEAR_BOOK_ID,
+  MONTH_BOOK_ID,
+  WEEK_BOOK_ID,
+  DAY_BOOK_ID,
+  YEAR_KEY,
+  MONTH_KEY,
+  WEEK_KEY,
+  DAY_KEY,
+} from 'src/constants'
+import StatusBar from 'components/StatusBar'
+import { toggleIsStatusMode } from 'actions'
+import I18n from 'i18n'
 
 const getStatus = (book, pages) => {
   const parentPageId = getNowPageId(book)

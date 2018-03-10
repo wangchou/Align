@@ -3,7 +3,7 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-} from '../constants'
+} from 'src/constants'
 
 export default [
   YEAR_BOOK_ID,

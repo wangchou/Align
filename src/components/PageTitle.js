@@ -8,7 +8,7 @@ import {
 import { connect } from 'react-redux'
 import {
   getCheckboxCount,
-} from '../utils/books'
+} from 'utils/books'
 import {
   titleHeight,
   textFont,
@@ -23,10 +23,10 @@ import {
   starColor,
   flagColor,
   semiBold,
-} from '../constants'
+} from 'src/constants'
 import {
   getFontSize,
-} from '../utils/misc'
+} from 'utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',

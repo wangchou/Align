@@ -3,7 +3,7 @@ import {
   getTitleFormatI18n,
   getThisTitleFormatI18n,
   getStatusTitleFormatI18n,
-} from '../i18n'
+} from 'i18n'
 import {
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
@@ -18,7 +18,7 @@ import {
   MONTH_PAGE_ID_FORMAT,
   WEEK_PAGE_ID_FORMAT,
   DAY_PAGE_ID_FORMAT,
-} from '../constants'
+} from 'src/constants'
 
 export const getTime = (book, shift = 0) => moment(book.time)
   .add(shift, book.unit)

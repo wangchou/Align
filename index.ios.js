@@ -9,9 +9,9 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import storage from 'redux-persist/lib/storage'
 
-import OnigiriNote from './src/app'
-import reducers from './src/reducers'
-import array from './src/utils/arrayMiddleware'
+import OnigiriNote from 'src/app'
+import reducers from 'reducers'
+import array from 'utils/arrayMiddleware'
 
 const config = {
   key: 'primary1',

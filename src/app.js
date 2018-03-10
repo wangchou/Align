@@ -5,18 +5,18 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import Book from './components/Book'
-import KeyboardAvoidingView from './components/KeyboardAvoidingView'
-import StatusAvoidingView from './components/StatusAvoidingView'
-import TodayButton from './components/TodayButton'
-import StatusPage from './components/StatusPage'
-import SettingPage from './components/SettingPage'
-import FloatEditBar from './components/FloatEditBar'
-import KeyboardManager from './components/KeyboardManager'
+import Book from 'components/Book'
+import KeyboardAvoidingView from 'components/KeyboardAvoidingView'
+import StatusAvoidingView from 'components/StatusAvoidingView'
+import TodayButton from 'components/TodayButton'
+import StatusPage from 'components/StatusPage'
+import SettingPage from 'components/SettingPage'
+import FloatEditBar from 'components/FloatEditBar'
+import KeyboardManager from 'components/KeyboardManager'
 import {
   setScrollY,
   setScrollTo,
-} from './actions'
+} from 'actions'
 
 @connect(state => ({
   bookIds: state.books.ids,

@@ -7,7 +7,7 @@ import { getStyles } from './styles'
 import Checkbox from './Checkbox'
 import {
   setData,
-} from '../../actions'
+} from 'actions'
 import {
   isCheckbox,
   getTextChilds,

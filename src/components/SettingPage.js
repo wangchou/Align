@@ -17,16 +17,16 @@ import {
   RESET_ALL,
   FONT_SIZE,
   SETTING_PAGE,
-} from '../constants'
-import I18n, {getNumberOfLineDescriptonI18n} from '../i18n'
-import { windowWidth } from '../utils/misc'
+} from 'src/constants'
+import I18n, {getNumberOfLineDescriptonI18n} from 'i18n'
+import { windowWidth } from 'utils/misc'
 import {
   setFontScale,
   setBookNumOfLines,
   resetSettings,
   toggleIsSettingPageFolded,
-} from '../actions'
-import SettingBar from './SettingBar'
+} from 'actions'
+import SettingBar from 'components/SettingBar'
 
 @connect(state => ({
   fontScale: state.setting.fontScale,

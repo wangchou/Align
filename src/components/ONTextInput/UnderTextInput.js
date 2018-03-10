@@ -12,12 +12,12 @@ import {
   SMALL_SPACE,
   titleHeight,
 } from 'constants'
+import { windowHeight } from 'utils/misc'
 import {
   isCheckbox,
   getTextChilds,
 } from './utilities'
 import { getStyles } from './styles'
-import { windowHeight } from 'utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
@@ -120,7 +120,7 @@ export default class UnderTextInput extends Component {
   render() {
     const { text } = this.state
     const { fontScale, numberOfLines } = this.props
-    const styles = getStyles( fontScale, numberOfLines )
+    const styles = getStyles(fontScale, numberOfLines)
     return (
       <TextInput
         style={styles.underTextInput}

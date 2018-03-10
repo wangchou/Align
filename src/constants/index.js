@@ -52,14 +52,3 @@ export const RESET_ALL = 'reset all'
 export const SETTING_PAGE = 'setting page'
 export const DONE_BUTTON = 'DONE BUTTON'
 
-
-
-
-
-
-
-
-
-
-
-

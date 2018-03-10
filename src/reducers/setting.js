@@ -14,10 +14,10 @@ const intitialState = {
     [MONTH_BOOK_ID]: 10,
     [WEEK_BOOK_ID]: 10,
     [DAY_BOOK_ID]: 10,
-  }
+  },
 }
 
-const max = (a ,b) => a > b ? a : b
+const max = (a, b) => (a > b ? a : b)
 
 export default (state = intitialState, action) => {
   switch (action.type) {
@@ -27,7 +27,7 @@ export default (state = intitialState, action) => {
       return immutable.set(
         state,
         ['numberOfLines', action.payload.bookId],
-        max(1, action.payload.data)
+        max(1, action.payload.data),
       )
     case ACTION.RESET_SETTINGS:
       return intitialState

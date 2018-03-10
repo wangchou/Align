@@ -1,5 +1,5 @@
 import {
-  ACTION
+  ACTION,
 } from 'constants'
 
 const intitialState = {

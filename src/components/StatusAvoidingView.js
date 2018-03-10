@@ -15,7 +15,7 @@ export default class StatusAvoidingView extends Component {
   render() {
     if (!this.props.isStatusMode || this.props.isKeyboardShow) return null
 
-    return <View style={{ height: windowHeight/5 }} />
+    return <View style={{ height: windowHeight / 5 }} />
   }
 }
 

@@ -21,7 +21,7 @@ export default class TodayButton extends Component {
     if (this.props.isKeyboardShow) return null
     return (
       <FloatButton
-        style={{fontFamily: checkboxFont}}
+        style={{ fontFamily: checkboxFont }}
         text={CHART}
         color="orange"
         underColor="darkorange"

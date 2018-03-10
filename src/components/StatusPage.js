@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { TouchableWithoutFeedback, Text, View, StyleSheet, Dimensions } from 'react-native'
+import { TouchableWithoutFeedback, View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import {
   getNowPageId,
@@ -13,7 +13,6 @@ import {
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
-  DAY_BOOK_ID,
   YEAR_KEY,
   MONTH_KEY,
   WEEK_KEY,
@@ -25,7 +24,7 @@ import I18n from 'i18n'
 
 const getStatus = (book, pages) => {
   const parentPageId = getNowPageId(book)
-  const parentGoalStatus =  getCheckboxCount(pages[parentPageId])
+  const parentGoalStatus = getCheckboxCount(pages[parentPageId])
   const childGoalStatus = getChildPageIds(parentPageId)
     .map(id => getCheckboxCount(pages[id]))
     .reduce(
@@ -33,30 +32,30 @@ const getStatus = (book, pages) => {
         checkedCount: sum.checkedCount + child.checkedCount,
         emptyCount: sum.emptyCount + child.emptyCount,
       }),
-      { checkedCount: 0, emptyCount: 0 }
+      { checkedCount: 0, emptyCount: 0 },
     )
 
-  const leftDays = (moment().endOf(book.unit).format('DDD') - moment().format('DDD') + 1)
-  let days = 7;
-  if(book.id === YEAR_BOOK_ID) {
+  const leftDays = (moment().endOf(book.unit).format('DDD') - moment().format('DDD')) + 1
+  let days = 7
+  if (book.id === YEAR_BOOK_ID) {
     days = moment().endOf(book.unit).format('DDD') - 0
   }
-  if(book.id === MONTH_BOOK_ID) {
+  if (book.id === MONTH_BOOK_ID) {
     days = moment().daysInMonth()
   }
 
   return ({
     title: getNowStatusTitle(book.id),
-    timePercentage: 1 - leftDays/days,
+    timePercentage: 1 - (leftDays / days),
     parent: {
       text: `${parentGoalStatus.checkedCount}/${parentGoalStatus.checkedCount + parentGoalStatus.emptyCount}`,
       percentage: parentGoalStatus.checkedCount /
-        (parentGoalStatus.checkedCount + parentGoalStatus.emptyCount - 0.0001), // avoid Nan
+        ((parentGoalStatus.checkedCount + parentGoalStatus.emptyCount) - 0.0001), // avoid Nan
     },
     child: {
       text: `${childGoalStatus.checkedCount}/${childGoalStatus.checkedCount + childGoalStatus.emptyCount}`,
       percentage: childGoalStatus.checkedCount /
-        (childGoalStatus.checkedCount + childGoalStatus.emptyCount - 0.0001), // avoid Nan
+        ((childGoalStatus.checkedCount + childGoalStatus.emptyCount) - 0.0001), // avoid Nan
     },
   })
 }
@@ -73,12 +72,14 @@ const getStatus = (book, pages) => {
 })
 export default class StatusPage extends Component {
   render() {
-    const { isStatusMode, isKeyboardShow, yearBook, monthBook, weekBook, pages } = this.props;
+    const {
+      isStatusMode, isKeyboardShow, yearBook, monthBook, weekBook, pages,
+    } = this.props
     const yearStatus = getStatus(yearBook, pages)
     const monthStatus = getStatus(monthBook, pages)
     const weekStatus = getStatus(weekBook, pages)
 
-    if(!isStatusMode || isKeyboardShow) { return null }
+    if (!isStatusMode || isKeyboardShow) { return null }
     return (
       <TouchableWithoutFeedback
         onPress={this.props.toggleIsStatusMode}
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: windowWidth,
-    height: windowHeight/5,
+    height: windowHeight / 5,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -171,7 +172,7 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: 1,
-    height: windowHeight/5,
+    height: windowHeight / 5,
     backgroundColor: gray,
     borderRightWidth: 0.5,
     borderColor: darkGray,

@@ -10,6 +10,7 @@ import {
   DAY_BOOK_ID,
   ACTION,
 } from 'constants'
+
 const {
   GOTO_PAGE,
   SET_PAGE_DATA,
@@ -45,7 +46,7 @@ export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])
 // setting
 export const setFontScale = actionCreatorCreator(SET_FONT_SCALE, ['data'])
 export const setBookNumOfLines = actionCreatorCreator(SET_BOOK_NUM_OF_LINES, ['bookId', 'data'])
-export const resetSettings = () => ({type: RESET_SETTINGS})
+export const resetSettings = () => ({ type: RESET_SETTINGS })
 
 // ui
 export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY'])
@@ -91,8 +92,8 @@ export const insertText = text => (dispatch, getState) => {
 export const toggleIsStatusMode = () => (dispatch, getState) => {
   const {
     ui: {
-      isStatusMode
-    }
+      isStatusMode,
+    },
   } = getState()
   dispatch(setIsStatusMode(!isStatusMode))
 }
@@ -100,8 +101,8 @@ export const toggleIsStatusMode = () => (dispatch, getState) => {
 export const toggleIsSettingPageFolded = () => (dispatch, getState) => {
   const {
     ui: {
-      isSettingPageFolded
-    }
+      isSettingPageFolded,
+    },
   } = getState()
   dispatch(setIsSettingPageFolded(!isSettingPageFolded))
 }

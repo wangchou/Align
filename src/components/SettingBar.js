@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import {
   Text,
   View,
@@ -12,10 +11,10 @@ import FloatButton from 'components/FloatButton'
 
 export default class SettingBar extends Component {
   render() {
-    const {text, onMinusClick, onPlusClick} = this.props
+    const { text, onMinusClick, onPlusClick } = this.props
     const otherProps = {
-      color: "rgba(192, 192, 192, 1)",
-      underColor: "rgba(155, 155, 155, 1)",
+      color: 'rgba(192, 192, 192, 1)',
+      underColor: 'rgba(155, 155, 155, 1)',
       position: 'relative',
       size: 15,
     }

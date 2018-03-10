@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  TouchableWithoutFeedback,
   TouchableOpacity,
   Text,
   View,
   StyleSheet,
-  Button,
 } from 'react-native'
 import {
   YEAR_BOOK_ID,
@@ -18,7 +16,7 @@ import {
   FONT_SIZE,
   SETTING_PAGE,
 } from 'constants'
-import I18n, {getNumberOfLineDescriptonI18n} from 'i18n'
+import I18n, { getNumberOfLineDescriptonI18n } from 'i18n'
 import { windowWidth } from 'utils/misc'
 import {
   setFontScale,
@@ -43,10 +41,6 @@ export default class SettingPage extends Component {
     const {
       fontScale,
       numberOfLines,
-      setFontScale,
-      setBookNumOfLines,
-      resetSettings,
-      toggleIsSettingPageFolded,
       isSettingPageFolded,
     } = this.props
 
@@ -54,13 +48,13 @@ export default class SettingPage extends Component {
       YEAR_BOOK_ID,
       MONTH_BOOK_ID,
       WEEK_BOOK_ID,
-      DAY_BOOK_ID
+      DAY_BOOK_ID,
     ].map(bookId => (
       <SettingBar
         key={bookId}
         text={getNumberOfLineDescriptonI18n(bookId)}
-        onMinusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] - 1)}
-        onPlusClick={() => setBookNumOfLines(bookId, numberOfLines[bookId] + 1)}
+        onMinusClick={() => this.props.setBookNumOfLines(bookId, numberOfLines[bookId] - 1)}
+        onPlusClick={() => this.props.setBookNumOfLines(bookId, numberOfLines[bookId] + 1)}
       />
     ))
 
@@ -80,8 +74,8 @@ export default class SettingPage extends Component {
 
             <SettingBar
               text={I18n.t(FONT_SIZE)}
-              onMinusClick={() => setFontScale(fontScale/1.1)}
-              onPlusClick={() => setFontScale(fontScale*1.1)}
+              onMinusClick={() => this.props.setFontScale(fontScale / 1.1)}
+              onPlusClick={() => this.props.setFontScale(fontScale * 1.1)}
             />
             {numberOfLinesSetting}
             <TouchableOpacity
@@ -133,5 +127,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 })

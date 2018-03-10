@@ -33,7 +33,7 @@ export default {
   [Keys[MONTH_BOOK_ID].thisTitleFormat]: 'THis Month',
   [Keys[WEEK_BOOK_ID].thisTitleFormat]: 'This Week',
   [Keys[DAY_BOOK_ID].thisTitleFormat]: 'Today',
-  [EMPTY_STATE_KEY]:emptyState.en,
+  [EMPTY_STATE_KEY]: emptyState.en,
   [FONT_SIZE]: 'Font Size:',
   [Keys[YEAR_BOOK_ID].numOfLines]: 'Number of Lines in Year Page:',
   [Keys[MONTH_BOOK_ID].numOfLines]: 'Number of Lines in Month Page:',

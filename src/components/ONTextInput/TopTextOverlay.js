@@ -3,11 +3,11 @@ import {
   Text,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { getStyles } from './styles'
-import Checkbox from './Checkbox'
 import {
   setData,
 } from 'actions'
+import { getStyles } from './styles'
+import Checkbox from './Checkbox'
 import {
   isCheckbox,
   getTextChilds,
@@ -43,9 +43,9 @@ export default class TopTextOverlay extends Component {
 
   render() {
     const {
-      bookId, focusedBookId, focus, text, fontScale, numberOfLines
+      bookId, focusedBookId, focus, text, fontScale, numberOfLines,
     } = this.props
-    const styles = getStyles( fontScale, numberOfLines )
+    const styles = getStyles(fontScale, numberOfLines)
 
     return (
       <Text

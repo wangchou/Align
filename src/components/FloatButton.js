@@ -11,9 +11,9 @@ export default (props) => {
   } = props
   const styles = {
     view: {
-      height: size ? size*2 : 60,
-      width: size ? size*2 : 60,
-      position: position ? position : 'absolute',
+      height: size ? size * 2 : 60,
+      width: size ? size * 2 : 60,
+      position: position || 'absolute',
       bottom,
       right,
       left,
@@ -22,9 +22,9 @@ export default (props) => {
       backgroundColor: color,
       borderColor: color,
       borderWidth: 1,
-      height: size ? size*2 : 60,
-      width: size ? size*2 : 60,
-      borderRadius: size ? size : 30,
+      height: size ? size * 2 : 60,
+      width: size ? size * 2 : 60,
+      borderRadius: size || 30,
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: '#000000',
@@ -37,7 +37,7 @@ export default (props) => {
     },
     text: {
       ...style,
-      fontSize: size ? size : 30,
+      fontSize: size || 30,
       color: 'white',
     },
   }

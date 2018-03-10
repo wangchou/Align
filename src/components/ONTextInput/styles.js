@@ -1,8 +1,4 @@
 import {
-  Dimensions,
-} from 'react-native'
-
-import {
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
   CHECKED_CHECKBOX1,
@@ -14,7 +10,6 @@ import {
 
 import {
   windowWidth,
-  windowHeight,
   getFontSize,
 } from 'utils/misc'
 
@@ -23,7 +18,7 @@ export const getStyles = (fontScale, numberOfLines) => {
 
   const baseText = {
     fontSize,
-    lineHeight: fontSize*1.5,
+    lineHeight: fontSize * 1.5,
     fontWeight: '300',
     fontFamily: textFont,
   }

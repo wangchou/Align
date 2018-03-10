@@ -62,7 +62,7 @@ export default class SettingPage extends Component {
       <View>
         <TouchableOpacity
           style={styles.foldButton}
-          onPress={toggleIsSettingPageFolded}
+          onPress={this.props.toggleIsSettingPageFolded}
         >
           <Text style={styles.text}
           >
@@ -80,7 +80,7 @@ export default class SettingPage extends Component {
             {numberOfLinesSetting}
             <TouchableOpacity
               style={styles.resetButton}
-              onPress={resetSettings}
+              onPress={this.props.resetSettings}
             >
               <Text style={styles.text}
               >

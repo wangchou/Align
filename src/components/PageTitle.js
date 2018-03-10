@@ -23,6 +23,7 @@ import {
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
   fontScale: state.setting.fontScale,
+  today: state.ui.today, // if go to next day, the title will be rerendered
 }))
 export default class PageTitle extends Component {
   getStyles = (fontScale) => {

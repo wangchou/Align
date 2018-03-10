@@ -30,6 +30,7 @@ import SettingBar from 'components/SettingBar'
   fontScale: state.setting.fontScale,
   numberOfLines: state.setting.numberOfLines,
   isSettingPageFolded: state.ui.isSettingPageFolded,
+  today: state.ui.today, // if go to next day, the title will be rerendered
 }), {
   setFontScale,
   setBookNumOfLines,

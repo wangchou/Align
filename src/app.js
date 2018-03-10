@@ -16,17 +16,21 @@ import KeyboardManager from 'components/KeyboardManager'
 import {
   setScrollY,
   setScrollTo,
+  setToday,
 } from 'actions'
+import { getTodayStr } from 'utils/misc'
 
 @connect(state => ({
   bookIds: state.books.ids,
 }), {
   setScrollY,
   setScrollTo,
+  setToday,
 })
 export default class OnigiriNote extends Component {
   componentDidMount() {
     this.props.setScrollTo(y => this.scrollView.scrollTo({ y }))
+    setInterval(()=> this.props.setToday(getTodayStr()), 1000 * 60 * 10);
   }
 
   onScroll = (event) => {

@@ -2,6 +2,8 @@ import {
   ACTION,
 } from 'constants'
 
+import { getTodayStr } from 'utils/misc'
+
 const intitialState = {
   isKeyboardShow: false,
   keyboardHeight: 0,
@@ -13,6 +15,7 @@ const intitialState = {
   isStatusMode: false,
   isSettingPageFolded: true,
   isRecentTodoShow: false,
+  today: getTodayStr(), // for rerender string after another day
 }
 
 export default (state = intitialState, action) => {

@@ -8,6 +8,7 @@ import {
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
+  SMALL_SPACE,
   ACTION,
 } from 'constants'
 
@@ -16,7 +17,6 @@ const {
   SET_PAGE_DATA,
   SET_UI_STATE,
   SET_UI_SELECTION,
-  SMALL_SPACE,
   SET_FONT_SCALE,
   SET_BOOK_NUM_OF_LINES,
   RESET_SETTINGS,

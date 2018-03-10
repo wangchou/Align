@@ -7,6 +7,7 @@ import {
 import {
   CHECKED_CHECKBOX1,
   EMPTY_CHECKBOX1,
+  YEAR_UNIT,
   MONTH_UNIT,
   WEEK_UNIT,
   DAY_UNIT,
@@ -59,16 +60,39 @@ export const getNowPageId = (book) => {
   return getPageId(book.id, moment(time), book.pageIdFormat)
 }
 
+export const getUnit = (bookId) => {
+  if (bookId === YEAR_BOOK_ID) return YEAR_UNIT
+  if (bookId === MONTH_BOOK_ID) return MONTH_UNIT
+  if (bookId === WEEK_BOOK_ID) return WEEK_UNIT
+  if (bookId === DAY_BOOK_ID) return DAY_UNIT
+}
+
+export const getPageIdFormat = (bookId) => {
+  if (bookId === YEAR_BOOK_ID) return YEAR_PAGE_ID_FORMAT
+  if (bookId === MONTH_BOOK_ID) return MONTH_PAGE_ID_FORMAT
+  if (bookId === WEEK_BOOK_ID) return WEEK_PAGE_ID_FORMAT
+  if (bookId === DAY_BOOK_ID) return DAY_PAGE_ID_FORMAT
+}
+
 export const getTimeFromPageId = (pageId) => {
   const array = pageId.split('-')
   const bookId = array[0]
   const timeString = array[1]
-  if (bookId === YEAR_BOOK_ID) return moment(timeString, YEAR_PAGE_ID_FORMAT)
-  if (bookId === MONTH_BOOK_ID) return moment(timeString, MONTH_PAGE_ID_FORMAT)
-  if (bookId === WEEK_BOOK_ID) return moment(timeString, WEEK_PAGE_ID_FORMAT)
-  if (bookId === DAY_BOOK_ID) return moment(timeString, DAY_PAGE_ID_FORMAT)
-  return null
+  return moment(timeString, getPageIdFormat(bookId))
 }
+
+export const getSiblingPageId = (pageId, shift) => {
+  const array = pageId.split('-')
+  const bookId = array[0]
+  const timeString = array[1]
+  const unit = getUnit(bookId)
+  const time = getTimeFromPageId(pageId)
+  const pageIdFormat = getPageIdFormat(bookId)
+  return getPageId(bookId, time.add(shift, unit), pageIdFormat)
+}
+
+export const getPreviousPageId = (pageId) => getSiblingPageId(pageId, -1)
+export const getNextPageId = (pageId) => getSiblingPageId(pageId, 1)
 
 export const getMonthChildPageIds = (yearPageId) => {
   const yearTime = getTimeFromPageId(yearPageId)

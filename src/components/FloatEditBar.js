@@ -18,6 +18,7 @@ import {
 import {
   insertText,
 } from 'actions'
+import RecentTodos from 'components/RecentTodos'
 
 export const floatEditBarHeight = 40
 const windowWidth = Dimensions.get('window').width
@@ -89,6 +90,17 @@ export default class FloatEditBar extends Component {
           >
             {EMPTY_CHECKBOX2}
           </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.touchable}
+        >
+          <Text
+            style={{ ...styles.text, fontFamily: 'PingFang TC' }}
+          >
+            {"常用"}
+          </Text>
+          <RecentTodos />
         </TouchableOpacity>
 
         <TouchableOpacity

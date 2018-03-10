@@ -17,6 +17,7 @@ import {
 } from 'constants'
 import {
   getFontSize,
+  getTitleHeight,
 } from 'utils/misc'
 
 @connect((state, props) => ({
@@ -27,7 +28,7 @@ export default class PageTitle extends Component {
   getStyles = (fontScale) => {
     const fontSize = getFontSize(fontScale)
     const base = {
-      height: fontSize * (5 / 4),
+      height: getTitleHeight(fontScale),
       fontFamily: textFont,
       fontSize,
       fontWeight: semiBold,

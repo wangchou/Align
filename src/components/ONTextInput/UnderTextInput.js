@@ -12,7 +12,7 @@ import {
   SMALL_SPACE,
   titleHeight,
 } from 'constants'
-import { windowHeight } from 'utils/misc'
+import { windowHeight, getTitleHeight } from 'utils/misc'
 import {
   isCheckbox,
   getTextChilds,
@@ -98,22 +98,27 @@ export default class UnderTextInput extends Component {
 
   scrollTextInputIntoView = () => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
+      const titleHeight = getTitleHeight(this.props.fontScale)
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
 
       const { keyboardHeight } = this.props
       const inputY = this.props.scrollY + focusedInputPY
-      const alignInputBottomToKeyboardY =
-        inputY + (focusedInputHeight - windowHeight) + keyboardHeight
 
       const isInputTopNotInView = focusedInputPY < 0
       const isInputBottomNotInView =
         (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight
-      if (isInputTopNotInView) {
-        this.props.scrollTo(inputY - titleHeight)
+
+      const isSmallInput = focusedInputHeight + titleHeight + keyboardHeight < windowHeight
+
+      if (isInputTopNotInView || !isSmallInput) {
+        this.props.scrollTo(inputY - titleHeight - 5) //5 from padding
       } else if (isInputBottomNotInView) {
+        const alignInputBottomToKeyboardY =
+          inputY + (focusedInputHeight - windowHeight) + keyboardHeight
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
+
     })
   }
 

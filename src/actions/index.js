@@ -57,6 +57,7 @@ export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBook
 export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
 export const setIsStatusMode = actionCreatorCreator(SET_UI_STATE, ['isStatusMode'])
 export const setIsSettingPageFolded = actionCreatorCreator(SET_UI_STATE, ['isSettingPageFolded'])
+export const setIsRecentTodoShow = actionCreatorCreator(SET_UI_STATE, ['isRecentTodoShow'])
 export const setSelection = (pageId, selection) => ({
   type: SET_UI_SELECTION,
   pageId,

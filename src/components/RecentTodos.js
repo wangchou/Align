@@ -19,8 +19,11 @@ import {
 import {
   getFontSize,
 } from 'utils/books'
+import {
+  insertText,
+} from 'actions'
 
-const checkboxWithContentReg = new RegExp(`[${CHECKBOXS}] [^${CHECKBOXS}]*[^${CHECKBOXS} \t\n]+`, 'g')
+const checkboxWithContentReg = new RegExp(`[${CHECKBOXS}] [^${CHECKBOXS}\n]*[^${CHECKBOXS} \t\n]+`, 'g')
 export const getTodoChilds = text => ((text && text.match(checkboxWithContentReg)) || [])
   .map(todo => todo.replace(CHECKED_CHECKBOX1, EMPTY_CHECKBOX1))
   .map(todo => todo.replace(CHECKED_CHECKBOX2, EMPTY_CHECKBOX2))
@@ -29,14 +32,18 @@ export const getTodoChilds = text => ((text && text.match(checkboxWithContentReg
 @connect(state => ({
   pages: state.pages,
   focusedPageId: state.ui.focusedPageId,
+  isRecentTodoShow: state.ui.isRecentTodoShow,
 }), {
+  insertText,
 })
 export default class RecentTodos extends Component {
   render() {
-    const {pages, focusedPageId} = this.props
+    const {pages, focusedPageId, isRecentTodoShow} = this.props
+    if(!isRecentTodoShow) return null
+
     const todoCounts = {}
 
-    for(let shift = -6; shift < 4; shift++) {
+    for(let shift = -14; shift < 7; shift++) {
       const siblingPageId = getSiblingPageId(focusedPageId, shift)
       const todos = getTodoChilds(pages[siblingPageId])
       todos.forEach(todo => {
@@ -47,34 +54,43 @@ export default class RecentTodos extends Component {
         }
       })
     }
+
     const todoBars = Object.keys(todoCounts)
       .map(key => ({str: key, count: todoCounts[key]}))
-      .sort((a, b) => a.count < b.count)
-      .slice(0, 8)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 12)
       .reverse()
       .map(todoObj => {
         const checkbox = todoObj.str.charAt(0)
         const restStr = todoObj.str.slice(1)
         return (
-          <View
-            key={todoObj.str}
-            style={styles.todoBar}
-          >
-            <Text style={{fontFamily: textFont}}>
+          <Text key={todoObj.str} style={styles.singleTodoContainer}>
+            <Text
+              style={styles.todoItem}
+              onPress={() => this.props.insertText(todoObj.str)}
+            >
               <Text style={styles[checkbox]}>
-                {checkbox}
+                { checkbox}
               </Text>
               <Text>
                 {restStr}
               </Text>
             </Text>
-          </View>
+            <Text>
+              {'   '}
+            </Text>
+          </Text>
         )
       })
 
     return (
-      <View style={styles.container}>
-        {todoBars}
+      <View
+        style={styles.container}
+        overflow="hidden"
+      >
+        <Text>
+          {todoBars}
+        </Text>
       </View>
     )
   }
@@ -84,24 +100,25 @@ export default class RecentTodos extends Component {
 const windowWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
-    height: 245,
-    width: windowWidth/2,
+    height: 130,
+    width: windowWidth,
     borderColor: 'rgba(155, 155, 155, 0.3)',
     borderWidth: 0.5,
     position: 'absolute',
-    top: -250,
-    padding: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    top: -130,
+    paddingTop: 5,
+    paddingRight: 5,
+    paddingLeft: 5,
+    backgroundColor: 'rgba(240, 240, 240, 1)',
     flexDirection: 'column',
     justifyContent: 'flex-end',
   },
-  todoBar: {
-    width: windowWidth/2 - 10,
-    color: 'rgba(255, 255, 255, 1)',
-    fontSize: 24,
-    height: 30,
-    paddingTop: 5,
-    paddingBottom: 5,
+  singleTodoContainer: {
+    fontFamily: textFont,
+    fontSize: 18,
+    lineHeight: 30,
+  },
+  todoItem: {
     borderBottomWidth: 0.5,
     borderColor: 'rgba(240, 240, 240, 0.3)',
   },

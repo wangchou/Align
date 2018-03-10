@@ -6,6 +6,7 @@ import {
   setIsKeyboardShow,
   setFocusedBookId,
   setFocusedPageId,
+  setIsRecentTodoShow,
 } from 'actions'
 import { floatEditBarHeight } from 'components/FloatEditBar'
 
@@ -14,6 +15,7 @@ import { floatEditBarHeight } from 'components/FloatEditBar'
   setIsKeyboardShow,
   setFocusedBookId,
   setFocusedPageId,
+  setIsRecentTodoShow,
 })
 export default class KeyboardManager extends Component {
   componentDidMount() {
@@ -26,6 +28,7 @@ export default class KeyboardManager extends Component {
 
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', () => {
       this.props.setIsKeyboardShow(false)
+      this.props.setIsRecentTodoShow(false)
       this.props.setFocusedBookId(null)
       this.props.setFocusedPageId(null)
     })

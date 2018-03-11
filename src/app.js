@@ -5,25 +5,32 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import Book from './components/Book'
-import KeyboardAvoidingView from './components/KeyboardAvoidingView'
-import TodayButton from './components/TodayButton'
-import FloatEditBar from './components/FloatEditBar'
-import KeyboardManager from './components/KeyboardManager'
+import Book from 'components/Book'
+import KeyboardAvoidingView from 'components/KeyboardAvoidingView'
+import StatusAvoidingView from 'components/StatusAvoidingView'
+import TodayButton from 'components/TodayButton'
+import StatusPage from 'components/StatusPage'
+import SettingPage from 'components/SettingPage'
+import FloatEditBar from 'components/FloatEditBar'
+import KeyboardManager from 'components/KeyboardManager'
 import {
   setScrollY,
   setScrollTo,
-} from './actions'
+  setToday,
+} from 'actions'
+import { getTodayStr } from 'utils/misc'
 
 @connect(state => ({
   bookIds: state.books.ids,
 }), {
   setScrollY,
   setScrollTo,
+  setToday,
 })
-export default class OnigiriNote extends Component {
+export default class Align extends Component {
   componentDidMount() {
     this.props.setScrollTo(y => this.scrollView.scrollTo({ y }))
+    setInterval(()=> this.props.setToday(getTodayStr()), 1000 * 60 * 10);
   }
 
   onScroll = (event) => {
@@ -50,12 +57,15 @@ export default class OnigiriNote extends Component {
           scrollEventThrottle={16}
           onScroll={this.onScroll}
         >
+          <StatusAvoidingView />
+          <SettingPage />
           {bookViews}
           <StatusBar hidden />
           <KeyboardAvoidingView />
         </ScrollView>
         <FloatEditBar />
         <TodayButton />
+        <StatusPage />
         <KeyboardManager />
       </View>
     )

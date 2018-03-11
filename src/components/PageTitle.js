@@ -2,111 +2,99 @@
 import React, { Component } from 'react'
 import {
   Text,
-  StyleSheet,
 } from 'react-native'
 import { connect } from 'react-redux'
-import {getNowPageTitle} from '../utils/books'
 import {
-  titleHeight,
+  getCheckboxCount,
+} from 'utils/books'
+import {
   textFont,
   checkboxFont,
-  fontSize,
-  checkedCheckboxColor1,
-  emptyCheckboxColor1,
-  CHECKED_CHECKBOX1,
-  EMPTY_CHECKBOX1,
-  FLAG,
+  COLOR,
   STAR,
   HALF_STAR,
-  starColor,
-  flagColor,
-} from '../constants'
+  semiBold,
+} from 'constants'
+import {
+  getFontSize,
+  getTitleHeight,
+} from 'utils/misc'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
+  fontScale: state.setting.fontScale,
+  today: state.ui.today, // if go to next day, the title will be rerendered
 }))
 export default class PageTitle extends Component {
-  getCheckboxCount = (text) => {
-    let checkedCheckboxCount = 0
-    let emptyCheckboxCount = 0
-    for (let i = 0; i < text.length; i += 1) {
-      const ch = text.charAt(i)
-      if (ch === CHECKED_CHECKBOX1) {
-        checkedCheckboxCount++
-      }
-      if (ch === EMPTY_CHECKBOX1) {
-        emptyCheckboxCount++
-      }
+  getStyles = (fontScale) => {
+    const fontSize = getFontSize(fontScale)
+    const base = {
+      height: getTitleHeight(fontScale),
+      fontFamily: textFont,
+      fontSize,
+      fontWeight: semiBold,
     }
-    return { checkedCheckboxCount, emptyCheckboxCount }
+
+    return ({
+      pageTitle: {
+        ...base,
+      },
+      thisLabel: {
+        ...base,
+        fontFamily: checkboxFont,
+        color: COLOR.flagColor,
+      },
+      checkedCount: {
+        ...base,
+        color: COLOR.checkedCheckboxColor1,
+      },
+      emptyCount: {
+        ...base,
+        color: COLOR.emptyCheckboxColor1,
+      },
+      star: {
+        ...base,
+        fontFamily: checkboxFont,
+        color: COLOR.starColor,
+      },
+    })
   }
 
   render() {
-    const { title, text, focus, bookId } = this.props
-    const { checkedCheckboxCount, emptyCheckboxCount } = this.getCheckboxCount(text)
-    const checkboxCounter = (checkedCheckboxCount + emptyCheckboxCount === 0) ? null : (
+    const {
+      title, text, focus, fontScale,
+    } = this.props
+    const { checkedCount, emptyCount } = getCheckboxCount(text)
+    const styles = this.getStyles(fontScale)
+    const checkedCounter = (checkedCount + emptyCount === 0) ? null : (
       <Text>
-        <Text style={styles.checkboxCount}>
-          {`  ${checkedCheckboxCount}`}
+        <Text style={styles.checkedCount}>
+          {`  ${checkedCount}`}
         </Text>
-        <Text style={styles.emptyCheckboxCount}>
-          {` ${emptyCheckboxCount}`}
+        <Text style={styles.emptyCount}>
+          {` ${emptyCount}`}
         </Text>
       </Text>
     )
 
-    let progressStar = null;
-    if(emptyCheckboxCount + checkedCheckboxCount > 0) {
-      if(emptyCheckboxCount === 0) {
-          progressStar = <Text style={styles.star}>{` ${STAR}`}</Text>
-      } else if(checkedCheckboxCount >= emptyCheckboxCount) {
-          progressStar = <Text style={styles.star}>{` ${HALF_STAR}`}</Text>
+    let progressStar = null
+    if (emptyCount + checkedCount > 0) {
+      if (emptyCount === 0) {
+        progressStar = <Text style={styles.star}>{` ${STAR}`}</Text>
+      } else if (checkedCount >= emptyCount) {
+        progressStar = <Text style={styles.star}>{` ${HALF_STAR}`}</Text>
       }
     }
 
-    const thisLabel = getNowPageTitle(bookId) === title ?
-      <Text style={styles.thisLabel}>{`${FLAG} `}</Text> : null
-
     return (
       <Text onPress={focus}>
-        {thisLabel}
         <Text style={styles.pageTitle}>
           {title}
         </Text>
         {progressStar}
-        {checkboxCounter}
+        {checkedCounter}
       </Text>
     )
   }
 }
 
-const semiBold = '600'
-const base = {
-  height: titleHeight,
-  fontFamily: textFont,
-  fontSize,
-  fontWeight: semiBold,
-}
-const styles = StyleSheet.create({
-  pageTitle: {
-    ...base,
-  },
-  thisLabel: {
-    ...base,
-    fontFamily: checkboxFont,
-    color: flagColor,
-  },
-  checkboxCount: {
-    ...base,
-    color: checkedCheckboxColor1,
-  },
-  emptyCheckboxCount: {
-    ...base,
-    color: emptyCheckboxColor1,
-  },
-  star: {
-    ...base,
-    fontFamily: checkboxFont,
-    color: starColor,
-  },
-})

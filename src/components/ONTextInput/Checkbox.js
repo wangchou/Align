@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import {
   Text,
 } from 'react-native'
-import { styles } from './styles'
 
 export default class Checkbox extends Component {
   toggleCheckbox = () => {
@@ -11,7 +10,7 @@ export default class Checkbox extends Component {
   }
 
   render() {
-    const { indexInParentText, text } = this.props
+    const { indexInParentText, text, styles } = this.props
 
     const props = {
       key: indexInParentText + text,

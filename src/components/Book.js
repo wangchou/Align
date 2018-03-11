@@ -5,17 +5,17 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native'
-import Page from './Page'
+import Page from 'components/Page'
 import {
   gotoPage,
   setFocusedBookId,
   setFocusedPageId,
-} from '../actions'
+} from 'actions'
 import {
   getTime,
-  getPagePageId,
-  getPageTitle,
-} from '../utils/books'
+  getBookPageId,
+  getBookPageTitle,
+} from 'utils/books'
 
 const windowWidth = Dimensions.get('window').width
 const pageSeparatorWidth = 20
@@ -73,7 +73,7 @@ export default class Book extends Component {
   }
 
   focusPage = (shift = 0) => {
-    const pageId = getPagePageId(this.props.book, shift)
+    const pageId = getBookPageId(this.props.book, shift)
     this.props.setFocusedPageId(pageId)
   }
 
@@ -81,8 +81,8 @@ export default class Book extends Component {
     const { book } = this.props
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
-        const title = getPageTitle(book, shift)
-        const pageId = getPagePageId(book, shift)
+        const title = getBookPageTitle(book, shift)
+        const pageId = getBookPageId(book, shift)
         return (
           <Page
             key={pageId}

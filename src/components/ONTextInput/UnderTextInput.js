@@ -7,16 +7,17 @@ import { connect } from 'react-redux'
 import {
   setData,
   setSelection,
-} from '../../actions'
+} from 'actions'
 import {
   SMALL_SPACE,
   titleHeight,
-} from '../../constants'
+} from 'constants'
+import { windowHeight, getTitleHeight } from 'utils/misc'
 import {
   isCheckbox,
   getTextChilds,
 } from './utilities'
-import { styles, windowHeight } from './styles'
+import { getStyles } from './styles'
 
 @connect((state, props) => ({
   text: state.pages[props.pageId] || '',
@@ -25,6 +26,8 @@ import { styles, windowHeight } from './styles'
   focusedPageId: state.ui.focusedPageId,
   scrollY: state.ui.scrollY,
   scrollTo: state.ui.scrollTo,
+  fontScale: state.setting.fontScale,
+  numberOfLines: state.setting.numberOfLines[props.bookId],
 }), {
   setData,
   setSelection,
@@ -55,7 +58,9 @@ export default class UnderTextInput extends Component {
     }
     return (
       this.props.pageId !== nextProps.pageId ||
-      (nextState.internalText !== nextState.text)
+      (nextState.internalText !== nextState.text) ||
+      this.props.fontScale !== nextProps.fontScale ||
+      this.props.numberOfLines !== nextProps.numberOfLines
     )
   }
 
@@ -93,27 +98,34 @@ export default class UnderTextInput extends Component {
 
   scrollTextInputIntoView = () => {
     this.textInput.measure((ox, oy, width, height, px, py) => {
+      const titleHeight = getTitleHeight(this.props.fontScale)
       const focusedInputPY = py - oy
       const focusedInputHeight = height + oy
 
       const { keyboardHeight } = this.props
       const inputY = this.props.scrollY + focusedInputPY
-      const alignInputBottomToKeyboardY =
-        inputY + (focusedInputHeight - windowHeight) + keyboardHeight
 
       const isInputTopNotInView = focusedInputPY < 0
       const isInputBottomNotInView =
         (focusedInputPY + focusedInputHeight + keyboardHeight) > windowHeight
-      if (isInputTopNotInView) {
-        this.props.scrollTo(inputY - titleHeight)
+
+      const isSmallInput = focusedInputHeight + titleHeight + keyboardHeight < windowHeight
+
+      if (isInputTopNotInView || !isSmallInput) {
+        this.props.scrollTo(inputY - titleHeight - 5) //5 from padding
       } else if (isInputBottomNotInView) {
+        const alignInputBottomToKeyboardY =
+          inputY + (focusedInputHeight - windowHeight) + keyboardHeight
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
+
     })
   }
 
   render() {
     const { text } = this.state
+    const { fontScale, numberOfLines } = this.props
+    const styles = getStyles(fontScale, numberOfLines)
     return (
       <TextInput
         style={styles.underTextInput}
@@ -121,6 +133,7 @@ export default class UnderTextInput extends Component {
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
         onSelectionChange={this.onSelectionChange}
+        spellCheck={false}
         multiline
       >
         {

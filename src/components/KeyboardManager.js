@@ -6,26 +6,29 @@ import {
   setIsKeyboardShow,
   setFocusedBookId,
   setFocusedPageId,
-} from '../actions'
-import { floatEditBarHeight } from './FloatEditBar'
+  setIsRecentTodoShow,
+} from 'actions'
+import { floatEditBarHeight } from 'components/FloatEditBar'
 
 @connect(null, {
   setKeyboardHeight,
   setIsKeyboardShow,
   setFocusedBookId,
   setFocusedPageId,
+  setIsRecentTodoShow,
 })
 export default class KeyboardManager extends Component {
   componentDidMount() {
     this.props.setIsKeyboardShow(false)
 
-    this.keyboardDidShowListerner = Keyboard.addListener('keyboardDidShow', (event) => {
+    this.keyboardWillShowListerner = Keyboard.addListener('keyboardWillShow', (event) => {
       this.props.setKeyboardHeight(event.endCoordinates.height + floatEditBarHeight)
       this.props.setIsKeyboardShow(true)
     })
 
     this.keyboardWillHideListener = Keyboard.addListener('keyboardWillHide', () => {
       this.props.setIsKeyboardShow(false)
+      this.props.setIsRecentTodoShow(false)
       this.props.setFocusedBookId(null)
       this.props.setFocusedPageId(null)
     })
@@ -33,7 +36,7 @@ export default class KeyboardManager extends Component {
 
   componentWillUnmount() {
     this.keyboardWillHideListener.remove()
-    this.keyboardDidShowListener.remove()
+    this.keyboardWillShowListener.remove()
   }
 
   render() {

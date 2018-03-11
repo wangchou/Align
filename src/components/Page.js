@@ -5,13 +5,13 @@ import {
   Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
-import ONTextInput from './ONTextInput'
-import PageTitle from './PageTitle'
+import ONTextInput from 'components/ONTextInput'
+import PageTitle from 'components/PageTitle'
 
 import {
   setFocusedBookId,
   setFocusedPageId,
-} from '../actions'
+} from 'actions'
 
 @connect(null, {
   setFocusedBookId,
@@ -34,7 +34,6 @@ export default class Page extends Component {
     )
   }
 }
-
 // Component Styles
 const windowWidth = Dimensions.get('window').width
 const pageSeparatorWidth = 20

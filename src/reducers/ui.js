@@ -1,6 +1,6 @@
 import {
   ACTION,
-} from 'constants'
+} from '../constants'
 
 import { getTodayStr } from 'utils/misc'
 

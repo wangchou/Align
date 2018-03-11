@@ -27,7 +27,7 @@ import { getTodayStr } from 'utils/misc'
   setScrollTo,
   setToday,
 })
-export default class OnigiriNote extends Component {
+export default class Align extends Component {
   componentDidMount() {
     this.props.setScrollTo(y => this.scrollView.scrollTo({ y }))
     setInterval(()=> this.props.setToday(getTodayStr()), 1000 * 60 * 10);

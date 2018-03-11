@@ -10,7 +10,7 @@ import {
   DAY_BOOK_ID,
   SMALL_SPACE,
   ACTION,
-} from 'constants'
+} from '../constants'
 
 const {
   GOTO_PAGE,

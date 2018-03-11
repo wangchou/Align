@@ -1,5 +1,5 @@
-# OnigiriNote
-A customizable techou
+# Align
+A techou make days aligned with your life
 
 ## Objective
 *   Help people to remember their original objectives/feelings/passion

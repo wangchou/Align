@@ -10,7 +10,7 @@ import {
   WEEK_PAGE_ID_FORMAT,
   DAY_PAGE_ID_FORMAT,
   YEAR_UNIT, MONTH_UNIT, WEEK_UNIT, DAY_UNIT,
-} from 'constants'
+} from '../constants'
 import {
   getNow,
   getStartOfWeekTime,

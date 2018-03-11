@@ -41,7 +41,7 @@ export default {
   [Keys[WEEK_BOOK_ID].numOfLines]: 'Lines in Week Page:',
   [Keys[DAY_BOOK_ID].numOfLines]: 'Lines in Day Page:',
   [RESET_ALL]: 'Reset All',
-  [SETTING_PAGE]: 'Setting Page',
+  [SETTING_PAGE]: 'Settings',
   [DONE_BUTTON]: 'Done',
   [RECENT_TODO_BUTTON]: 'Recent',
   [EMPTY_RECENT_TODO]: 'There is no recent Todos yet...',

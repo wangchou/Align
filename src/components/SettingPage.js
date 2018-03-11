@@ -12,6 +12,9 @@ import {
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
   textFont,
+  checkboxFont,
+  SETTING,
+  CLOSE,
   RESET_ALL,
   FONT_SIZE,
   SETTING_PAGE,
@@ -62,13 +65,17 @@ export default class SettingPage extends Component {
     return (
       <View>
         <TouchableOpacity
-          style={styles.foldButton}
+          style={isSettingPageFolded ? styles.whiteFoldButton : styles.foldButton}
           onPress={this.props.toggleIsSettingPageFolded}
         >
-          <Text style={styles.text}
-          >
-            {`${I18n.t(SETTING_PAGE)} ${isSettingPageFolded ? '+' : '-'}`}
+          <Text style={styles.text}>
+            {I18n.t(SETTING_PAGE)+" "}
           </Text>
+          <View style={styles.settingIcon}>
+            <Text style={styles.iconFont}>
+              {isSettingPageFolded ? SETTING : CLOSE}
+            </Text>
+          </View>
         </TouchableOpacity>
         {isSettingPageFolded ? null :
           <View style={styles.container}>
@@ -114,9 +121,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  whiteFoldButton: {
+    width: windowWidth,
+    height: 35,
+    backgroundColor: 'rgba(240, 240, 240, 1)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   text: {
     fontSize: 20,
     fontFamily: textFont,
+  },
+  iconFont: {
+    fontSize: 20,
+    fontFamily: checkboxFont,
+  },
+  settingIcon: {
+    position: 'absolute',
+    right: 20,
   },
   resetButton: {
     width: windowWidth - 40,

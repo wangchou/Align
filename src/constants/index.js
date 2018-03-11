@@ -40,6 +40,7 @@ export const YEAR_UNIT = 'year'
 export const MONTH_UNIT = 'month'
 export const WEEK_UNIT = 'weeks'
 export const DAY_UNIT = 'day'
+export const WEEK_END_OF_STR = 'isoweek'
 
 // key / i18n
 export const YEAR_KEY = 'year'

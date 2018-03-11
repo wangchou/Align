@@ -17,6 +17,8 @@ import {
   MONTH_KEY,
   WEEK_KEY,
   DAY_KEY,
+  WEEK_UNIT,
+  WEEK_END_OF_STR,
 } from 'constants'
 import StatusBar from 'components/StatusBar'
 import { toggleIsStatusMode } from 'actions'
@@ -34,11 +36,12 @@ const getStatus = (book, pages) => {
       }),
       { checkedCount: 0, emptyCount: 0 },
     )
+  const endOfStr = (book.unit === WEEK_UNIT) ? WEEK_END_OF_STR : book.unit
 
-  const leftDays = (moment().endOf(book.unit).format('DDD') - moment().format('DDD')) + 1
+  const leftDays = (moment().endOf(endOfStr).format('DDD') - moment().format('DDD')) + 1
   let days = 7
   if (book.id === YEAR_BOOK_ID) {
-    days = moment().endOf(book.unit).format('DDD') - 0
+    days = moment().endOf(endOfStr).format('DDD') - 0
   }
   if (book.id === MONTH_BOOK_ID) {
     days = moment().daysInMonth()

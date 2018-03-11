@@ -52,4 +52,6 @@ export const FONT_SIZE = 'font size'
 export const RESET_ALL = 'reset all'
 export const SETTING_PAGE = 'setting page'
 export const DONE_BUTTON = 'DONE BUTTON'
+export const RECENT_TODO_BUTTON = 'RECENT TODO BUTTON'
+export const EMPTY_RECENT_TODO = 'EMPTY RECENT TODO'
 

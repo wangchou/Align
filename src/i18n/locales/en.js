@@ -12,6 +12,8 @@ import {
   FONT_SIZE,
   RESET_ALL,
   SETTING_PAGE,
+  RECENT_TODO_BUTTON,
+  EMPTY_RECENT_TODO,
 } from 'constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -24,7 +26,6 @@ export default {
   [Keys[YEAR_BOOK_ID].statusTitleFormat]: 'YYYY',
   [Keys[MONTH_BOOK_ID].statusTitleFormat]: 'MMM',
   [Keys[WEEK_BOOK_ID].statusTitleFormat]: 'MMM Do ～',
-  [DONE_BUTTON]: 'Done',
   [YEAR_KEY]: 'Year',
   [MONTH_KEY]: 'Month',
   [WEEK_KEY]: 'Week',
@@ -41,4 +42,7 @@ export default {
   [Keys[DAY_BOOK_ID].numOfLines]: 'Number of Lines in Day Page:',
   [RESET_ALL]: 'Reset All',
   [SETTING_PAGE]: 'Setting Page',
+  [DONE_BUTTON]: 'Done',
+  [RECENT_TODO_BUTTON]: 'Recent',
+  [EMPTY_RECENT_TODO]: 'There is no recent Todos yet...',
 }

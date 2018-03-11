@@ -10,6 +10,7 @@ import {
   textFont,
   checkboxFont,
   COLOR,
+  EMPTY_RECENT_TODO,
 } from 'constants'
 import {
   getNextPageId,
@@ -22,6 +23,7 @@ import {
 import {
   insertText,
 } from 'actions'
+import i18n from 'i18n'
 
 const checkboxWithContentReg = new RegExp(`[${CHECKBOXS}] [^${CHECKBOXS}\n]*[^${CHECKBOXS} \t\n]+`, 'g')
 export const getTodoChilds = text => ((text && text.match(checkboxWithContentReg)) || [])
@@ -55,7 +57,8 @@ export default class RecentTodos extends Component {
       })
     }
 
-    const todoBars = Object.keys(todoCounts)
+
+    let todoBars = Object.keys(todoCounts)
       .map(key => ({str: key, count: todoCounts[key]}))
       .sort((a, b) => b.count - a.count)
       .slice(0, 12)
@@ -82,6 +85,14 @@ export default class RecentTodos extends Component {
           </Text>
         )
       })
+
+    if(Object.keys(todoCounts).length === 0) {
+      todoBars = (
+        <Text style={styles.singleTodoContainer}>
+          {i18n.t(EMPTY_RECENT_TODO)}
+        </Text>
+      )
+    }
 
     return (
       <View

@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import I18n from 'i18n'
 import {
   DONE_BUTTON,
+  RECENT_TODO_BUTTON,
   EMPTY_CHECKBOX1,
   EMPTY_CHECKBOX2,
   COLOR,
@@ -118,7 +119,7 @@ export default class FloatEditBar extends Component {
             ]}
             onPress={() => this.props.setIsRecentTodoShow(!isRecentTodoShow)}
           >
-            {`常用${isRecentTodoShow ? " X" : " +"}`}
+            {`${I18n.t(RECENT_TODO_BUTTON)}${isRecentTodoShow ? " X" : "..."}`}
           </Text>
         </TouchableOpacity>
 

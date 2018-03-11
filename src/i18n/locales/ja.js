@@ -12,6 +12,8 @@ import {
   FONT_SIZE,
   RESET_ALL,
   SETTING_PAGE,
+  RECENT_TODO_BUTTON,
+  EMPTY_RECENT_TODO,
 } from 'constants'
 import Keys from '../keys'
 import emptyState from './emptyState'
@@ -24,7 +26,6 @@ export default {
   [Keys[YEAR_BOOK_ID].statusTitleFormat]: 'YYYY年',
   [Keys[MONTH_BOOK_ID].statusTitleFormat]: 'M月',
   [Keys[WEEK_BOOK_ID].statusTitleFormat]: 'M月D日～',
-  [DONE_BUTTON]: '完了',
   [YEAR_KEY]: '年目標',
   [MONTH_KEY]: '月目標',
   [WEEK_KEY]: '週目標',
@@ -41,5 +42,8 @@ export default {
   [Keys[DAY_BOOK_ID].numOfLines]: '日ページの列数：',
   [RESET_ALL]: 'リセット',
   [SETTING_PAGE]: '設定ページ',
+  [DONE_BUTTON]: '完了',
+  [RECENT_TODO_BUTTON]: '最近',
+  [EMPTY_RECENT_TODO]: '最近のチェックボックスはまだありません。',
 }
 

@@ -58,9 +58,12 @@ export default class RecentTodos extends Component {
     }
 
 
+    // prefer high frequency and shorter todo
+    const getPriority = todo => (todo.count - todo.str.length * 0.01)
+
     let todoBars = Object.keys(todoCounts)
       .map(key => ({str: key, count: todoCounts[key]}))
-      .sort((a, b) => b.count - a.count)
+      .sort((a, b) => getPriority(b) - getPriority(a))
       .slice(0, 12)
       .reverse()
       .map(todoObj => {

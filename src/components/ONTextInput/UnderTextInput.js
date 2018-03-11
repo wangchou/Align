@@ -133,6 +133,7 @@ export default class UnderTextInput extends Component {
         onChangeText={this.onChangeText}
         onFocus={this.onFocus}
         onSelectionChange={this.onSelectionChange}
+        spellCheck={false}
         multiline
       >
         {

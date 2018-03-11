@@ -26,6 +26,7 @@ export const getTime = (book, shift = 0) => moment(book.time)
   .format()
 
 export const getPageTitle = (bookId, time) => {
+  console.log(time)
   const generalTitle = moment(time).format(getTitleFormatI18n(bookId))
   const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
   const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
@@ -37,7 +38,7 @@ export const getPageTitle = (bookId, time) => {
 
 export const getBookPageTitle = (book, shift = 0) => getPageTitle(
   book.id,
-  moment(book.time).add(shift, book.unit),
+  moment(book.time).add(shift, book.unit).format(),
 )
 
 export const getPageId = (bookId, time, pageIdFormat) => `${bookId}-${time.format(pageIdFormat)}`

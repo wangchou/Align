@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: textFont,
   },
   description: {
-    width: 170,
+    width: 250,
     height: 35,
   },
   buttonsContainer: {

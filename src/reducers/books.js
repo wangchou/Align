@@ -56,7 +56,11 @@ export const intitialState = {
 export default (state = intitialState, action) => {
   switch (action.type) {
     case ACTION.GOTO_PAGE:
-      return immutable.set(state, ['byId', action.payload.bookId, 'time'], action.payload.time)
+      let time = action.payload.time
+      if(action.payload.bookId === WEEK_BOOK_ID) {
+        time = getStartOfWeekTime(time)
+      }
+      return immutable.set(state, ['byId', action.payload.bookId, 'time'], time)
   }
   return state
 }

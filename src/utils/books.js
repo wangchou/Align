@@ -48,7 +48,7 @@ export const getBookPageId = (book, shift = 0) => getPageId(
   book.pageIdFormat,
 )
 
-export const getStartOfWeekTime = () => moment().startOf('isoweek').format()
+export const getStartOfWeekTime = (time) => moment(time).startOf('isoweek').format()
 
 export const getNow = () => moment().format()
 

@@ -37,7 +37,7 @@ export const getPageTitle = (bookId, time) => {
 
 export const getBookPageTitle = (book, shift = 0) => getPageTitle(
   book.id,
-  moment(book.time).add(shift, book.unit),
+  moment(book.time).add(shift, book.unit).format(),
 )
 
 export const getPageId = (bookId, time, pageIdFormat) => `${bookId}-${time.format(pageIdFormat)}`
@@ -48,7 +48,7 @@ export const getBookPageId = (book, shift = 0) => getPageId(
   book.pageIdFormat,
 )
 
-export const getStartOfWeekTime = () => moment().startOf('isoweek').format()
+export const getStartOfWeekTime = (time) => moment(time).startOf('isoweek').format()
 
 export const getNow = () => moment().format()
 

@@ -12,6 +12,9 @@ import {
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
   textFont,
+  checkboxFont,
+  SETTING,
+  CLOSE,
   RESET_ALL,
   FONT_SIZE,
   SETTING_PAGE,
@@ -25,6 +28,8 @@ import {
   toggleIsSettingPageFolded,
 } from 'actions'
 import SettingBar from 'components/SettingBar'
+import { isIPhoneX } from 'utils/misc'
+
 
 @connect(state => ({
   fontScale: state.setting.fontScale,
@@ -62,13 +67,17 @@ export default class SettingPage extends Component {
     return (
       <View>
         <TouchableOpacity
-          style={styles.foldButton}
+          style={isSettingPageFolded ? styles.whiteFoldButton : styles.foldButton}
           onPress={this.props.toggleIsSettingPageFolded}
         >
-          <Text style={styles.text}
-          >
-            {`${I18n.t(SETTING_PAGE)} ${isSettingPageFolded ? '+' : '-'}`}
+          <Text style={styles.text}>
+            {I18n.t(SETTING_PAGE)+" "}
           </Text>
+          <View style={styles.settingIcon}>
+            <Text style={styles.iconFont}>
+              {isSettingPageFolded ? SETTING : CLOSE}
+            </Text>
+          </View>
         </TouchableOpacity>
         {isSettingPageFolded ? null :
           <View style={styles.container}>
@@ -94,6 +103,10 @@ export default class SettingPage extends Component {
     )
   }
 }
+
+const foldButtonHeight = 35 + (isIPhoneX() ? 30 : 0)
+const foldButtonPaddingTop = (isIPhoneX() ? 30 : 0)
+const settingIconTop = (isIPhoneX() ? 30 : 0) + 8
 const styles = StyleSheet.create({
   container: {
     width: windowWidth,
@@ -105,7 +118,7 @@ const styles = StyleSheet.create({
   },
   foldButton: {
     width: windowWidth,
-    height: 35,
+    height: foldButtonHeight,
     backgroundColor: 'rgba(192, 192, 192, 1)',
     borderColor: 'rgba(155, 155, 155, 1)',
     borderTopWidth: 0.5,
@@ -113,10 +126,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: foldButtonPaddingTop,
+  },
+  whiteFoldButton: {
+    width: windowWidth,
+    height: foldButtonHeight,
+    backgroundColor: 'rgba(240, 240, 240, 1)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: foldButtonPaddingTop,
   },
   text: {
     fontSize: 20,
     fontFamily: textFont,
+  },
+  iconFont: {
+    fontSize: 20,
+    fontFamily: checkboxFont,
+  },
+  settingIcon: {
+    position: 'absolute',
+    right: 20,
+    top: settingIconTop,
   },
   resetButton: {
     width: windowWidth - 40,

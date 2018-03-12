@@ -41,7 +41,7 @@ export default {
   [Keys[WEEK_BOOK_ID].numOfLines]: '週頁面的列數：',
   [Keys[DAY_BOOK_ID].numOfLines]: '日頁面的列數：',
   [RESET_ALL]: '重設',
-  [SETTING_PAGE]: '設定頁',
+  [SETTING_PAGE]: '設定',
   [DONE_BUTTON]: '完了',
   [RECENT_TODO_BUTTON]: '最近',
   [EMPTY_RECENT_TODO]: '找不到最近的待辦事項！',

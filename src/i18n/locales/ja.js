@@ -41,7 +41,7 @@ export default {
   [Keys[WEEK_BOOK_ID].numOfLines]: '週ページの列数：',
   [Keys[DAY_BOOK_ID].numOfLines]: '日ページの列数：',
   [RESET_ALL]: 'リセット',
-  [SETTING_PAGE]: '設定ページ',
+  [SETTING_PAGE]: '設定',
   [DONE_BUTTON]: '完了',
   [RECENT_TODO_BUTTON]: '最近',
   [EMPTY_RECENT_TODO]: '最近のチェックボックスはまだありません。',

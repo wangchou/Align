@@ -18,7 +18,9 @@ import {
   setScrollTo,
   setToday,
 } from 'actions'
-import { getTodayStr } from 'utils/misc'
+import {
+  getTodayStr,
+} from 'utils/misc'
 
 @connect(state => ({
   bookIds: state.books.ids,

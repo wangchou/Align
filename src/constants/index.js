@@ -18,6 +18,8 @@ export const FLAG = '\uE803'
 export const STAR = '\uE804'
 export const HALF_STAR = '\uE805'
 export const CHART = '\uE806'
+export const SETTING = '\uF1DE'
+export const CLOSE = '\uE807'
 export const SMALL_SPACE = ' '
 export const CHECKBOXS = `${EMPTY_CHECKBOX1}${CHECKED_CHECKBOX1}${EMPTY_CHECKBOX2}${CHECKED_CHECKBOX2}`
 

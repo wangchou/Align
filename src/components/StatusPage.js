@@ -9,6 +9,9 @@ import {
   getNowStatusTitle,
 } from 'utils/books'
 import {
+  isIPhoneX
+} from 'utils/misc'
+import {
   COLOR,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
@@ -165,13 +168,13 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: windowWidth,
-    height: windowHeight / 5,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: darkGray,
     borderColor: darkGray,
     borderBottomWidth: 0.5,
+    paddingTop: isIPhoneX() ? 30 : 0,
+    backgroundColor: gray,
   },
   section: {
     flex: 1,

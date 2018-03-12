@@ -41,7 +41,7 @@ export const getTodoChilds = text => ((text && text.match(checkboxWithContentReg
 export default class RecentTodos extends Component {
   render() {
     const {pages, focusedPageId, isRecentTodoShow} = this.props
-    if(!isRecentTodoShow) return null
+    if(!isRecentTodoShow || focusedPageId === null) return null
 
     const todoCounts = {}
 

@@ -4,7 +4,7 @@
 ## Align App 介紹
 一個手帳App，讓每一天和夢想緊密連結。並列年間目標、月目標，週目標與日目標，更容易把長期目標切成短期目標。用滑動切換年、月、週和日的頁面。用統計追蹤，讓人持續完成長期目標。兩種待辦事項，讓你區別和夢想與雜事。
 
-<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/alignV1.jpg" height="500">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/alignV1.jpg" height="300">
 
 ### 細節
 每年開始，洋洋灑灑列了一整年要完成的目標。但一個月過去，就忘光了。年復一年，不斷的發生。這個 App 要解決這個問題。讓你能完成長期目標。

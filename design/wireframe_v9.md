@@ -23,6 +23,6 @@ Missing Features:
   - Goto Today button
 
 
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v9_sketch.jpg" height="800">
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v9.jpg" height="800">
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v9_pages.jpg" height="800">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v9_sketch.jpg" height="800">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v9.jpg" height="800">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v9_pages.jpg" height="800">

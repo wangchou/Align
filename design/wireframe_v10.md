@@ -29,5 +29,5 @@ Missing Features:
   - 固定 sheet size? 有很多好處與限制。
   - Goto Today button
 
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v10_sketch.jpg" height="800">
-<img src="https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v10.jpg" height="600">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v10_sketch.jpg" height="800">
+<img src="https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v10.jpg" height="600">

@@ -5,4 +5,4 @@ Goal:
 Cons:
   - infinte scroll 無法切換 sheet types, 中間圖的 note 少畫了日期 (todo, note, repeated checklist...)
 
-![...](https://raw.githubusercontent.com/wangchou/OnigiriNote/master/design/img/wireframe_v3.jpg)
+![...](https://raw.githubusercontent.com/wangchou/Align/master/design/img/wireframe_v3.jpg)

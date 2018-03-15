@@ -1,7 +1,7 @@
 import {
   getNow,
   getStartOfWeekTime,
-} from 'utils/books'
+} from 'utils'
 
 import {
   YEAR_BOOK_ID,

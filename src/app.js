@@ -20,7 +20,7 @@ import {
 } from 'actions'
 import {
   getTodayStr,
-} from 'utils/misc'
+} from 'utils'
 
 @connect(state => ({
   bookIds: state.books.ids,

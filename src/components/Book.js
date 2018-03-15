@@ -15,7 +15,7 @@ import {
   getTime,
   getBookPageId,
   getBookPageTitle,
-} from 'utils/books'
+} from 'utils'
 
 const windowWidth = Dimensions.get('window').width
 const pageSeparatorWidth = 20

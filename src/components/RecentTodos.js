@@ -16,10 +16,8 @@ import {
   getNextPageId,
   getSiblingPageId,
   getPreviousPageId,
-} from 'utils/books'
-import {
   getFontSize,
-} from 'utils/books'
+} from 'utils'
 import {
   insertText,
 } from 'actions'

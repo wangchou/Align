@@ -12,7 +12,7 @@ import {
   SMALL_SPACE,
   titleHeight,
 } from 'constants'
-import { windowHeight, getTitleHeight } from 'utils/misc'
+import { windowHeight, getTitleHeight } from 'utils'
 import {
   isCheckbox,
   getTextChilds,

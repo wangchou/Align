@@ -7,10 +7,8 @@ import {
   getChildPageIds,
   getCheckboxCount,
   getNowStatusTitle,
-} from 'utils/books'
-import {
-  isIPhoneX
-} from 'utils/misc'
+  isIPhoneX,
+} from 'utils'
 import {
   COLOR,
   YEAR_BOOK_ID,

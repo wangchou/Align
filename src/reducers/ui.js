@@ -2,7 +2,7 @@ import {
   ACTION,
 } from '../constants'
 
-import { getTodayStr } from 'utils/misc'
+import { getTodayStr } from 'utils'
 
 const intitialState = {
   isKeyboardShow: false,

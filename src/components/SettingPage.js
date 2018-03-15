@@ -20,7 +20,6 @@ import {
   SETTING_PAGE,
 } from 'constants'
 import I18n, { getNumberOfLineDescriptonI18n } from 'i18n'
-import { windowWidth } from 'utils/misc'
 import {
   setFontScale,
   setBookNumOfLines,
@@ -28,7 +27,10 @@ import {
   toggleIsSettingPageFolded,
 } from 'actions'
 import SettingBar from 'components/SettingBar'
-import { isIPhoneX } from 'utils/misc'
+import {
+  windowWidth,
+  isIPhoneX
+} from 'utils'
 
 
 @connect(state => ({

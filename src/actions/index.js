@@ -32,7 +32,7 @@ const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
 })
 
 // ActionCreators
-// book
+// book reducer
 export const gotoPage = actionCreatorCreator(GOTO_PAGE, ['bookId', 'pageId'])
 export const gotoTodayPage = () => {
   const now = getNow()
@@ -45,32 +45,9 @@ export const gotoTodayPage = () => {
   ])
 }
 
-// page
+// page reducer
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])
 
-// setting
-export const setFontScale = actionCreatorCreator(SET_FONT_SCALE, ['data'])
-export const setBookNumOfLines = actionCreatorCreator(SET_BOOK_NUM_OF_LINES, ['bookId', 'data'])
-export const resetSettings = () => ({ type: RESET_SETTINGS })
-
-// ui
-export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY'])
-export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHeight'])
-export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow'])
-export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
-export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
-export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
-export const setIsStatusMode = actionCreatorCreator(SET_UI_STATE, ['isStatusMode'])
-export const setIsSettingPageFolded = actionCreatorCreator(SET_UI_STATE, ['isSettingPageFolded'])
-export const setIsRecentTodoShow = actionCreatorCreator(SET_UI_STATE, ['isRecentTodoShow'])
-export const setToday = actionCreatorCreator(SET_UI_STATE, ['today'])
-export const setSelection = (pageId, selection) => ({
-  type: SET_UI_SELECTION,
-  pageId,
-  selection,
-})
-
-// insertCheckbox
 export const insertText = text => (dispatch, getState) => {
   const {
     ui: {
@@ -95,6 +72,29 @@ export const insertText = text => (dispatch, getState) => {
     text + insertAfter
   dispatch(setData(pageId, newText))
 }
+
+// setting reducer
+export const setFontScale = actionCreatorCreator(SET_FONT_SCALE, ['data'])
+export const setBookNumOfLines = actionCreatorCreator(SET_BOOK_NUM_OF_LINES, ['bookId', 'data'])
+export const resetSettings = () => ({ type: RESET_SETTINGS })
+
+// ui reducer
+export const setScrollY = actionCreatorCreator(SET_UI_STATE, ['scrollY'])
+export const setKeyboardHeight = actionCreatorCreator(SET_UI_STATE, ['keyboardHeight'])
+export const setIsKeyboardShow = actionCreatorCreator(SET_UI_STATE, ['isKeyboardShow'])
+export const setScrollTo = actionCreatorCreator(SET_UI_STATE, ['scrollTo'])
+export const setFocusedBookId = actionCreatorCreator(SET_UI_STATE, ['focusedBookId'])
+export const setFocusedPageId = actionCreatorCreator(SET_UI_STATE, ['focusedPageId'])
+export const setIsStatusMode = actionCreatorCreator(SET_UI_STATE, ['isStatusMode'])
+export const setIsSettingPageFolded = actionCreatorCreator(SET_UI_STATE, ['isSettingPageFolded'])
+export const setIsRecentTodoShow = actionCreatorCreator(SET_UI_STATE, ['isRecentTodoShow'])
+export const setToday = actionCreatorCreator(SET_UI_STATE, ['today'])
+export const setSelection = (pageId, selection) => ({
+  type: SET_UI_SELECTION,
+  pageId,
+  selection,
+})
+
 
 export const toggleIsStatusMode = () => (dispatch, getState) => {
   const {

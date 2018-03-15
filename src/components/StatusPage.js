@@ -27,7 +27,7 @@ import { toggleIsStatusMode } from 'actions'
 import I18n from 'i18n'
 
 const getStatus = (book, pages) => {
-  const parentPageId = getNowPageId(book)
+  const parentPageId = getNowPageId(book.id)
   const parentGoalStatus = getCheckboxCount(pages[parentPageId])
   const childGoalStatus = getChildPageIds(parentPageId)
     .map(id => getCheckboxCount(pages[id]))

@@ -29,7 +29,7 @@ import {
 import SettingBar from 'components/SettingBar'
 import {
   windowWidth,
-  isIPhoneX
+  isIPhoneX,
 } from 'utils'
 
 
@@ -73,7 +73,7 @@ export default class SettingPage extends Component {
           onPress={this.props.toggleIsSettingPageFolded}
         >
           <Text style={styles.text}>
-            {I18n.t(SETTING_PAGE)+" "}
+            {`${I18n.t(SETTING_PAGE)} `}
           </Text>
           <View style={styles.settingIcon}>
             <Text style={styles.iconFont}>

@@ -10,7 +10,6 @@ import {
 } from 'actions'
 import {
   SMALL_SPACE,
-  titleHeight,
 } from 'constants'
 import { windowHeight, getTitleHeight } from 'utils'
 import {
@@ -112,13 +111,12 @@ export default class UnderTextInput extends Component {
       const isSmallInput = focusedInputHeight + titleHeight + keyboardHeight < windowHeight
 
       if (isInputTopNotInView || !isSmallInput) {
-        this.props.scrollTo(inputY - titleHeight - 5) //5 from padding
+        this.props.scrollTo(inputY - titleHeight - 5) // 5 from padding
       } else if (isInputBottomNotInView) {
         const alignInputBottomToKeyboardY =
           inputY + (focusedInputHeight - windowHeight) + keyboardHeight
         this.props.scrollTo(alignInputBottomToKeyboardY)
       }
-
     })
   }
 

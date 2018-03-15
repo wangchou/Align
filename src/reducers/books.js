@@ -1,21 +1,16 @@
 import immutable from 'object-path-immutable'
 import {
+  getNow,
+  getStartOfWeekTime,
+  getPageId,
+} from 'utils'
+import {
   ACTION,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-  YEAR_PAGE_ID_FORMAT,
-  MONTH_PAGE_ID_FORMAT,
-  WEEK_PAGE_ID_FORMAT,
-  DAY_PAGE_ID_FORMAT,
-  YEAR_UNIT, MONTH_UNIT, WEEK_UNIT, DAY_UNIT,
 } from '../constants'
-import {
-  getNow,
-  getStartOfWeekTime,
-  getPageId,
-} from 'utils'
 
 const now = getNow()
 const startOfWeek = getStartOfWeekTime()

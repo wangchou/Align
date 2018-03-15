@@ -4,8 +4,8 @@ import {
   SMALL_SPACE,
 } from 'constants'
 
-const b1 = EMPTY_CHECKBOX1+SMALL_SPACE
-const b2 = EMPTY_CHECKBOX2+SMALL_SPACE
+const b1 = EMPTY_CHECKBOX1 + SMALL_SPACE
+const b2 = EMPTY_CHECKBOX2 + SMALL_SPACE
 
 const en = `${b1}Learn to Navigation
 ${b2}Swipe pages ${b2}Click orange button

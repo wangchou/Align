@@ -12,8 +12,8 @@ import {
   setFocusedPageId,
 } from 'actions'
 import {
-  getBookPageTitle,
   getSiblingPageId,
+  getPageTitle,
 } from 'utils'
 
 const windowWidth = Dimensions.get('window').width
@@ -80,8 +80,8 @@ export default class Book extends Component {
     const { book } = this.props
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
-        const title = getBookPageTitle(book, shift)
         const pageId = getSiblingPageId(book.currentPageId, shift)
+        const title = getPageTitle(pageId)
         return (
           <Page
             key={pageId}

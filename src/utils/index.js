@@ -25,32 +25,31 @@ import {
   DAY_PAGE_ID_FORMAT,
 } from 'constants'
 
-/* BOOK SECTION STARTED
- * New architecture will be
- * book => currentPageId => pageTitle
- * pageId
- * getNextPageId
- * getPreviousPageId
- * getPageId from current Time
- * getPageTitle from pageId
- * getPageChilds from pageId
- */
-export const getStartOfWeekTime = (time) => moment(time).startOf('isoweek').format()
+export const getStartOfWeekTime = time => moment(time).startOf('isoweek').format()
 export const getNow = () => moment().format()
 
-export const getUnit = (bookId) => {
-  if (bookId === YEAR_BOOK_ID) return YEAR_UNIT
-  if (bookId === MONTH_BOOK_ID) return MONTH_UNIT
-  if (bookId === WEEK_BOOK_ID) return WEEK_UNIT
-  if (bookId === DAY_BOOK_ID) return DAY_UNIT
+const bookSettings = {
+  [YEAR_BOOK_ID]: {
+    unit: YEAR_UNIT,
+    pageIdFormat: YEAR_PAGE_ID_FORMAT,
+  },
+  [MONTH_BOOK_ID]: {
+    unit: MONTH_UNIT,
+    pageIdFormat: MONTH_PAGE_ID_FORMAT,
+  },
+  [WEEK_BOOK_ID]: {
+    unit: WEEK_UNIT,
+    pageIdFormat: WEEK_PAGE_ID_FORMAT,
+  },
+  [DAY_BOOK_ID]: {
+    unit: DAY_UNIT,
+    pageIdFormat: DAY_PAGE_ID_FORMAT,
+  },
 }
 
-export const getPageIdFormat = (bookId) => {
-  if (bookId === YEAR_BOOK_ID) return YEAR_PAGE_ID_FORMAT
-  if (bookId === MONTH_BOOK_ID) return MONTH_PAGE_ID_FORMAT
-  if (bookId === WEEK_BOOK_ID) return WEEK_PAGE_ID_FORMAT
-  if (bookId === DAY_BOOK_ID) return DAY_PAGE_ID_FORMAT
-}
+export const getUnit = bookId => bookSettings[bookId].unit
+
+export const getPageIdFormat = bookId => bookSettings[bookId].pageIdFormat
 
 export const getPageTitle = (pageId) => {
   const array = pageId.split('-')
@@ -64,37 +63,32 @@ export const getPageTitle = (pageId) => {
   return generalTitle
 }
 
-export const getBookPageTitle = (book, shift = 0) => getPageTitle(
-  getSiblingPageId(book.currentPageId, shift),
-)
-
 export const getPageId = (bookId, time) => `${bookId}-${moment(time).format(getPageIdFormat(bookId))}`
 
-
-export const getNowPageId = (book) => {
-  const time = (book.id === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
-  return getPageId(book.id, moment(time))
+export const getNowPageId = (bookId) => {
+  const time = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
+  return getPageId(bookId, moment(time))
 }
 
-// how this will work on week? really convert to correct time?
 export const getTimeFromPageId = (pageId) => {
   const array = pageId.split('-')
   const bookId = array[0]
   const timeString = array[1]
+
+  // how this will work on week? really convert to correct time with locale?
   return moment(timeString, getPageIdFormat(bookId))
 }
 
 export const getSiblingPageId = (pageId, shift) => {
   const array = pageId.split('-')
   const bookId = array[0]
-  const timeString = array[1]
   const unit = getUnit(bookId)
   const time = getTimeFromPageId(pageId)
   return getPageId(bookId, time.add(shift, unit))
 }
 
-export const getNextPageId = (pageId) => getSiblingPageId(pageId, 1)
-export const getPreviousPageId = (pageId) => getSiblingPageId(pageId, 1)
+export const getNextPageId = pageId => getSiblingPageId(pageId, 1)
+export const getPreviousPageId = pageId => getSiblingPageId(pageId, 1)
 
 /* for  status page only */
 export const getNowStatusTitle = bookId => moment(bookId === WEEK_BOOK_ID ?
@@ -169,7 +163,7 @@ export const getTitleHeight = fontScale => getFontSize(fontScale) * (5 / 4)
 export const getTodayStr = () => moment().format('MMMM Do YYYY')
 
 // See https://mydevice.io/devices/ for device dimensions
-const X_WIDTH = 375;
-const X_HEIGHT = 812;
+const X_WIDTH = 375
+const X_HEIGHT = 812
 
 export const isIPhoneX = () => (windowHeight === X_HEIGHT && windowWidth === X_WIDTH)

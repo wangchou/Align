@@ -32,7 +32,7 @@ import {
 export default class Align extends Component {
   componentDidMount() {
     this.props.setScrollTo(y => this.scrollView.scrollTo({ y }))
-    setInterval(()=> this.props.setToday(getTodayStr()), 1000 * 60 * 10);
+    setInterval(() => this.props.setToday(getTodayStr()), 1000 * 60 * 10)
   }
 
   onScroll = (event) => {

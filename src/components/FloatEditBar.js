@@ -74,14 +74,14 @@ export default class FloatEditBar extends Component {
       },
       onRecentTodo: {
         color: 'rgba(64, 64, 64, 1)',
-        fontWeight: '400'
+        fontWeight: '400',
       },
       checkbox: {
         fontSize: 20,
         color: 'rgba(125, 125, 125, 1)',
         textAlign: 'center',
         fontFamily: checkboxFont,
-      }
+      },
     }
 
     return (
@@ -115,11 +115,11 @@ export default class FloatEditBar extends Component {
           <Text
             style={[
               styles.text,
-              isRecentTodoShow ? styles.onRecentTodo : {}
+              isRecentTodoShow ? styles.onRecentTodo : {},
             ]}
             onPress={() => this.props.setIsRecentTodoShow(!isRecentTodoShow)}
           >
-            {`${I18n.t(RECENT_TODO_BUTTON)}${isRecentTodoShow ? " X" : "..."}`}
+            {`${I18n.t(RECENT_TODO_BUTTON)}${isRecentTodoShow ? ' X' : '...'}`}
           </Text>
         </TouchableOpacity>
 

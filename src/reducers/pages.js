@@ -7,7 +7,6 @@ import {
 } from 'utils'
 import {
   WEEK_BOOK_ID,
-  WEEK_PAGE_ID_FORMAT,
   EMPTY_STATE_KEY,
   ACTION,
 } from '../constants'

@@ -25,44 +25,18 @@ import {
   DAY_PAGE_ID_FORMAT,
 } from 'constants'
 
-export const getTime = (book, shift = 0) => moment(book.time)
-  .add(shift, book.unit)
-  .format()
-
-export const getPageTitle = (bookId, time) => {
-  const generalTitle = moment(time).format(getTitleFormatI18n(bookId))
-  const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
-  const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
-  if (nowTitle === generalTitle) {
-    return moment(now).format(getThisTitleFormatI18n(bookId))
-  }
-  return generalTitle
-}
-
-export const getBookPageTitle = (book, shift = 0) => getPageTitle(
-  book.id,
-  moment(book.time).add(shift, book.unit).format(),
-)
-
-export const getPageId = (bookId, time, pageIdFormat) => `${bookId}-${time.format(pageIdFormat)}`
-
-export const getBookPageId = (book, shift = 0) => getPageId(
-  book.id,
-  moment(book.time).add(shift, book.unit),
-  book.pageIdFormat,
-)
-
+/* BOOK SECTION STARTED
+ * New architecture will be
+ * book => currentPageId => pageTitle
+ * pageId
+ * getNextPageId
+ * getPreviousPageId
+ * getPageId from current Time
+ * getPageTitle from pageId
+ * getPageChilds from pageId
+ */
 export const getStartOfWeekTime = (time) => moment(time).startOf('isoweek').format()
-
 export const getNow = () => moment().format()
-
-export const getNowStatusTitle = bookId => moment(bookId === WEEK_BOOK_ID ?
-  getStartOfWeekTime() : getNow()).format(getStatusTitleFormatI18n(bookId))
-
-export const getNowPageId = (book) => {
-  const time = (book.id === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
-  return getPageId(book.id, moment(time), book.pageIdFormat)
-}
 
 export const getUnit = (bookId) => {
   if (bookId === YEAR_BOOK_ID) return YEAR_UNIT
@@ -78,6 +52,31 @@ export const getPageIdFormat = (bookId) => {
   if (bookId === DAY_BOOK_ID) return DAY_PAGE_ID_FORMAT
 }
 
+export const getPageTitle = (pageId) => {
+  const array = pageId.split('-')
+  const bookId = array[0]
+  const generalTitle = getTimeFromPageId(pageId).format(getTitleFormatI18n(bookId))
+  const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
+  const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
+  if (nowTitle === generalTitle) {
+    return moment(now).format(getThisTitleFormatI18n(bookId))
+  }
+  return generalTitle
+}
+
+export const getBookPageTitle = (book, shift = 0) => getPageTitle(
+  getSiblingPageId(book.currentPageId, shift),
+)
+
+export const getPageId = (bookId, time) => `${bookId}-${moment(time).format(getPageIdFormat(bookId))}`
+
+
+export const getNowPageId = (book) => {
+  const time = (book.id === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
+  return getPageId(book.id, moment(time))
+}
+
+// how this will work on week? really convert to correct time?
 export const getTimeFromPageId = (pageId) => {
   const array = pageId.split('-')
   const bookId = array[0]
@@ -91,19 +90,22 @@ export const getSiblingPageId = (pageId, shift) => {
   const timeString = array[1]
   const unit = getUnit(bookId)
   const time = getTimeFromPageId(pageId)
-  const pageIdFormat = getPageIdFormat(bookId)
-  return getPageId(bookId, time.add(shift, unit), pageIdFormat)
+  return getPageId(bookId, time.add(shift, unit))
 }
 
-export const getPreviousPageId = (pageId) => getSiblingPageId(pageId, -1)
 export const getNextPageId = (pageId) => getSiblingPageId(pageId, 1)
+export const getPreviousPageId = (pageId) => getSiblingPageId(pageId, 1)
+
+/* for  status page only */
+export const getNowStatusTitle = bookId => moment(bookId === WEEK_BOOK_ID ?
+  getStartOfWeekTime() : getNow()).format(getStatusTitleFormatI18n(bookId))
 
 export const getMonthChildPageIds = (yearPageId) => {
   const yearTime = getTimeFromPageId(yearPageId)
   const shifts = [...Array(12).keys()]
   return shifts.map((shift) => {
     const monthTime = moment(yearTime).add(shift, MONTH_UNIT)
-    return getPageId(MONTH_BOOK_ID, monthTime, MONTH_PAGE_ID_FORMAT)
+    return getPageId(MONTH_BOOK_ID, monthTime)
   })
 }
 
@@ -115,7 +117,7 @@ export const getWeekChildPageIds = (monthPageId) => {
   if (weekTime.format('M') !== monthStr) { weekTime.add(1, WEEK_UNIT) }
 
   while (weekTime.format('M') === monthStr) {
-    weekPageIds.push(getPageId(WEEK_BOOK_ID, weekTime, WEEK_PAGE_ID_FORMAT))
+    weekPageIds.push(getPageId(WEEK_BOOK_ID, weekTime))
     weekTime.add(1, WEEK_UNIT)
   }
 
@@ -127,7 +129,7 @@ export const getDayChildPageIds = (weekPageId) => {
   const shifts = [...Array(7).keys()]
   return shifts.map((shift) => {
     const dayTime = moment(weekTime).add(shift, DAY_UNIT)
-    return getPageId(DAY_BOOK_ID, dayTime, DAY_PAGE_ID_FORMAT)
+    return getPageId(DAY_BOOK_ID, dayTime)
   })
 }
 
@@ -139,6 +141,7 @@ export const getChildPageIds = (parentPageId) => {
   if (bookId === WEEK_BOOK_ID) return getDayChildPageIds(parentPageId)
   return []
 }
+
 
 export const getCheckboxCount = (text) => {
   let checkedCount = 0

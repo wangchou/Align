@@ -1,6 +1,7 @@
 import {
   getNow,
   getStartOfWeekTime,
+  getPageId,
 } from 'utils'
 
 import {
@@ -32,13 +33,17 @@ const actionCreatorCreator = (actionType, names = {}) => (...rest) => ({
 
 // ActionCreators
 // book
-export const gotoPage = actionCreatorCreator(GOTO_PAGE, ['bookId', 'time'])
-export const gotoTodayPage = () => ([
-  gotoPage(YEAR_BOOK_ID, getNow()),
-  gotoPage(MONTH_BOOK_ID, getNow()),
-  gotoPage(WEEK_BOOK_ID, getStartOfWeekTime()),
-  gotoPage(DAY_BOOK_ID, getNow()),
-])
+export const gotoPage = actionCreatorCreator(GOTO_PAGE, ['bookId', 'pageId'])
+export const gotoTodayPage = () => {
+  const now = getNow()
+  const startOfWeek = getStartOfWeekTime()
+  return ([
+    gotoPage(YEAR_BOOK_ID, getPageId(YEAR_BOOK_ID, now)),
+    gotoPage(MONTH_BOOK_ID, getPageId(MONTH_BOOK_ID, now)),
+    gotoPage(WEEK_BOOK_ID, getPageId(WEEK_BOOK_ID, startOfWeek)),
+    gotoPage(DAY_BOOK_ID, getPageId(DAY_BOOK_ID, now)),
+  ])
+}
 
 // page
 export const setData = actionCreatorCreator(SET_PAGE_DATA, ['pageId', 'data'])

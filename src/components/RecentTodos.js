@@ -13,9 +13,7 @@ import {
   EMPTY_RECENT_TODO,
 } from 'constants'
 import {
-  getNextPageId,
   getSiblingPageId,
-  getPreviousPageId,
   getFontSize,
 } from 'utils'
 import {

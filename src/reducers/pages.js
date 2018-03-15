@@ -14,7 +14,7 @@ import {
 
 // empty state
 // this week page id
-const thisWeekPageId = getPageId(WEEK_BOOK_ID, moment(getStartOfWeekTime()), WEEK_PAGE_ID_FORMAT)
+const thisWeekPageId = getPageId(WEEK_BOOK_ID, moment(getStartOfWeekTime()))
 const initialState = {
   [thisWeekPageId]: I18n.t(EMPTY_STATE_KEY),
 }

@@ -12,9 +12,8 @@ import {
   setFocusedPageId,
 } from 'actions'
 import {
-  getTime,
-  getBookPageId,
   getBookPageTitle,
+  getSiblingPageId,
 } from 'utils'
 
 const windowWidth = Dimensions.get('window').width
@@ -39,7 +38,7 @@ export default class Book extends Component {
 
   shouldComponentUpdate(props) {
     return this.props.book.id !== props.book.id ||
-           this.props.book.time !== props.book.time
+           this.props.book.currentPageId !== props.book.currentPageId
   }
 
   componentDidUpdate() {
@@ -52,7 +51,7 @@ export default class Book extends Component {
     const shift = (event.nativeEvent.contentOffset.x / snapToInterval) - pageCenterIndex
     if (Math.abs(shift) >= 1) {
       const { book } = this.props
-      this.props.gotoPage(book.id, getTime(book, shift))
+      this.props.gotoPage(book.id, getSiblingPageId(book.currentPageId, shift))
     }
   }
 
@@ -73,7 +72,7 @@ export default class Book extends Component {
   }
 
   focusPage = (shift = 0) => {
-    const pageId = getBookPageId(this.props.book, shift)
+    const pageId = getSiblingPageId(this.props.book.currentPageId, shift)
     this.props.setFocusedPageId(pageId)
   }
 
@@ -82,7 +81,7 @@ export default class Book extends Component {
     const pageViews = [-2, -1, 0, 1, 2]
       .map((shift) => {
         const title = getBookPageTitle(book, shift)
-        const pageId = getBookPageId(book, shift)
+        const pageId = getSiblingPageId(book.currentPageId, shift)
         return (
           <Page
             key={pageId}

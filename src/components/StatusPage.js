@@ -8,6 +8,7 @@ import {
   getCheckboxCount,
   getNowStatusTitle,
   isIPhoneX,
+  getUnit,
 } from 'utils'
 import {
   COLOR,
@@ -37,7 +38,8 @@ const getStatus = (book, pages) => {
       }),
       { checkedCount: 0, emptyCount: 0 },
     )
-  const endOfStr = (book.unit === WEEK_UNIT) ? WEEK_END_OF_STR : book.unit
+  const bookUnit = getUnit(book.id)
+  const endOfStr = (bookUnit === WEEK_UNIT) ? WEEK_END_OF_STR : bookUnit
 
   const leftDays = (moment().endOf(endOfStr).format('DDD') - moment().format('DDD')) + 1
   let days = 7

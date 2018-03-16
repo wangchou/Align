@@ -7,10 +7,9 @@ import {
   getChildPageIds,
   getCheckboxCount,
   getNowStatusTitle,
-} from 'utils/books'
-import {
-  isIPhoneX
-} from 'utils/misc'
+  isIPhoneX,
+  getUnit,
+} from 'utils'
 import {
   COLOR,
   YEAR_BOOK_ID,
@@ -28,7 +27,7 @@ import { toggleIsStatusMode } from 'actions'
 import I18n from 'i18n'
 
 const getStatus = (book, pages) => {
-  const parentPageId = getNowPageId(book)
+  const parentPageId = getNowPageId(book.id)
   const parentGoalStatus = getCheckboxCount(pages[parentPageId])
   const childGoalStatus = getChildPageIds(parentPageId)
     .map(id => getCheckboxCount(pages[id]))
@@ -39,7 +38,8 @@ const getStatus = (book, pages) => {
       }),
       { checkedCount: 0, emptyCount: 0 },
     )
-  const endOfStr = (book.unit === WEEK_UNIT) ? WEEK_END_OF_STR : book.unit
+  const bookUnit = getUnit(book.id)
+  const endOfStr = (bookUnit === WEEK_UNIT) ? WEEK_END_OF_STR : bookUnit
 
   const leftDays = (moment().endOf(endOfStr).format('DDD') - moment().format('DDD')) + 1
   let days = 7

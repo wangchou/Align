@@ -1,8 +1,7 @@
+import { getTodayStr } from 'utils'
 import {
   ACTION,
 } from '../constants'
-
-import { getTodayStr } from 'utils/misc'
 
 const intitialState = {
   isKeyboardShow: false,

@@ -13,13 +13,8 @@ import {
   EMPTY_RECENT_TODO,
 } from 'constants'
 import {
-  getNextPageId,
   getSiblingPageId,
-  getPreviousPageId,
-} from 'utils/books'
-import {
-  getFontSize,
-} from 'utils/books'
+} from 'utils'
 import {
   insertText,
 } from 'actions'
@@ -40,16 +35,16 @@ export const getTodoChilds = text => ((text && text.match(checkboxWithContentReg
 })
 export default class RecentTodos extends Component {
   render() {
-    const {pages, focusedPageId, isRecentTodoShow} = this.props
-    if(!isRecentTodoShow || focusedPageId === null) return null
+    const { pages, focusedPageId, isRecentTodoShow } = this.props
+    if (!isRecentTodoShow || focusedPageId === null) return null
 
     const todoCounts = {}
 
-    for(let shift = -14; shift < 7; shift++) {
+    for (let shift = -14; shift < 7; shift++) {
       const siblingPageId = getSiblingPageId(focusedPageId, shift)
       const todos = getTodoChilds(pages[siblingPageId])
-      todos.forEach(todo => {
-        if(todoCounts[todo]) {
+      todos.forEach((todo) => {
+        if (todoCounts[todo]) {
           todoCounts[todo] = todoCounts[todo] + 1
         } else {
           todoCounts[todo] = 1
@@ -62,11 +57,11 @@ export default class RecentTodos extends Component {
     const getPriority = todo => (todo.count - todo.str.length * 0.01)
 
     let todoBars = Object.keys(todoCounts)
-      .map(key => ({str: key, count: todoCounts[key]}))
+      .map(key => ({ str: key, count: todoCounts[key] }))
       .sort((a, b) => getPriority(b) - getPriority(a))
       .slice(0, 12)
       .reverse()
-      .map(todoObj => {
+      .map((todoObj) => {
         const checkbox = todoObj.str.charAt(0)
         const restStr = todoObj.str.slice(1)
         return (
@@ -89,7 +84,7 @@ export default class RecentTodos extends Component {
         )
       })
 
-    if(Object.keys(todoCounts).length === 0) {
+    if (Object.keys(todoCounts).length === 0) {
       todoBars = (
         <Text style={styles.singleTodoContainer}>
           {i18n.t(EMPTY_RECENT_TODO)}

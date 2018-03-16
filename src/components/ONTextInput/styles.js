@@ -11,7 +11,7 @@ import {
 import {
   windowWidth,
   getFontSize,
-} from 'utils/misc'
+} from 'utils'
 
 export const getStyles = (fontScale, numberOfLines) => {
   const fontSize = getFontSize(fontScale)

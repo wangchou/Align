@@ -1,20 +1,16 @@
 import immutable from 'object-path-immutable'
 import {
+  getNow,
+  getStartOfWeekTime,
+  getPageId,
+} from 'utils'
+import {
   ACTION,
   YEAR_BOOK_ID,
   MONTH_BOOK_ID,
   WEEK_BOOK_ID,
   DAY_BOOK_ID,
-  YEAR_PAGE_ID_FORMAT,
-  MONTH_PAGE_ID_FORMAT,
-  WEEK_PAGE_ID_FORMAT,
-  DAY_PAGE_ID_FORMAT,
-  YEAR_UNIT, MONTH_UNIT, WEEK_UNIT, DAY_UNIT,
 } from '../constants'
-import {
-  getNow,
-  getStartOfWeekTime,
-} from 'utils/books'
 
 const now = getNow()
 const startOfWeek = getStartOfWeekTime()
@@ -22,27 +18,19 @@ export const intitialState = {
   byId: {
     [YEAR_BOOK_ID]: {
       id: YEAR_BOOK_ID,
-      time: now, // bookmark time string
-      unit: YEAR_UNIT,
-      pageIdFormat: YEAR_PAGE_ID_FORMAT,
+      currentPageId: getPageId(YEAR_BOOK_ID, now),
     },
     [MONTH_BOOK_ID]: {
       id: MONTH_BOOK_ID,
-      time: now,
-      unit: MONTH_UNIT,
-      pageIdFormat: MONTH_PAGE_ID_FORMAT,
+      currentPageId: getPageId(MONTH_BOOK_ID, now),
     },
     [WEEK_BOOK_ID]: {
       id: WEEK_BOOK_ID,
-      time: startOfWeek,
-      unit: WEEK_UNIT,
-      pageIdFormat: WEEK_PAGE_ID_FORMAT,
+      currentPageId: getPageId(WEEK_BOOK_ID, startOfWeek),
     },
     [DAY_BOOK_ID]: {
       id: DAY_BOOK_ID,
-      time: now,
-      unit: DAY_UNIT,
-      pageIdFormat: DAY_PAGE_ID_FORMAT,
+      currentPageId: getPageId(DAY_BOOK_ID, now),
     },
   },
   ids: [
@@ -56,11 +44,7 @@ export const intitialState = {
 export default (state = intitialState, action) => {
   switch (action.type) {
     case ACTION.GOTO_PAGE:
-      let time = action.payload.time
-      if(action.payload.bookId === WEEK_BOOK_ID) {
-        time = getStartOfWeekTime(time)
-      }
-      return immutable.set(state, ['byId', action.payload.bookId, 'time'], time)
+      return immutable.set(state, ['byId', action.payload.bookId, 'currentPageId'], action.payload.pageId)
   }
   return state
 }

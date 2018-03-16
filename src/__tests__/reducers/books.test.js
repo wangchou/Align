@@ -4,11 +4,11 @@ import booksReducer, { intitialState } from 'reducers/books'
 describe('books reducer', () => {
   it('gotoPage success', () => {
     const bookId = 'year book'
-    const lastBookTime = 'blah'
+    const lastBookPageId = 'blah'
     const booksState = [
       gotoPage(bookId, '...'),
-      gotoPage(bookId, lastBookTime),
+      gotoPage(bookId, lastBookPageId),
     ].reduce(booksReducer, intitialState)
-    expect(booksState.byId[bookId].time).toEqual(lastBookTime)
+    expect(booksState.byId[bookId].currentPageId).toEqual(lastBookPageId)
   })
 })

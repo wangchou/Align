@@ -1,3 +1,7 @@
+
+import {
+  Dimensions,
+} from 'react-native'
 import moment from 'moment'
 import {
   getTitleFormatI18n,
@@ -21,12 +25,36 @@ import {
   DAY_PAGE_ID_FORMAT,
 } from 'constants'
 
-export const getTime = (book, shift = 0) => moment(book.time)
-  .add(shift, book.unit)
-  .format()
+export const getStartOfWeekTime = time => moment(time).startOf('isoweek').format()
+export const getNow = () => moment().format()
 
-export const getPageTitle = (bookId, time) => {
-  const generalTitle = moment(time).format(getTitleFormatI18n(bookId))
+const bookSettings = {
+  [YEAR_BOOK_ID]: {
+    unit: YEAR_UNIT,
+    pageIdFormat: YEAR_PAGE_ID_FORMAT,
+  },
+  [MONTH_BOOK_ID]: {
+    unit: MONTH_UNIT,
+    pageIdFormat: MONTH_PAGE_ID_FORMAT,
+  },
+  [WEEK_BOOK_ID]: {
+    unit: WEEK_UNIT,
+    pageIdFormat: WEEK_PAGE_ID_FORMAT,
+  },
+  [DAY_BOOK_ID]: {
+    unit: DAY_UNIT,
+    pageIdFormat: DAY_PAGE_ID_FORMAT,
+  },
+}
+
+export const getUnit = bookId => bookSettings[bookId].unit
+
+export const getPageIdFormat = bookId => bookSettings[bookId].pageIdFormat
+
+export const getPageTitle = (pageId) => {
+  const array = pageId.split('-')
+  const bookId = array[0]
+  const generalTitle = getTimeFromPageId(pageId).format(getTitleFormatI18n(bookId))
   const now = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
   const nowTitle = moment(now).format(getTitleFormatI18n(bookId))
   if (nowTitle === generalTitle) {
@@ -35,71 +63,43 @@ export const getPageTitle = (bookId, time) => {
   return generalTitle
 }
 
-export const getBookPageTitle = (book, shift = 0) => getPageTitle(
-  book.id,
-  moment(book.time).add(shift, book.unit).format(),
-)
+export const getPageId = (bookId, time) => `${bookId}-${moment(time).format(getPageIdFormat(bookId))}`
 
-export const getPageId = (bookId, time, pageIdFormat) => `${bookId}-${time.format(pageIdFormat)}`
-
-export const getBookPageId = (book, shift = 0) => getPageId(
-  book.id,
-  moment(book.time).add(shift, book.unit),
-  book.pageIdFormat,
-)
-
-export const getStartOfWeekTime = (time) => moment(time).startOf('isoweek').format()
-
-export const getNow = () => moment().format()
-
-export const getNowStatusTitle = bookId => moment(bookId === WEEK_BOOK_ID ?
-  getStartOfWeekTime() : getNow()).format(getStatusTitleFormatI18n(bookId))
-
-export const getNowPageId = (book) => {
-  const time = (book.id === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
-  return getPageId(book.id, moment(time), book.pageIdFormat)
-}
-
-export const getUnit = (bookId) => {
-  if (bookId === YEAR_BOOK_ID) return YEAR_UNIT
-  if (bookId === MONTH_BOOK_ID) return MONTH_UNIT
-  if (bookId === WEEK_BOOK_ID) return WEEK_UNIT
-  if (bookId === DAY_BOOK_ID) return DAY_UNIT
-}
-
-export const getPageIdFormat = (bookId) => {
-  if (bookId === YEAR_BOOK_ID) return YEAR_PAGE_ID_FORMAT
-  if (bookId === MONTH_BOOK_ID) return MONTH_PAGE_ID_FORMAT
-  if (bookId === WEEK_BOOK_ID) return WEEK_PAGE_ID_FORMAT
-  if (bookId === DAY_BOOK_ID) return DAY_PAGE_ID_FORMAT
+export const getNowPageId = (bookId) => {
+  const time = (bookId === WEEK_BOOK_ID) ? getStartOfWeekTime() : getNow()
+  return getPageId(bookId, moment(time))
 }
 
 export const getTimeFromPageId = (pageId) => {
   const array = pageId.split('-')
   const bookId = array[0]
   const timeString = array[1]
+
+  // how this will work on week? really convert to correct time with locale?
   return moment(timeString, getPageIdFormat(bookId))
 }
 
 export const getSiblingPageId = (pageId, shift) => {
   const array = pageId.split('-')
   const bookId = array[0]
-  const timeString = array[1]
   const unit = getUnit(bookId)
   const time = getTimeFromPageId(pageId)
-  const pageIdFormat = getPageIdFormat(bookId)
-  return getPageId(bookId, time.add(shift, unit), pageIdFormat)
+  return getPageId(bookId, time.add(shift, unit))
 }
 
-export const getPreviousPageId = (pageId) => getSiblingPageId(pageId, -1)
-export const getNextPageId = (pageId) => getSiblingPageId(pageId, 1)
+export const getNextPageId = pageId => getSiblingPageId(pageId, 1)
+export const getPreviousPageId = pageId => getSiblingPageId(pageId, 1)
+
+/* for  status page only */
+export const getNowStatusTitle = bookId => moment(bookId === WEEK_BOOK_ID ?
+  getStartOfWeekTime() : getNow()).format(getStatusTitleFormatI18n(bookId))
 
 export const getMonthChildPageIds = (yearPageId) => {
   const yearTime = getTimeFromPageId(yearPageId)
   const shifts = [...Array(12).keys()]
   return shifts.map((shift) => {
     const monthTime = moment(yearTime).add(shift, MONTH_UNIT)
-    return getPageId(MONTH_BOOK_ID, monthTime, MONTH_PAGE_ID_FORMAT)
+    return getPageId(MONTH_BOOK_ID, monthTime)
   })
 }
 
@@ -111,7 +111,7 @@ export const getWeekChildPageIds = (monthPageId) => {
   if (weekTime.format('M') !== monthStr) { weekTime.add(1, WEEK_UNIT) }
 
   while (weekTime.format('M') === monthStr) {
-    weekPageIds.push(getPageId(WEEK_BOOK_ID, weekTime, WEEK_PAGE_ID_FORMAT))
+    weekPageIds.push(getPageId(WEEK_BOOK_ID, weekTime))
     weekTime.add(1, WEEK_UNIT)
   }
 
@@ -123,7 +123,7 @@ export const getDayChildPageIds = (weekPageId) => {
   const shifts = [...Array(7).keys()]
   return shifts.map((shift) => {
     const dayTime = moment(weekTime).add(shift, DAY_UNIT)
-    return getPageId(DAY_BOOK_ID, dayTime, DAY_PAGE_ID_FORMAT)
+    return getPageId(DAY_BOOK_ID, dayTime)
   })
 }
 
@@ -135,6 +135,7 @@ export const getChildPageIds = (parentPageId) => {
   if (bookId === WEEK_BOOK_ID) return getDayChildPageIds(parentPageId)
   return []
 }
+
 
 export const getCheckboxCount = (text) => {
   let checkedCount = 0
@@ -152,3 +153,17 @@ export const getCheckboxCount = (text) => {
   }
   return { checkedCount, emptyCount }
 }
+
+
+export const windowWidth = Dimensions.get('window').width
+export const windowHeight = Dimensions.get('window').height
+export const getFontSize = fontScale => (windowWidth / 20) * fontScale
+export const getTitleHeight = fontScale => getFontSize(fontScale) * (5 / 4)
+
+export const getTodayStr = () => moment().format('MMMM Do YYYY')
+
+// See https://mydevice.io/devices/ for device dimensions
+const X_WIDTH = 375
+const X_HEIGHT = 812
+
+export const isIPhoneX = () => (windowHeight === X_HEIGHT && windowWidth === X_WIDTH)
